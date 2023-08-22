@@ -16,7 +16,7 @@ Kotlin版工具框架
 #### 使用说明
 
 1.  maven { url 'https://jitpack.io' }
-2.  implementation 'com.gitee.wjiaqiao:product-kotlin:x.y.z'
+2.  implementation 'com.github.wjiaqiao:product-kotlin:x.y.z'
 
 #### 参与贡献
 
