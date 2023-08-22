@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lib_name" translatable="false">Product</string>
+    <string name="share_log_file">Log files</string>
+    <string name="null_log_file">No log file yet</string>
+    <string name="null_exp_log_file">No crash log file yet</string>
+    <string name="app_logcat">APP Log</string>
+    <string name="exp_log">Crash log</string>
+</resources>

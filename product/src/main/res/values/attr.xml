@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="sp_type" format="enum">
+        <enum name="rectangle" value="0" />
+        <enum name="oval" value="1" />
+        <enum name="line" value="2" />
+        <enum name="ring" value="3" />
+    </attr>
+    <attr name="sp_radius" format="dimension" />
+    <attr name="sp_left_top_radius" format="dimension" />
+    <attr name="sp_right_top_radius" format="dimension" />
+    <attr name="sp_right_bottom_radius" format="dimension" />
+    <attr name="sp_left_bottom_radius" format="dimension" />
+    <attr name="sp_background_color" format="color" />
+    <attr name="sp_stroke_color" format="color" />
+    <attr name="sp_stroke_width" format="dimension" />
+    <attr name="sp_stroke_dash_gap" format="dimension" />
+    <attr name="sp_stroke_dash_width" format="dimension" />
+
+    <attr name="sp_gradient_start_color" format="color" />
+    <attr name="sp_gradient_center_Color" format="color" />
+    <attr name="sp_gradient_end_Color" format="color" />
+    <attr name="sp_gradient_use_level" format="boolean" />
+    <attr name="sp_gradient_angle" format="integer" />
+    <attr name="sp_gradient_type" format="enum">
+        <enum name="linear" value="0" />
+        <enum name="radial" value="1" />
+        <enum name="sweep" value="2" />
+    </attr>
+    <attr name="sp_gradient_center_x" format="float" />
+    <attr name="sp_gradient_center_y" format="float" />
+    <attr name="sp_gradient_gradient_radius" format="dimension" />
+
+    <attr name="sf_in_status_bar" format="boolean" />
+    <attr name="sf_in_status_bar_type" format="enum">
+        <enum name="padding" value="0" />
+        <enum name="margin" value="1" />
+    </attr>
+
+    <attr name="atv_in_status_bar" format="boolean" />
+
+    <attr name="triangle_color" format="color" />
+    <attr name="triangle_radius" format="dimension" />
+    <attr name="pv_visible_item_number" format="integer" />
+    <attr name="pv_item_height" format="dimension" />
+    <attr name="pv_is_loop" format="boolean" />
+    <attr name="pv_unselect_text_color" format="color" />
+    <attr name="pv_select_text_color" format="color" />
+    <attr name="pv_unselect_text_size" format="dimension" />
+    <attr name="pv_select_text_size" format="dimension" />
+    <attr name="pv_is_voice" format="boolean" />
+    <attr name="pv_is_split_line" format="boolean" />
+    <attr name="pv_split_line_height" format="dimension" />
+    <attr name="pv_split_line_color" format="color" />
+    <attr name="pv_is_masking" format="boolean" />
+    <attr name="pv_masking_color" format="color" />
+    <attr name="atv_center_text" format="string" localization="suggested" />
+    <attr name="atv_center_text_size" format="dimension" />
+    <attr name="atv_center_text_color" format="reference|color" />
+    <attr name="atv_center_text_gravity">
+        <flag name="top" value="0x30" />
+        <flag name="bottom" value="0x50" />
+        <flag name="left" value="0x03" />
+        <flag name="right" value="0x05" />
+        <flag name="center_vertical" value="0x10" />
+        <flag name="fill_vertical" value="0x70" />
+        <flag name="center_horizontal" value="0x01" />
+        <flag name="fill_horizontal" value="0x07" />
+        <flag name="center" value="0x11" />
+        <flag name="fill" value="0x77" />
+        <flag name="clip_vertical" value="0x80" />
+        <flag name="clip_horizontal" value="0x08" />
+        <flag name="start" value="0x00800003" />
+        <flag name="end" value="0x00800005" />
+    </attr>
+
+    <declare-styleable name="TriangleView">
+        <attr name="triangle_color" />
+        <attr name="triangle_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="PickerView">
+        <attr name="pv_visible_item_number" />
+        <attr name="pv_item_height" />
+        <attr name="pv_is_loop" />
+        <attr name="pv_unselect_text_color" />
+        <attr name="pv_select_text_color" />
+        <attr name="pv_unselect_text_size" />
+        <attr name="pv_select_text_size" />
+        <attr name="pv_is_voice" />
+        <attr name="pv_is_split_line" />
+        <attr name="pv_split_line_height" />
+        <attr name="pv_split_line_color" />
+        <attr name="pv_is_masking" />
+        <attr name="pv_masking_color" />
+    </declare-styleable>
+
+    <declare-styleable name="StatusFrameLayout">
+        <attr name="sf_in_status_bar" />
+        <attr name="sf_in_status_bar_type" />
+    </declare-styleable>
+
+    <declare-styleable name="AppTitleView">
+        <attr name="atv_in_status_bar" />
+        <attr name="atv_arrow_click_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="back" value="1" />
+            <enum name="hide" value="2" />
+        </attr>
+        <attr name="atv_center_text" />
+        <attr name="atv_center_text_size" />
+        <attr name="atv_center_text_color" />
+        <attr name="atv_center_text_gravity" />
+    </declare-styleable>
+
+    <declare-styleable name="CycleScrollViewPager">
+        <attr name="csvp_cycle_scroll" format="boolean" />
+        <attr name="csvp_auto_scroll" format="boolean" />
+        <attr name="csvp_interval_time" format="integer" />
+        <attr name="csvp_scroll_time" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RadiusImageView">
+        <attr name="riv_is_circle" format="boolean" />
+        <attr name="riv_radius" format="dimension" />
+        <attr name="riv_left_top_radius" format="dimension" />
+        <attr name="riv_right_top_radius" format="dimension" />
+        <attr name="riv_left_bottom_radius" format="dimension" />
+        <attr name="riv_right_bottom_radius" format="dimension" />
+        <attr name="riv_background_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchButtonView">
+        <attr name="sbv_border_color" format="color" />
+        <attr name="sbv_border_width" format="dimension" />
+        <attr name="sbv_open_background_color" format="color" />
+        <attr name="sbv_close_background_color" format="color" />
+        <attr name="sbv_block_open_color" format="color" />
+        <attr name="sbv_block_close_color" format="color" />
+        <attr name="sbv_block_margin" format="dimension" />
+        <attr name="sbv_radius" format="dimension" />
+        <attr name="sbv_effect_duration" format="integer" />
+        <attr name="sbv_checked" format="boolean" />
+        <attr name="sbv_click_toggle" format="boolean" />
+        <attr name="sbv_animator_type" format="enum">
+            <enum name="move" value="1" />
+            <enum name="gradient" value="2" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="ShapeView">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+
+    <declare-styleable name="ShapeImageView">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeTextView">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeEditText">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeLinearLayout">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeRelativeLayout">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeFrameLayout">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeConstraintLayout">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeRecyclerView">
+        <attr name="sp_type" />
+        <attr name="sp_radius" />
+        <attr name="sp_left_top_radius" />
+        <attr name="sp_right_top_radius" />
+        <attr name="sp_right_bottom_radius" />
+        <attr name="sp_left_bottom_radius" />
+        <attr name="sp_background_color" />
+        <attr name="sp_stroke_color" />
+        <attr name="sp_stroke_width" />
+        <attr name="sp_stroke_dash_gap" />
+        <attr name="sp_stroke_dash_width" />
+        <attr name="sp_gradient_start_color" />
+        <attr name="sp_gradient_center_Color" />
+        <attr name="sp_gradient_end_Color" />
+        <attr name="sp_gradient_use_level" />
+        <attr name="sp_gradient_angle" />
+        <attr name="sp_gradient_type" />
+        <attr name="sp_gradient_center_x" />
+        <attr name="sp_gradient_center_y" />
+        <attr name="sp_gradient_gradient_radius" />
+    </declare-styleable>
+
+    <declare-styleable name="ProductTextView">
+        <attr name="ptv_text_bold" format="float" />
+        <attr name="ptv_text_underline" format="boolean" />
+        <attr name="ptv_text_strikethrough" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ProductNestedScrollView">
+        <attr name="pns_rv_id" format="reference" />
+        <attr name="pns_rv_margin_bar" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ButtonColorView">
+        <attr name="bcv_radius" format="dimension" />
+        <attr name="bcv_left_top_radius" format="dimension" />
+        <attr name="bcv_right_top_radius" format="dimension" />
+        <attr name="bcv_right_bottom_radius" format="dimension" />
+        <attr name="bcv_left_bottom_radius" format="dimension" />
+        <attr name="bcv_default_bg_color" format="color" />
+        <attr name="bcv_touch_bg_color" format="color" />
+        <attr name="bcv_disenable_bg_color" format="color" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_log_file">日志文件</string>
+    <string name="null_log_file">暂无日志文件</string>
+    <string name="null_exp_log_file">暂无奔溃日志文件</string>
+    <string name="app_logcat">APP日志</string>
+    <string name="exp_log">奔溃日志</string>
+</resources>

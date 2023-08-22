@@ -1,0 +1,93 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk 31
+
+    signingConfigs {
+        release {
+            storeFile file("../keystore/key_jks.jks")
+            storePassword "123456"
+            keyAlias "test"
+            keyPassword "123456"
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.example.productkotlin"
+        minSdk 21
+        targetSdk 31
+        versionCode 100000
+        versionName "1.0.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    viewBinding {
+        enabled = true
+    }
+    buildTypes {
+        debug{
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+    implementation(project(":product"))
+
+    implementation 'com.github.liujingxing.rxlife:rxlife-coroutine:2.1.0'
+    implementation('com.github.Alexxiaopang:KotlinKtx:1.0.9') {
+        exclude module: 'rxlife-coroutine'
+    }
+
+    //基础lib
+    //分包框架
+    implementation 'androidx.multidex:multidex:2.0.1'
+    //标准序列化工具（底层MMKV）
+    implementation 'com.github.liangjingkanji:Serialize:1.3.0'
+    //更好用的adapter（BRVAH）
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    //防止LiveData数据倒灌
+    implementation 'com.kunminx.arch:unpeek-livedata:7.2.0-beta1'
+    //基础lib
+
+
+    //翻译
+    implementation 'com.alibaba:fastjson:1.2.78'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation 'dom4j:dom4j:1.6.1'
+    //翻译
+
+    implementation "com.github.getActivity:XXPermissions:18.0"
+
+}

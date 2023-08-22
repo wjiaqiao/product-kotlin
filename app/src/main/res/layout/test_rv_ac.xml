@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jiaqiao.product.view.ProductNestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECA492"
+    android:minWidth="300dp"
+    app:pns_rv_id="@id/rv"
+    app:pns_rv_margin_bar="100dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D6BB84"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/top_lay"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/hide_but"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hide" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AED8B2"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </LinearLayout>
+
+
+</com.jiaqiao.product.view.ProductNestedScrollView>

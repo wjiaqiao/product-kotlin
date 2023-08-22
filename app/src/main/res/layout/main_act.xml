@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainAct">
+
+    <com.jiaqiao.product.view.ButtonStateView
+        android:id="@+id/btn_1"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="130dp"
+        android:gravity="center"
+        android:text="Button"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:background="#a61b29"
+        app:bcv_radius="10dp" />
+
+    <com.jiaqiao.product.view.ButtonStateView
+        android:id="@+id/btn_2"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="130dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="Button2"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        app:bcv_default_bg_color="#a61b29"
+        app:bcv_left_top_radius="5dp"
+        app:bcv_right_top_radius="10dp"
+        app:bcv_left_bottom_radius="15dp"
+        app:bcv_right_bottom_radius="20dp" />
+
+</LinearLayout>

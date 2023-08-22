@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jiaqiao.product">
+
+
+    <application>
+        <provider
+            android:name=".context.ProductFileProvider"
+            android:authorities="${applicationId}.ProductFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/product_provider_paths" />
+        </provider>
+        <!-- 初始化Lib库入口 -->
+        <provider
+            android:name=".context.ProductContentProvider"
+            android:authorities="${applicationId}.jiaqiao.kotlin.contentProvider"
+            android:enabled="true"
+            android:exported="false" />
+        <activity
+            android:name=".ui.logfile.LogFileAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/ProductActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+    </application>
+
+</manifest>

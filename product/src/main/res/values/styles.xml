@@ -1,0 +1,188 @@
+<resources>
+
+    <style name="ProductActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+    <style name="NoFadingOverScroll">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="UnilineTextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="IconImageView">
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="NoneLineEditText">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="SingleEditText" parent="NoneLineEditText">
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:imeOptions">actionSearch</item>
+    </style>
+
+    <style name="Wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="WidthMatchHeightWrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WeightWidth">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="WeightHeight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="WeightWidth.WrapHeight" parent="WeightWidth">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WeightHeight.WrapWidth" parent="WeightHeight">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="LinearHor" parent="WidthMatchHeightWrap">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="LinearHor.Center" parent="LinearHor">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="LinearHor.CenterVer" parent="LinearHor">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="LinearHor.CenterHor" parent="LinearHor">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="LinearVer" parent="WidthMatchHeightWrap">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="LinearVer.Center" parent="LinearVer">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="LinearVer.CenterVer" parent="LinearVer">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="LinearVer.CenterHor" parent="LinearVer">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="SingleTextView">
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="SingleTextView.End" parent="SingleTextView">
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SingleTextView.Start" parent="SingleTextView">
+        <item name="android:ellipsize">start</item>
+    </style>
+
+    <style name="SingleTextView.Middle" parent="SingleTextView">
+        <item name="android:ellipsize">middle</item>
+    </style>
+
+    <style name="ClipChildrenView">
+        <item name="android:clipChildren">true</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <style name="ProductAppTitleView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="atv_arrow_click_type">back</item>
+        <item name="atv_center_text_color">@color/text_3</item>
+        <item name="atv_in_status_bar">false</item>
+    </style>
+
+    <style name="ProductTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ProductTextView.Underline" parent="ProductTextView">
+        <item name="ptv_text_underline">true</item>
+    </style>
+
+    <style name="ProductTextView.Strikethrough" parent="ProductTextView">
+        <item name="ptv_text_strikethrough">true</item>
+    </style>
+
+    <style name="ProductTextView.Default" parent="ProductTextView">
+        <item name="ptv_text_bold">0</item>
+    </style>
+
+    <style name="ProductTextView.Bold" parent="ProductTextView">
+        <item name="ptv_text_bold">1</item>
+    </style>
+
+    <style name="ProductTextView.Bold_01" parent="ProductTextView">
+        <item name="ptv_text_bold">0.1</item>
+    </style>
+
+    <style name="ProductTextView.Bold_02" parent="ProductTextView">
+        <item name="ptv_text_bold">0.2</item>
+    </style>
+
+    <style name="ProductTextView.Bold_03" parent="ProductTextView">
+        <item name="ptv_text_bold">0.3</item>
+    </style>
+
+    <style name="ProductTextView.Bold_04" parent="ProductTextView">
+        <item name="ptv_text_bold">0.4</item>
+    </style>
+
+    <style name="ProductTextView.Bold_05" parent="ProductTextView">
+        <item name="ptv_text_bold">0.5</item>
+    </style>
+
+    <style name="ProductTextView.Bold_06" parent="ProductTextView">
+        <item name="ptv_text_bold">0.6</item>
+    </style>
+
+    <style name="ProductTextView.Bold_07" parent="ProductTextView">
+        <item name="ptv_text_bold">0.7</item>
+    </style>
+
+    <style name="ProductTextView.Bold_08" parent="ProductTextView">
+        <item name="ptv_text_bold">0.8</item>
+    </style>
+
+    <style name="ProductTextView.Bold_09" parent="ProductTextView">
+        <item name="ptv_text_bold">0.9</item>
+    </style>
+
+
+</resources>

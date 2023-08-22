@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text_0">#000000</color>
+    <color name="text_1">#111111</color>
+    <color name="text_2">#222222</color>
+    <color name="text_3">#333333</color>
+    <color name="text_4">#444444</color>
+    <color name="text_5">#555555</color>
+    <color name="text_6">#666666</color>
+    <color name="text_7">#777777</color>
+    <color name="text_8">#888888</color>
+    <color name="text_9">#999999</color>
+    <color name="text_A">#AAAAAA</color>
+    <color name="text_B">#BBBBBB</color>
+    <color name="text_C">#CCCCCC</color>
+    <color name="text_D">#DDDDDD</color>
+    <color name="text_E">#EEEEEE</color>
+</resources>

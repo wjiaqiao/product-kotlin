@@ -1,0 +1,14 @@
+<resources>
+
+    <style name="ProductActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+        <!--        设置状态栏字体颜色，true黑色，false白色-->
+        <item name="android:windowLightStatusBar">true</item>
+        <!--        设置状态栏的颜色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--        设置view控件是否显示在状态栏中-->
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+
+</resources>

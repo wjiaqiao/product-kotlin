@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 34
+        versionCode 102002
+        versionName "1.2.2"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "int", "VERSION_CODE", "$versionCode"
+        buildConfigField "String", "VERSION_NAME", "\"$versionName\""
+    }
+    viewBinding {
+        enabled = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    api 'androidx.appcompat:appcompat:1.4.1'
+    api 'androidx.constraintlayout:constraintlayout:2.1.4'
+    api 'androidx.recyclerview:recyclerview:1.2.1'
+    api 'androidx.viewpager2:viewpager2:1.0.0'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+
+    //https://github.com/bumptech/glide
+    api 'com.github.bumptech.glide:glide:4.15.1'
+    //https://github.com/google/flexbox-layout
+    api 'com.google.android.flexbox:flexbox:3.0.0'
+    //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.11'
+    //https://github.com/alibaba/fastjson2
+    api 'com.alibaba.fastjson2:fastjson2:2.0.35.android4'
+    //处理fastjson构造函数错误问题
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    //https://github.com/square/moshi
+    api 'com.squareup.moshi:moshi-kotlin:1.14.0'
+    //https://github.com/JakeWharton/DiskLruCache
+    api 'com.jakewharton:disklrucache:2.0.2'
+}
