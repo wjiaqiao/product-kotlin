@@ -6,15 +6,6 @@ plugins {
 android {
     compileSdk 31
 
-    signingConfigs {
-        release {
-            storeFile file("../keystore/key_jks.jks")
-            storePassword "123456"
-            keyAlias "test"
-            keyPassword "123456"
-        }
-    }
-
     defaultConfig {
         applicationId "com.example.productkotlin"
         minSdk 21
@@ -29,12 +20,10 @@ android {
     }
     buildTypes {
         debug{
-            signingConfig signingConfigs.release
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
     compileOptions {
