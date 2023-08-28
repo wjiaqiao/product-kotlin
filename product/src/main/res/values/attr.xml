@@ -369,15 +369,15 @@
         <attr name="pns_rv_margin_bar" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="ButtonColorView">
-        <attr name="bcv_radius" format="dimension" />
-        <attr name="bcv_left_top_radius" format="dimension" />
-        <attr name="bcv_right_top_radius" format="dimension" />
-        <attr name="bcv_right_bottom_radius" format="dimension" />
-        <attr name="bcv_left_bottom_radius" format="dimension" />
-        <attr name="bcv_default_bg_color" format="color" />
-        <attr name="bcv_touch_bg_color" format="color" />
-        <attr name="bcv_disenable_bg_color" format="color" />
+    <declare-styleable name="ButtonStateView">
+        <attr name="bsv_radius" format="dimension" />
+        <attr name="bsv_left_top_radius" format="dimension" />
+        <attr name="bsv_right_top_radius" format="dimension" />
+        <attr name="bsv_right_bottom_radius" format="dimension" />
+        <attr name="bsv_left_bottom_radius" format="dimension" />
+        <attr name="bsv_default_bg_color" format="color" />
+        <attr name="bsv_touch_bg_color" format="color" />
+        <attr name="bsv_disenable_bg_color" format="color" />
     </declare-styleable>
 
 </resources>

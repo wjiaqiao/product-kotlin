@@ -86,34 +86,34 @@ open class ButtonStateView @JvmOverloads constructor(
 
 
         attrs?.let {
-            val array = context.obtainStyledAttributes(it, R.styleable.ButtonColorView)
+            val array = context.obtainStyledAttributes(it, R.styleable.ButtonStateView)
 
             radius = array.getDimensionPixelOffset(
-                R.styleable.ButtonColorView_bcv_radius,
+                R.styleable.ButtonStateView_bsv_radius,
                 defaultRadius
             )
             leftTopRadius = array.getDimensionPixelOffset(
-                R.styleable.ButtonColorView_bcv_left_top_radius,
+                R.styleable.ButtonStateView_bsv_left_top_radius,
                 defaultRadius
             )
             rightTopRadius = array.getDimensionPixelOffset(
-                R.styleable.ButtonColorView_bcv_right_top_radius,
+                R.styleable.ButtonStateView_bsv_right_top_radius,
                 defaultRadius
             )
             rightBottomRadius = array.getDimensionPixelOffset(
-                R.styleable.ButtonColorView_bcv_right_bottom_radius,
+                R.styleable.ButtonStateView_bsv_right_bottom_radius,
                 defaultRadius
             )
             leftBottomRadius = array.getDimensionPixelOffset(
-                R.styleable.ButtonColorView_bcv_left_bottom_radius,
+                R.styleable.ButtonStateView_bsv_left_bottom_radius,
                 defaultRadius
             )
             defBgColor =
-                array.getColor(R.styleable.ButtonColorView_bcv_default_bg_color, defBgColor)
+                array.getColor(R.styleable.ButtonStateView_bsv_default_bg_color, defBgColor)
             touchBgColor =
-                array.getColor(R.styleable.ButtonColorView_bcv_touch_bg_color, touchBgColor)
+                array.getColor(R.styleable.ButtonStateView_bsv_touch_bg_color, touchBgColor)
             disenabledBgColor = array.getColor(
-                R.styleable.ButtonColorView_bcv_disenable_bg_color,
+                R.styleable.ButtonStateView_bsv_disenable_bg_color,
                 disenabledBgColor
             )
             array.recycle()
