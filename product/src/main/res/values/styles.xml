@@ -184,5 +184,9 @@
         <item name="ptv_text_bold">0.9</item>
     </style>
 
+    <style name="NoFadingOverScroll.ClipChildrenView" parent="NoFadingOverScroll">
+        <item name="android:clipChildren">true</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
 
 </resources>

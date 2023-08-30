@@ -6,8 +6,8 @@ import com.jiaqiao.product.base.ProductBaseVBFrag
 import com.jiaqiao.product.databinding.LogcatFileFragBinding
 import com.jiaqiao.product.ext.*
 import com.jiaqiao.product.util.ShareUtil
-import com.jiaqiao.product.view.RVDecoration
-import com.jiaqiao.product.view.adapter.LogFileAdapter
+import com.jiaqiao.product.widget.RVDecoration
+import com.jiaqiao.product.widget.adapter.LogFileAdapter
 import java.io.File
 
 /**

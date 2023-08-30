@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.JustifyContent
-import com.jiaqiao.product.view.ProductFlexboxLayoutManager
+import com.jiaqiao.product.widget.ProductFlexboxLayoutManager
 
 
 /**

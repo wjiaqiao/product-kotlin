@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.jiaqiao.product.view.AppTitleView
+    <com.jiaqiao.product.widget.AppTitleView
         android:id="@+id/app_title"
         style="@style/ProductAppTitleView"
         app:layout_constraintLeft_toLeftOf="parent"

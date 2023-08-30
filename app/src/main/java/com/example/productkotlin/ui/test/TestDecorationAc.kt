@@ -1,21 +1,16 @@
 package com.example.productkotlin.ui.test
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.annotation.Nullable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.productkotlin.base.BaseVAct
 import com.example.productkotlin.base.GlideImg
 import com.example.productkotlin.databinding.ActivityTestDecorationBinding
 import com.example.productkotlin.databinding.ItemTestDecorationBinding
 import com.jiaqiao.product.ext.*
-import com.jiaqiao.product.view.RVDecoration
-import com.jiaqiao.product.view.adapter.ProductBaseBindingAdapter
+import com.jiaqiao.product.widget.RVDecoration
+import com.jiaqiao.product.widget.adapter.ProductBaseBindingAdapter
 
 
 class TestDecorationAc : BaseVAct<ActivityTestDecorationBinding>() {

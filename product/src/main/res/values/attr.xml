@@ -32,16 +32,8 @@
     <attr name="sp_gradient_center_y" format="float" />
     <attr name="sp_gradient_gradient_radius" format="dimension" />
 
-    <attr name="sf_in_status_bar" format="boolean" />
-    <attr name="sf_in_status_bar_type" format="enum">
-        <enum name="padding" value="0" />
-        <enum name="margin" value="1" />
-    </attr>
-
     <attr name="atv_in_status_bar" format="boolean" />
 
-    <attr name="triangle_color" format="color" />
-    <attr name="triangle_radius" format="dimension" />
     <attr name="pv_visible_item_number" format="integer" />
     <attr name="pv_item_height" format="dimension" />
     <attr name="pv_is_loop" format="boolean" />
@@ -76,8 +68,8 @@
     </attr>
 
     <declare-styleable name="TriangleView">
-        <attr name="triangle_color" />
-        <attr name="triangle_radius" />
+        <attr name="tv_triangle_color" format="color" />
+        <attr name="tv_triangle_radius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="PickerView">
@@ -97,8 +89,11 @@
     </declare-styleable>
 
     <declare-styleable name="StatusFrameLayout">
-        <attr name="sf_in_status_bar" />
-        <attr name="sf_in_status_bar_type" />
+        <attr name="sfl_in_status_bar" format="boolean" />
+        <attr name="sfl_in_status_bar_type" format="enum">
+            <enum name="padding" value="0" />
+            <enum name="margin" value="1" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="AppTitleView">

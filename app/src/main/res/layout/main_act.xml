@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".ui.main.MainAct">
 
-    <com.jiaqiao.product.view.ButtonStateView
+    <com.jiaqiao.product.widget.ButtonStateView
         android:id="@+id/btn_1"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -21,7 +21,7 @@
         android:background="#a61b29"
         app:bsv_radius="10dp" />
 
-    <com.jiaqiao.product.view.ButtonStateView
+    <com.jiaqiao.product.widget.ButtonStateView
         android:id="@+id/btn_2"
         android:layout_width="150dp"
         android:layout_height="50dp"

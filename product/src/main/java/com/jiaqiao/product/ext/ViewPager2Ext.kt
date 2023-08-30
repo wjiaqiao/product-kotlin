@@ -4,7 +4,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.jiaqiao.product.view.adapter.VP2FragAdapter
+import com.jiaqiao.product.widget.adapter.VP2FragAdapter
 
 
 /**

@@ -2,17 +2,12 @@ package com.example.productkotlin.ui.test
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.lifecycle.pLifeScope
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.productkotlin.base.BaseVAct
 import com.example.productkotlin.databinding.ActivityTestDiffBinding
 import com.example.productkotlin.databinding.ItemDiffBinding
 import com.jiaqiao.product.ext.*
-import com.jiaqiao.product.util.PLifeScope
-import com.jiaqiao.product.view.adapter.ProductBaseBindingAdapter
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import com.jiaqiao.product.widget.adapter.ProductBaseBindingAdapter
 
 class TestDiffAc : BaseVAct<ActivityTestDiffBinding>() {
 

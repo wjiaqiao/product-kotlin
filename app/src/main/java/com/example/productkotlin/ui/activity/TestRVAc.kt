@@ -6,8 +6,7 @@ import com.example.productkotlin.base.BaseVAct
 import com.example.productkotlin.databinding.TestRvAcBinding
 import com.example.productkotlin.databinding.TestRvItemBinding
 import com.jiaqiao.product.ext.*
-import com.jiaqiao.product.view.adapter.ProductBaseBindingAdapter
-import kotlinx.coroutines.delay
+import com.jiaqiao.product.widget.adapter.ProductBaseBindingAdapter
 
 class TestRVAc : BaseVAct<TestRvAcBinding>() {
 
