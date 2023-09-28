@@ -29,7 +29,7 @@ class MainAct : BaseVMAct<MainActBinding, MainVM>() {
             windowsPixel().plog("windowsPixel")
         }
         mViewBind.btn1.click {
-            mViewBind.btn1.defBgColor = Color.BLUE
+//            mViewBind.btn1.defBgColor = Color.BLUE
         }
         mViewBind.btn2.click {  }
 

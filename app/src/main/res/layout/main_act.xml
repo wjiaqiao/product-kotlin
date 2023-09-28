@@ -18,8 +18,10 @@
         android:text="Button"
         android:textColor="@color/white"
         android:textSize="16dp"
-        android:background="#a61b29"
-        app:bsv_radius="10dp" />
+        app:bsv_radius="10dp"
+        app:bsv_default_text_color="@android:color/holo_green_light"
+        app:bsv_touch_text_color="@android:color/holo_red_dark"
+        app:bsv_disenable_text_color="@android:color/darker_gray"/>
 
     <com.jiaqiao.product.widget.ButtonStateView
         android:id="@+id/btn_2"
@@ -31,10 +33,12 @@
         android:text="Button2"
         android:textColor="@color/white"
         android:textSize="16dp"
-        app:bsv_default_bg_color="#a61b29"
         app:bsv_left_top_radius="5dp"
         app:bsv_right_top_radius="10dp"
         app:bsv_left_bottom_radius="15dp"
-        app:bsv_right_bottom_radius="20dp" />
+        app:bsv_right_bottom_radius="20dp"
+        app:bsv_default_text_color="@android:color/holo_green_light"
+        app:bsv_touch_text_color="@android:color/holo_red_dark"
+        app:bsv_disenable_text_color="@android:color/darker_gray" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.jiaqiao.product.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
@@ -9,6 +10,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.jiaqiao.product.R
 import com.jiaqiao.product.ext.notNull
+import com.jiaqiao.product.ext.plog
 
 /**
  * 自定义的按钮，支持默认样式、点击样式、禁用样式
@@ -22,35 +24,35 @@ open class ButtonStateView @JvmOverloads constructor(
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
             }
         }
     var leftTopRadius = 0 //顶部左边圆角
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
             }
         }
     var rightTopRadius = 0 //顶部右边圆角
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
             }
         }
     var leftBottomRadius = 0 //底部左边圆角
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
             }
         }
     var rightBottomRadius = 0 //底部右边圆角
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
             }
         }
     var defBgColor = Int.MIN_VALUE
@@ -58,7 +60,7 @@ open class ButtonStateView @JvmOverloads constructor(
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
             }
         }
     var touchBgColor = Int.MIN_VALUE
@@ -66,7 +68,7 @@ open class ButtonStateView @JvmOverloads constructor(
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
             }
         }
     var disenabledBgColor = Int.MIN_VALUE
@@ -74,7 +76,32 @@ open class ButtonStateView @JvmOverloads constructor(
         set(value) {
             if (field != value) {
                 field = value
-                refreshDrawable()
+                refreshBgDrawable()
+            }
+        }
+
+    var defTextColor = Int.MIN_VALUE
+        //默认字体颜色
+        set(value) {
+            if (field != value) {
+                field = value
+                refreshTextColor()
+            }
+        }
+    var touchTextColor = Int.MIN_VALUE
+        //触摸时字体颜色
+        set(value) {
+            if (field != value) {
+                field = value
+                refreshTextColor()
+            }
+        }
+    var disenabledTextColor = Int.MIN_VALUE
+        //按钮禁用时字体颜色
+        set(value) {
+            if (field != value) {
+                field = value
+                refreshTextColor()
             }
         }
 
@@ -107,6 +134,7 @@ open class ButtonStateView @JvmOverloads constructor(
                 R.styleable.ButtonStateView_bsv_left_bottom_radius,
                 defaultRadius
             )
+
             defBgColor =
                 array.getColor(R.styleable.ButtonStateView_bsv_default_bg_color, defBgColor)
             touchBgColor =
@@ -115,13 +143,23 @@ open class ButtonStateView @JvmOverloads constructor(
                 R.styleable.ButtonStateView_bsv_disenable_bg_color,
                 disenabledBgColor
             )
+
+            defTextColor =
+                array.getColor(R.styleable.ButtonStateView_bsv_default_text_color, defTextColor)
+            touchTextColor =
+                array.getColor(R.styleable.ButtonStateView_bsv_touch_text_color, touchTextColor)
+            disenabledTextColor = array.getColor(
+                R.styleable.ButtonStateView_bsv_disenable_text_color,
+                disenabledTextColor
+            )
+
             array.recycle()
         }
-        initRadius()
-        setBgDrawable()
+        refreshBgDrawable(false)
+        refreshTextColor(false)
     }
 
-    //初始化数据源
+    //初始化数据源，刷新圆角radius值
     private fun initRadius() {
         //如果四个角的值没有设置，那么就使用通用的radius的值。
         if (defaultRadius == leftTopRadius) {
@@ -159,10 +197,12 @@ open class ButtonStateView @JvmOverloads constructor(
 
     }
 
-    private fun refreshDrawable() {
-        if (isAttachedToWindow) {
+    //刷新不同状态下的背景Drawable
+    private fun refreshBgDrawable(isCheckAttach: Boolean = true) {
+        if ((isCheckAttach && isAttachedToWindow) || !isCheckAttach) {
             initRadius()
             setBgDrawable()
+            setTextColor()
         }
     }
 
@@ -179,7 +219,7 @@ open class ButtonStateView @JvmOverloads constructor(
             return
         var drawable = StateListDrawable()
 
-        val realDisenabledBgColor = getRealDisenabledBgColor()
+        val realDisenabledBgColor = getRealLadderBgColor(touchBgColor, defBgColor, 0.3f)
         if (realDisenabledBgColor != Int.MIN_VALUE) {
             //创建禁用状态的 Drawable
             drawable.addState(intArrayOf(-android.R.attr.state_enabled), GradientDrawable().also {
@@ -188,7 +228,7 @@ open class ButtonStateView @JvmOverloads constructor(
             })
         }
 
-        val realTouchBgColor = getRealTouchBgColor()
+        val realTouchBgColor = getRealLadderBgColor(touchBgColor, defBgColor, 0.6f)
         if (realTouchBgColor != Int.MIN_VALUE) {
             //创建按下状态的 Drawable
             drawable.addState(intArrayOf(android.R.attr.state_pressed), GradientDrawable().also {
@@ -208,31 +248,68 @@ open class ButtonStateView @JvmOverloads constructor(
         background = drawable
     }
 
-    private fun getRealTouchBgColor(): Int {
-        return if (touchBgColor == Int.MIN_VALUE && defBgColor != Int.MIN_VALUE) {
+
+    //获取真实的背景颜色
+    private fun getRealLadderBgColor(checkColor: Int, targetColor: Int, alpha: Float): Int {
+        return if (checkColor == Int.MIN_VALUE && targetColor != Int.MIN_VALUE) {
             Color.argb(
-                (Color.alpha(defBgColor) * 0.6f).toInt(),
-                Color.red(defBgColor),
-                Color.green(defBgColor),
-                Color.blue(defBgColor)
+                (Color.alpha(targetColor) * alpha).toInt(),
+                Color.red(targetColor),
+                Color.green(targetColor),
+                Color.blue(targetColor)
             )
         } else Int.MIN_VALUE
     }
 
-    private fun getRealDisenabledBgColor(): Int {
-        return if (disenabledBgColor == Int.MIN_VALUE && defBgColor != Int.MIN_VALUE) {
-            Color.argb(
-                (Color.alpha(defBgColor) * 0.3f).toInt(),
-                Color.red(defBgColor),
-                Color.green(defBgColor),
-                Color.blue(defBgColor)
-            )
-        } else Int.MIN_VALUE
+    //获取真实的字体颜色
+    private fun getRealLadderTextColor(checkColor: Int, targetColor: Int): Int {
+        return if (checkColor == Int.MIN_VALUE && targetColor != Int.MIN_VALUE) {
+            targetColor
+        } else checkColor
     }
 
     override fun setBackgroundColor(color: Int) {
 //        super.setBackgroundColor(color)
         defBgColor = color
+    }
+
+    override fun setTextColor(color: Int) {
+//        super.setTextColor(color)
+        defTextColor = color
+    }
+
+    //刷新不同状态下的字体颜色
+    private fun refreshTextColor(isCheckAttach: Boolean = true) {
+        if ((isCheckAttach && isAttachedToWindow) || !isCheckAttach) {
+            setTextColor()
+        }
+    }
+
+    //设置字体颜色列表
+    private fun setTextColor() {
+        if (defTextColor == Int.MIN_VALUE) {
+            textColors?.let {
+                defTextColor = it.defaultColor
+            }
+        }
+        if (defTextColor == Int.MIN_VALUE
+            && touchTextColor == Int.MIN_VALUE
+            && disenabledTextColor == Int.MIN_VALUE
+        ) return
+        setTextColor(
+            ColorStateList(
+                arrayOf<IntArray>(
+                    intArrayOf(-android.R.attr.state_enabled),
+                    intArrayOf(android.R.attr.state_pressed),
+                    intArrayOf()
+                ), intArrayOf(
+                    getRealLadderTextColor(disenabledTextColor, defTextColor),
+                    getRealLadderTextColor(touchTextColor, defTextColor),
+                    defTextColor
+                )
+            )
+        )
+
     }
 
 }

@@ -373,6 +373,9 @@
         <attr name="bsv_default_bg_color" format="color" />
         <attr name="bsv_touch_bg_color" format="color" />
         <attr name="bsv_disenable_bg_color" format="color" />
+        <attr name="bsv_default_text_color" format="color" />
+        <attr name="bsv_touch_text_color" format="color" />
+        <attr name="bsv_disenable_text_color" format="color" />
     </declare-styleable>
 
 </resources>
