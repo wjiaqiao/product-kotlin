@@ -69,19 +69,19 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
         return Gravity.CENTER
     }
 
-    /**
-     * rootview在dialog中的宽度
-     * */
-    open fun width(): Int {
-        return ViewGroup.LayoutParams.MATCH_PARENT
-    }
-
-    /**
-     * rootview在dialog中的高度
-     * */
-    open fun height(): Int {
-        return ViewGroup.LayoutParams.WRAP_CONTENT
-    }
+//    /**
+//     * rootview在dialog中的宽度
+//     * */
+//    open fun width(): Int {
+//        return ViewGroup.LayoutParams.MATCH_PARENT
+//    }
+//
+//    /**
+//     * rootview在dialog中的高度
+//     * */
+//    open fun height(): Int {
+//        return ViewGroup.LayoutParams.WRAP_CONTENT
+//    }
 
     /**
      * 是否启用状态栏字体自适应
@@ -118,7 +118,7 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
      * 利用反射 根据泛型得到 ViewBinding
      */
     private fun initViewBind() {
-        mViewBind = createViewBinding()
+        mViewBind = createViewBindingAndInflateParent(rootView)
     }
 
 
@@ -164,18 +164,17 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
             win.setDimAmount(dimAmount())
         }
 
-        rootView.removeAllViews()
-        rootView.addView(mViewBind.root)
-
         rootView.gravity = gravity()
-        mViewBind.root.layoutParams?.let {
-            if (it.width < 0) {
-                mViewBind.root.setWidth(width())
-            }
-            if (it.height < 0) {
-                mViewBind.root.setHeight(height())
-            }
-        }
+
+//        mViewBind.root.layoutParams?.let {
+//            if (it.width < 0) {
+//                mViewBind.root.setWidth(width())
+//            }
+//            if (it.height < 0) {
+//                mViewBind.root.setHeight(height())
+//            }
+//        }
+
         mViewBind.root.isClickable = true
         mViewBind.root.isFocusable = true
         initView()

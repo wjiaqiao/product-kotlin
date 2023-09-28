@@ -1,16 +1,20 @@
 package com.example.productkotlin.ui.main
 
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Xml
+import android.view.InflateException
 import com.drake.serialize.intent.bundle
-import com.drake.serialize.intent.openActivity
+import com.example.productkotlin.R
 import com.example.productkotlin.base.BaseVMAct
+import com.example.productkotlin.databinding.DiaTestBinding
 import com.example.productkotlin.databinding.MainActBinding
-import com.example.productkotlin.ui.activity.TestRVAc
 import com.example.productkotlin.ui.activity.TestRVContract
-import com.example.productkotlin.ui.test.TestAc
+import com.example.productkotlin.view.dialog.TestDia
 import com.jiaqiao.product.ext.*
 import com.jiaqiao.product.util.ProductUtil
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserException
+import java.io.IOException
 
 
 class MainAct : BaseVMAct<MainActBinding, MainVM>() {
@@ -31,8 +35,11 @@ class MainAct : BaseVMAct<MainActBinding, MainVM>() {
         mViewBind.btn1.click {
 //            mViewBind.btn1.defBgColor = Color.BLUE
         }
-        mViewBind.btn2.click {  }
+        mViewBind.btn2.click { }
+
+        TestDia(this).show()
 
     }
+
 
 }

@@ -9,8 +9,6 @@ import com.jiaqiao.product.widget.ProductBaseDia
 
 class TestDia(context: Context) : ProductBaseDia<DiaTestBinding>(context) {
 
-    override fun width() = 100.dp
-    override fun height() = 100.dp
 
     override fun initView() {
         "initView".plog()
