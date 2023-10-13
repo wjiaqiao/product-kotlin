@@ -11,6 +11,7 @@ import com.jiaqiao.product.ext.runMainLooper
 import kotlinx.coroutines.*
 import java.io.Closeable
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 
 /**
@@ -94,7 +95,7 @@ class PLifeScope(var autoRecreate: Boolean = false) : Closeable {
         block: suspend CoroutineScope.() -> Unit,
         start: (() -> Unit)? = null,
         finally: (() -> Unit)? = null,
-        coroutineContext: CoroutineContext = Dispatchers.Main
+        coroutineContext: CoroutineContext = EmptyCoroutineContext
     ): Job {
         if (isClose && !autoRecreate) {
             return nullJob

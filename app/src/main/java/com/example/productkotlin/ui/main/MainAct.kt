@@ -59,6 +59,12 @@ class MainAct : BaseVMAct<MainActBinding, MainVM>() {
 //            "close".plog()
 //        }.start()
 
+//        Thread{
+//            launch {
+//                ProductUtil.isMainThread().plog("main")
+//            }
+//        }.start()
+
     }
 
 

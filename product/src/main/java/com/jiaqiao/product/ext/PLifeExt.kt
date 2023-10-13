@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * 运行协程范围
@@ -23,7 +24,7 @@ fun ViewModel.launch(
     block: suspend CoroutineScope.() -> Unit,
     start: (() -> Unit)? = null,
     finally: (() -> Unit)? = null,
-    coroutineContext: CoroutineContext = Dispatchers.Main
+    coroutineContext: CoroutineContext = EmptyCoroutineContext
 ): Job {
     return pLifeScope.launch(block, start, finally, coroutineContext)
 }
@@ -69,7 +70,7 @@ fun Lifecycle.launch(
     block: suspend CoroutineScope.() -> Unit,
     start: (() -> Unit)? = null,
     finally: (() -> Unit)? = null,
-    coroutineContext: CoroutineContext = Dispatchers.Main
+    coroutineContext: CoroutineContext = EmptyCoroutineContext
 ): Job {
     return pLifeScope.launch(block, start, finally, coroutineContext)
 }
@@ -115,7 +116,7 @@ fun LifecycleOwner.launch(
     block: suspend CoroutineScope.() -> Unit,
     start: (() -> Unit)? = null,
     finally: (() -> Unit)? = null,
-    coroutineContext: CoroutineContext = Dispatchers.Main
+    coroutineContext: CoroutineContext = EmptyCoroutineContext
 ): Job {
     return pLifeScope.launch(block, start, finally, coroutineContext)
 }
