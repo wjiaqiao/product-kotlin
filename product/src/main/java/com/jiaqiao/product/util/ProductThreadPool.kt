@@ -1,5 +1,6 @@
 package com.jiaqiao.product.util
 
+import com.jiaqiao.product.ext.plog
 import com.jiaqiao.product.ext.runPCatch
 import java.util.concurrent.*
 
@@ -20,6 +21,7 @@ object ProductThreadPool {
     //线程活跃时间（单位：秒），超时线程会被回收
     private const val KEEP_ALIVE_TIME = 3L
 
+    private var isRunWaitTreadPool = false
 
     //线程池
     private val threadPool by lazy {
@@ -49,6 +51,37 @@ object ProductThreadPool {
     fun close() {
         kotlin.runCatching {
             threadPool.shutdownNow()
+        }
+    }
+
+    /**
+     * 运行线程并等待执行完成
+     * @return 返回false线程运行失败或报错，返回true线程运行完成
+     */
+    fun runAndWait(list: MutableList<Runnable>): Boolean {
+        if (isRunWaitTreadPool || list.isNullOrEmpty()) {
+            return false
+        }
+        val latch = CountDownLatch(list.size)
+        isRunWaitTreadPool = true
+        list.forEach {
+            threadPool.execute {
+                try {
+                    it.run()
+                } catch (thr: Throwable) {
+                    thr.plog()
+                } finally {
+                    latch.countDown()
+                }
+            }
+        }
+        return try {
+            latch.await() // 等待所有线程完成
+            isRunWaitTreadPool = false
+            true
+        } catch (e: Throwable) {
+            e.plog()
+            false
         }
     }
 
