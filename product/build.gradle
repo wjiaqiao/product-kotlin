@@ -18,8 +18,8 @@ android {
         buildConfigField "int", "VERSION_CODE", "$versionCode"
         buildConfigField "String", "VERSION_NAME", "\"$versionName\""
     }
-    viewBinding {
-        enabled = true
+    buildFeatures{
+        viewBinding true
     }
     buildTypes {
         release {
