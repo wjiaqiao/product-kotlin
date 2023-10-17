@@ -63,11 +63,11 @@ dependencies {
     //分包框架
     implementation 'androidx.multidex:multidex:2.0.1'
     //标准序列化工具（底层MMKV）
-    implementation 'com.github.liangjingkanji:Serialize:1.3.0'
+    implementation 'com.github.liangjingkanji:Serialize:3.0.1'
     //更好用的adapter（BRVAH）
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.11'
     //防止LiveData数据倒灌
-    implementation 'com.kunminx.arch:unpeek-livedata:7.2.0-beta1'
+    implementation 'com.kunminx.arch:unpeek-livedata:7.8.0'
     //基础lib
 
 
