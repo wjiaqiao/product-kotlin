@@ -1,11 +1,8 @@
 package com.jiaqiao.product.ext
 
 import androidx.lifecycle.LifecycleOwner
-import com.jiaqiao.product.ext.isNull
-import com.jiaqiao.product.ext.launch
-import com.jiaqiao.product.ext.launchIo
-import com.jiaqiao.product.ext.launchMain
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.collect
@@ -34,8 +31,11 @@ fun <T> Flow<T>.flowOnUnconfined(): Flow<T> = this.flowOn(Dispatchers.Unconfined
 /**
  * flow流回调在默认线程中
  * */
-fun <T> Flow<T>.collectDef(lifecycleOwner: LifecycleOwner, collector: FlowCollector<T>? = null) {
-    lifecycleOwner.launch {
+fun <T> Flow<T>.collectDef(
+    lifecycleOwner: LifecycleOwner,
+    collector: FlowCollector<T>? = null
+): Job {
+    return lifecycleOwner.launch {
         if (collector.isNull()) {
             this@collectDef.collect()
         } else {
@@ -47,8 +47,11 @@ fun <T> Flow<T>.collectDef(lifecycleOwner: LifecycleOwner, collector: FlowCollec
 /**
  * flow流回调在主线程中
  * */
-fun <T> Flow<T>.collectMain(lifecycleOwner: LifecycleOwner, collector: FlowCollector<T>? = null) {
-    lifecycleOwner.launchMain {
+fun <T> Flow<T>.collectMain(
+    lifecycleOwner: LifecycleOwner,
+    collector: FlowCollector<T>? = null
+): Job {
+    return lifecycleOwner.launchMain {
         if (collector.isNull()) {
             this@collectMain.collect()
         } else {
@@ -60,8 +63,11 @@ fun <T> Flow<T>.collectMain(lifecycleOwner: LifecycleOwner, collector: FlowColle
 /**
  * flow流回调在子线程中
  * */
-fun <T> Flow<T>.collectIo(lifecycleOwner: LifecycleOwner, collector: FlowCollector<T>? = null) {
-    lifecycleOwner.launchIo {
+fun <T> Flow<T>.collectIo(
+    lifecycleOwner: LifecycleOwner,
+    collector: FlowCollector<T>? = null
+): Job {
+    return lifecycleOwner.launchIo {
         if (collector.isNull()) {
             this@collectIo.collect()
         } else {
