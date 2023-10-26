@@ -4,7 +4,11 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
-import android.view.*
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import com.jiaqiao.product.util.ProductUiUtil
@@ -225,13 +229,13 @@ fun Activity.viewIntoStatusBar() {
  * view显示在状态栏里
  * */
 fun Window.viewIntoStatusBar() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        setDecorFitsSystemWindows(false)
-    } else {
-        decorView.systemUiVisibility =
-            decorView.systemUiVisibility or (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
-    }
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//        setDecorFitsSystemWindows(false)
+//    } else {
+    decorView.systemUiVisibility =
+        decorView.systemUiVisibility or (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+//    }
     statusBarColor = Color.TRANSPARENT
 }
 
