@@ -5,6 +5,7 @@ import androidx.lifecycle.pLifeScope
 import com.drake.serialize.intent.bundle
 import com.example.productkotlin.base.BaseVMAct
 import com.example.productkotlin.databinding.MainActBinding
+import com.example.productkotlin.run.RunRSA
 import com.example.productkotlin.ui.activity.TestRVContract
 import com.jiaqiao.product.ext.*
 import com.jiaqiao.product.util.ProductThreadPool
@@ -64,6 +65,10 @@ class MainAct : BaseVMAct<MainActBinding, MainVM>() {
 //                ProductUtil.isMainThread().plog("main")
 //            }
 //        }.start()
+
+        launchIo {
+            RunRSA.launch()
+        }
 
     }
 

@@ -2,7 +2,12 @@ package com.jiaqiao.product.util
 
 import com.jiaqiao.product.ext.plog
 import com.jiaqiao.product.ext.runPCatch
-import java.util.concurrent.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executors
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.RejectedExecutionHandler
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 /**
  * 内嵌线程池，根据手机CPU核心数量确定最大线程数量
@@ -24,19 +29,18 @@ object ProductThreadPool {
     private var isRunWaitTreadPool = false
 
     //线程池
-    private val threadPool by lazy {
-        ThreadPoolExecutor(
-            CORE_POOL_SIZE,
-            MAXIMUM_POOL_SIZE,
-            KEEP_ALIVE_TIME,
-            TimeUnit.SECONDS,
-            LinkedBlockingQueue<Runnable>(),
-            Executors.defaultThreadFactory(),
-            RejectedExecutionHandler { _, _ ->
+    private var threadPool = ThreadPoolExecutor(
+        CORE_POOL_SIZE,
+        MAXIMUM_POOL_SIZE,
+        KEEP_ALIVE_TIME,
+        TimeUnit.SECONDS,
+        LinkedBlockingQueue<Runnable>(),
+        Executors.defaultThreadFactory(),
+        RejectedExecutionHandler { _, _ ->
 
-            }
-        )
-    }
+        }
+    )
+
 
     //在线程池中运行线程
     fun run(run: () -> Unit) {
@@ -52,6 +56,17 @@ object ProductThreadPool {
         kotlin.runCatching {
             threadPool.shutdownNow()
         }
+        threadPool = ThreadPoolExecutor(
+            CORE_POOL_SIZE,
+            MAXIMUM_POOL_SIZE,
+            KEEP_ALIVE_TIME,
+            TimeUnit.SECONDS,
+            LinkedBlockingQueue<Runnable>(),
+            Executors.defaultThreadFactory(),
+            RejectedExecutionHandler { _, _ ->
+
+            }
+        )
     }
 
     /**
