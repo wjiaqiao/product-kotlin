@@ -12,46 +12,37 @@
         android:id="@+id/conLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <com.jiaqiao.product.widget.ButtonStateView
-            android:id="@+id/btn_1"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="130dp"
-            android:gravity="center"
-            android:text="Button"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            app:bsv_default_text_color="@android:color/holo_green_light"
-            app:bsv_disenable_text_color="@android:color/darker_gray"
-            app:bsv_radius="10dp"
-            app:bsv_touch_text_color="@android:color/holo_red_dark" />
+        <com.jiaqiao.product.widget.StatusBarView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <com.jiaqiao.product.widget.ButtonStateView
-            android:id="@+id/btn_2"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="130dp"
-            android:enabled="false"
-            android:gravity="center"
-            android:text="Button2"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            app:bsv_default_text_color="@android:color/holo_green_light"
-            app:bsv_disenable_text_color="@android:color/darker_gray"
-            app:bsv_left_bottom_radius="15dp"
-            app:bsv_left_top_radius="5dp"
-            app:bsv_right_bottom_radius="20dp"
-            app:bsv_right_top_radius="10dp"
-            app:bsv_touch_text_color="@android:color/holo_red_dark" />
 
-        <View
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="600dp"
-            android:background="@color/text_3"/>
+        <com.jiaqiao.product.widget.SwitchButtonView
+            android:layout_width="120dp"
+            android:layout_height="56dp"
+            android:layout_margin="40dp"
+            app:sbv_animator_type="gradient"
+            app:sbv_block_close_color="#FFFFFF"
+            app:sbv_block_margin="4dp"
+            app:sbv_block_open_color="#FFFFFF"
+            app:sbv_border_color="#CCCCCC"
+            app:sbv_close_background_color="#FE8492"
+            app:sbv_close_text="女"
+            app:sbv_close_text_color="#007C39"
+            app:sbv_open_background_color="#50C2FF"
+            app:sbv_open_text="男"
+            app:sbv_text_offset_y="0dp"
+            app:sbv_text_offset_x="0dp"
+            app:sbv_effect_duration="300"
+            app:sbv_text_style="bold"
+            app:sbv_open_text_color="#BC4100"
+            app:sbv_text_size="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

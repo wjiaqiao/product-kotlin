@@ -3,11 +3,19 @@ package com.jiaqiao.product.widget
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
+import android.graphics.Region
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.jiaqiao.product.R
+import com.jiaqiao.product.ext.dp
+import com.jiaqiao.product.ext.dpF
+import com.jiaqiao.product.ext.notNullAndEmpty
 import com.jiaqiao.product.util.ProductUtil
 import kotlin.math.abs
 
@@ -62,6 +70,30 @@ open class SwitchButtonView @JvmOverloads constructor(
     //动画类型
     private var animatorType = ANIM_MOVE
 
+    //关闭状态时的文本
+    private var openText = ""
+
+    //开启状态时的文本
+    private var closeText = ""
+
+    //文本大小
+    private var textSize = 14.dpF
+
+    //文本颜色
+    private var openTextColor = Color.BLACK
+
+    //文本颜色
+    private var closeTextColor = Color.BLACK
+
+    //文本X轴偏移
+    private var textOffsetX = 0
+
+    //文本Y轴偏移
+    private var textOffsetY = 0
+
+    //文本样式，0 normal,1 bold,2 italic
+    private var textStyle = 0
+
     private var anim: ValueAnimator? = null
     private val animUpdateLis by lazy {
         ValueAnimator.AnimatorUpdateListener {
@@ -109,6 +141,8 @@ open class SwitchButtonView @JvmOverloads constructor(
     private var bgTop = 0f
     private var bgWidth = 0f
     private var bgHeight = 0f
+    private var textX = 0f
+    private var textY = 0f
 
     private var openbgMoveX = 0f
 
@@ -121,6 +155,7 @@ open class SwitchButtonView @JvmOverloads constructor(
         Paint().also {
             it.isAntiAlias = true
             it.style = Paint.Style.FILL
+            it.textAlign = Paint.Align.CENTER
         }
     }
     private val drawPath by lazy { Path() }
@@ -196,11 +231,37 @@ open class SwitchButtonView @JvmOverloads constructor(
                     array.getBoolean(R.styleable.SwitchButtonView_sbv_click_toggle, clickToggle)
                 animatorType =
                     array.getInteger(R.styleable.SwitchButtonView_sbv_animator_type, animatorType)
+                openText = array.getString(R.styleable.SwitchButtonView_sbv_open_text) ?: ""
+                closeText = array.getString(R.styleable.SwitchButtonView_sbv_close_text) ?: ""
+                textSize = array.getDimensionPixelOffset(
+                    R.styleable.SwitchButtonView_sbv_text_size,
+                    14.dp
+                ).toFloat()
+                openTextColor =
+                    array.getColor(R.styleable.SwitchButtonView_sbv_open_text_color, openTextColor)
+                closeTextColor = array.getColor(
+                    R.styleable.SwitchButtonView_sbv_close_text_color,
+                    closeTextColor
+                )
+                textOffsetX = array.getDimensionPixelOffset(
+                    R.styleable.SwitchButtonView_sbv_text_offset_x,
+                    textOffsetX
+                )
+                textOffsetY = array.getDimensionPixelOffset(
+                    R.styleable.SwitchButtonView_sbv_text_offset_y,
+                    textOffsetY
+                )
+                textStyle = array.getInt(R.styleable.SwitchButtonView_sbv_text_style, textStyle)
                 array.recycle()
             }
         }
         if (blockMargin < 0) {
             blockMargin = borderWidth
+        }
+        paint.textSize = textSize
+        when (textStyle) {
+            1 -> paint.isFakeBoldText = true
+            2 -> paint.textSkewX = -0.25f
         }
         borderWidthHalf = borderWidth.toFloat() / 2
         setState(if (defChecked) 3 else 1)
@@ -277,6 +338,10 @@ open class SwitchButtonView @JvmOverloads constructor(
         blockRectF.right = blockRectF.left + blockRectF.bottom - blockRectF.top
         blockMaxDistance = (rectF.width() - blockRectF.width() - blockMargin * 2).toInt()
         blockRectLeft = blockRectF.left
+        textX = blockRectF.centerX()
+        val fontMetrics = paint.fontMetrics
+        textY =
+            blockRectF.centerY() + (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom
         updateOpenBgMove()
     }
 
@@ -318,6 +383,7 @@ open class SwitchButtonView @JvmOverloads constructor(
                     ProductUtil.radioColor(openBgColor, closeBgColor, pro)
                 }
             }
+
             else -> closeBgColor
         }
         canvas.drawRoundRect(openBgRectF, radius, radius, paint)
@@ -334,6 +400,15 @@ open class SwitchButtonView @JvmOverloads constructor(
             canvas.drawRoundRect(closeBgRectF, radius, radius, paint)
         }
 
+        //绘制文本
+        if (progress == 0) {
+            drawText(canvas, true)
+        } else if (progress == PROGRESS_MAX) {
+            drawText(canvas, false)
+        } else {
+            drawText(canvas, true, 1 - pro)
+            drawText(canvas, false, pro)
+        }
 
         //绘制滑块
         paint.color = if (blockOpenColor == blockCloseColor) {
@@ -344,6 +419,44 @@ open class SwitchButtonView @JvmOverloads constructor(
         val blockMoveX = blockMaxDistance * pro
         blockRectF.offsetTo(blockRectLeft + blockMoveX, blockRectF.top)
         canvas.drawRoundRect(blockRectF, radius, radius, paint)
+    }
+
+    /**
+     * 绘制文本
+     * [canvas] 绘制器
+     * [isDrawCloseText] 是否是关闭状态的文字
+     */
+    private fun drawText(canvas: Canvas, isDrawCloseText: Boolean, progress: Float = 1f) {
+        if (progress <= 0) return
+        if (isDrawCloseText) {
+            if (closeText.notNullAndEmpty()) {
+                paint.color = closeTextColor
+                paint.alpha = (progress * 255).toInt()
+                if (animatorType == ANIM_MOVE && progress != 1f) {
+                    paint.textSize = textSize * progress
+                    val fontMetrics = paint.fontMetrics
+                    val textY =
+                        rectF.centerY() + (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom
+                    canvas.drawText(closeText, viewWidth - textX - textOffsetX,textY + textOffsetY, paint)
+                    paint.textSize = textSize
+                } else {
+                    canvas.drawText(
+                        closeText,
+                        viewWidth - textX - textOffsetX,
+                        textY + textOffsetY,
+                        paint
+                    )
+                }
+                paint.alpha = 255
+            }
+        } else {
+            if (openText.notNullAndEmpty()) {
+                paint.color = openTextColor
+                paint.alpha = (progress * 255).toInt()
+                canvas.drawText(openText, textX + textOffsetX, textY + textOffsetY, paint)
+                paint.alpha = 255
+            }
+        }
     }
 
     override fun onDetachedFromWindow() {
@@ -370,6 +483,7 @@ open class SwitchButtonView @JvmOverloads constructor(
                 progress = 0
                 setLastChected(false, action)
             }
+
             3 -> {
                 progress = PROGRESS_MAX
                 setLastChected(true, action)

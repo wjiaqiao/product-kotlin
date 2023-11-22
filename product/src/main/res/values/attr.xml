@@ -142,6 +142,18 @@
             <enum name="move" value="1" />
             <enum name="gradient" value="2" />
         </attr>
+        <attr name="sbv_open_text" format="string" />
+        <attr name="sbv_close_text" format="string" />
+        <attr name="sbv_text_size" format="dimension" />
+        <attr name="sbv_open_text_color" format="reference|color" />
+        <attr name="sbv_close_text_color" format="reference|color" />
+        <attr name="sbv_text_offset_x" format="dimension" />
+        <attr name="sbv_text_offset_y" format="dimension" />
+        <attr name="sbv_text_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+        </attr>
     </declare-styleable>
 
 
