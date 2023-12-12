@@ -27,6 +27,7 @@
         <activity android:name=".ui.test.TestAc"/>
         <activity android:name=".ui.test.TestDiffAc"/>
         <activity android:name=".ui.test.TestDecorationAc"/>
+        <activity android:name=".ui.activity.EditTextAct"/>
     </application>
 
 </manifest>
