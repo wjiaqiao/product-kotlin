@@ -594,9 +594,10 @@ fun EditText.softInput(isShow: Boolean = true): EditText {
         requestFocus()
         val inputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
-        inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_FORCED)
+//        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
+        inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     } else {
+        clearFocus()
         (context
             .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
             windowToken,
