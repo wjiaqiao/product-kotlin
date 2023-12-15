@@ -31,5 +31,5 @@
 -keep class androidx.lifecycle.PLifeKtKt {*;}
 
 #工具库
--keep class com.jiaqiao.product.* {*;}
+-keep class com.jiaqiao.product.** {*;}
 
