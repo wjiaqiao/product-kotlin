@@ -19,6 +19,7 @@ open class ShapeEditText @JvmOverloads constructor(
     }
 
     init {
+        isFocusableInTouchMode = true
         mShapeBean
     }
 
