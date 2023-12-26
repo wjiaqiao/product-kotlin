@@ -45,3 +45,11 @@ inline fun CharSequence?.notNullAndBlank(): Boolean {
 inline fun <K, V> Map<out K, V>?.notNullAndEmpty(): Boolean {
     return !this.isNullOrEmpty()
 }
+
+
+/**
+ * 判断Array是否不为空和null
+ * */
+inline fun <T> Array<out T>?.notNullAndEmpty(): Boolean {
+    return !this.isNullOrEmpty()
+}
