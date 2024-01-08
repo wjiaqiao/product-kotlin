@@ -8,7 +8,7 @@ import java.io.File
  * 创建新文件
  * */
 fun File.createFile() {
-    parentFile.createFloder()
+    parentFile?.createFloder()
     if (exists()) {
         delete()
     }
@@ -30,7 +30,7 @@ fun File.createFloder() {
 fun File.deleteAll() {
     if (exists()) {
         if (isDirectory) {
-            for (childFile in listFiles()) {
+            listFiles()?.forEach { childFile ->
                 childFile.deleteAll()
             }
             delete()
@@ -45,7 +45,7 @@ fun File.deleteAll() {
  * */
 fun File.deleteChild() {
     if (isDirectory && exists()) {
-        for (childFile in listFiles()) {
+        listFiles()?.forEach { childFile ->
             childFile.deleteAll()
         }
     }
