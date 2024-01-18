@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jiaqiao.product.R
 import com.jiaqiao.product.ext.centerY
 import com.jiaqiao.product.ext.dp
-import com.jiaqiao.product.ext.isTrue
 import com.jiaqiao.product.ext.notNull
 import com.jiaqiao.product.helper.SoundPool
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.abs
 
@@ -49,14 +52,15 @@ open class PickerView @JvmOverloads constructor(
     private var lastScrollTime: Long = 0 //上次滑动时间
     private val baseRade = 1.08f //选中后滑动最大音乐速率
     private val changeBase = 0.28f //选中后滑动可变音乐速率
-    private var isFirstLoadLoop = false //第一次加载无限滚动选择器
+    private var isFirstLoad = false //第一次加载无限滚动选择器
     private var lastLoopCenterPosi = -1 //无限滚动时的序号
     private var scrollChange = false //滑动方向
     private val paint by lazy { Paint() }
 
-    private val pickerStringAdapter by lazy { PickerStringAdapter<String>() } //recyclerview的适配器
+    private val pickerStringAdapter by lazy { PickerStringAdapter() } //recyclerview的适配器
     private val layoutManager by lazy { LinearLayoutManager(context) } //强制使用垂直布局
     private var viewConfigMap = mutableMapOf<Int, Int>() //存储滑动时viewholder的状态
+
     private val soundPoolHelper by lazy { SoundPool(context, R.raw.ring1) }
     private val superlaunch by lazy { SupervisorJob() }
     private var pickerAdapter: PickerBaseAdapter<*, *>? = null
@@ -104,7 +108,8 @@ open class PickerView @JvmOverloads constructor(
                 R.styleable.PickerView_pv_split_line_height,
                 splitLineHeight
             )
-            splitLineColor = array.getColor(R.styleable.PickerView_pv_split_line_color, splitLineColor)
+            splitLineColor =
+                array.getColor(R.styleable.PickerView_pv_split_line_color, splitLineColor)
             isMasking = array.getBoolean(R.styleable.PickerView_pv_is_masking, isMasking)
             maskingColor = array.getColor(R.styleable.PickerView_pv_masking_color, maskingColor)
 
@@ -128,6 +133,7 @@ open class PickerView @JvmOverloads constructor(
         pickerStringAdapter.selectTextColor = selectTextColor
         pickerStringAdapter.unselectTextSize = unselectTextSize
         pickerStringAdapter.selectTextSize = selectTextSize
+        pickerStringAdapter.visibleItemNum = visibleItemNum
 
         paint.isAntiAlias = true
 
@@ -181,6 +187,7 @@ open class PickerView @JvmOverloads constructor(
         thisHeight = b - t
     }
 
+
     //滑动状态变化的回调
     override fun onScrollStateChanged(state: Int) {
         super.onScrollStateChanged(state)
@@ -208,6 +215,7 @@ open class PickerView @JvmOverloads constructor(
                     smoothScrollBy(0, scrollNextY)
                 } else {
                     centerPosiCallBack(centerPosi)
+                    pickerAdapter?.selectPosi(centerPosi)
 
                     pickerAdapter?.let {
                         //无限滚动时校准位置
@@ -224,6 +232,7 @@ open class PickerView @JvmOverloads constructor(
                 }
 
             }
+
             else -> {
                 lastLoopCenterPosi = -1
             }
@@ -233,8 +242,9 @@ open class PickerView @JvmOverloads constructor(
 
     override fun scrollToPosition(position: Int) {
         pickerAdapter?.let {
-            var scrollPosi = it.getLoopScrollCenterPosition(position - visibleItemNum)
-            layoutManager.scrollToPositionWithOffset(scrollPosi, 0)
+            centerYRealPosi = position
+            var scrollPosi = it.getLoopScrollCenterPosition(position)
+            layoutManager.scrollToPositionWithOffset(scrollPosi, itemHeight * visibleItemNum)
         }
     }
 
@@ -247,14 +257,19 @@ open class PickerView @JvmOverloads constructor(
         } else {
             scrollYDistance = dy - lastScrollY
         }
+        updateItemScrollState()
+    }
 
+
+    private fun updateItemScrollState() {
+        if (centerY <= 0) return
         var centerPosi = -1
         val lastItemPosition = layoutManager.findLastVisibleItemPosition()
         val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
         for (i in firstItemPosition..lastItemPosition) {
             val item = layoutManager.findViewByPosition(i)
             if (item != null) {
-                val itemCenterY = item.centerY()
+                val itemCenterY = item.centerY() + item.top
                 if (itemCenterY == centerY) {
                     //处于Y轴中心位置
                     centerPosi = i
@@ -266,9 +281,11 @@ open class PickerView @JvmOverloads constructor(
                         itemCenterY > centerY -> {
                             abs(itemCenterY - (centerY + itemHeight))
                         }
+
                         itemCenterY < centerY -> {
                             abs(itemCenterY - (centerY - itemHeight))
                         }
+
                         else -> {
                             0
                         }
@@ -306,7 +323,9 @@ open class PickerView @JvmOverloads constructor(
             return
         }
         centerYPosi = position
-        pickerAdapter?.selectPosi(position)
+        if (scrollState == SCROLL_STATE_IDLE) {
+            pickerAdapter?.selectPosi(centerYPosi)
+        }
 
         if (isVoice && scrollYDistance != 0 && (System.currentTimeMillis() - lastScrollTime) > 40) {
             lastScrollTime = System.currentTimeMillis()
@@ -340,22 +359,49 @@ open class PickerView @JvmOverloads constructor(
 
 
     //设置string类型的数据源
-    fun setTextList(list: MutableList<String>) {
+    fun setTextList(list: MutableList<Pair<String, Int>>) {
         pickerStringAdapter.setList(list)
         if (adapter == pickerStringAdapter) {
             pickerStringAdapter.notifyDataSetChanged()
         } else {
             adapter = pickerStringAdapter
         }
-        if (!isFirstLoadLoop && pickerAdapter?.isLoop.isTrue()) {
-            isFirstLoadLoop = true
-            scrollToPosition(0)
+        if (!isFirstLoad) {
+            isFirstLoad = true
+        }
+        if (pickerStringAdapter.getRealItemCount() > 0) {
+            post {
+                val scrollToPosi =
+                    if (0 <= centerYRealPosi && centerYRealPosi < pickerStringAdapter.getRealItemCount()) {
+                        centerYRealPosi
+                    } else if (centerYRealPosi >= pickerStringAdapter.getRealItemCount()) {
+                        pickerStringAdapter.getRealItemCount() - 1
+                    } else 0
+                if (centerYRealPosi == scrollToPosi) {
+                    centerYPosi = -1
+                }
+                scrollToPosition(scrollToPosi)
+                updateItemScrollState()
+            }
         }
     }
 
+    fun getTextItemPosition(position: Int): Pair<String, Int> {
+        return pickerStringAdapter.getItemPosition(position)
+    }
+
+    fun getCenterItem(): Pair<String, Int>? {
+        return if (getCenterPosition() < 0) {
+            null
+        } else getTextItemPosition(getCenterPosition())
+    }
+
+
+    fun getDataCount() = pickerStringAdapter.getRealItemCount()
+
     //滑动过程的比例
     private fun scrollYPosition(position: Int, scrollY: Int) {
-        var progress = 1.0f * scrollY / itemHeight
+        var progress = (1.0f * scrollY / itemHeight * 100).toInt() / 100f
         if (progress > 1) {
             progress = 1f
         }
@@ -436,34 +482,41 @@ open class PickerView @JvmOverloads constructor(
         }
     }
 
-    fun setVoice(isVoice:Boolean){
+    fun setVoice(isVoice: Boolean) {
         this.isVoice = isVoice
     }
 
-    fun setSplitLine(isSplitLine:Boolean){
+    fun setSplitLine(isSplitLine: Boolean) {
         this.isSplitLine = isSplitLine
         invalidate()
     }
 
-    fun setSplitLineHeight(splitLineHeight:Int){
+    fun setSplitLineHeight(splitLineHeight: Int) {
         this.splitLineHeight = splitLineHeight
         invalidate()
     }
 
-    fun setSplitLineColor(splitLineColor:Int){
+    fun setSplitLineColor(splitLineColor: Int) {
         this.splitLineColor = splitLineColor
         invalidate()
     }
 
-    fun setMasking(isMasking:Boolean){
+    fun setMasking(isMasking: Boolean) {
         this.isMasking = isMasking
         invalidate()
     }
 
-    fun setMaskingColor(maskingColor:Int){
+    fun setMaskingColor(maskingColor: Int) {
         this.maskingColor = maskingColor
         invalidate()
     }
 
+    fun setSelectTextColor(selectTextColor: Int) {
+        this.selectTextColor = selectTextColor
+        pickerStringAdapter.selectTextColor = this.selectTextColor
+        if (adapter == pickerStringAdapter && pickerStringAdapter.itemCount > 0) {
+            pickerStringAdapter.notifyDataSetChanged()
+        }
+    }
 
 }

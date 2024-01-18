@@ -3,7 +3,11 @@ package com.jiaqiao.product.widget.picker
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jiaqiao.product.ext.*
+import com.jiaqiao.product.ext.invisible
+import com.jiaqiao.product.ext.isNull
+import com.jiaqiao.product.ext.setHeight
+import com.jiaqiao.product.ext.setWidthMatchParent
+import com.jiaqiao.product.ext.visible
 
 /**
  *
@@ -14,7 +18,8 @@ import com.jiaqiao.product.ext.*
  * [VH] adapter的ViewHolder对象
  *
  * */
-open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> : RecyclerView.Adapter<VH>() {
+open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
+    RecyclerView.Adapter<VH>() {
 
     var itemHeight = 0 //子项高度
     var visibleItemNum = 2 //上下可见子项的数量
@@ -31,6 +36,8 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> : Re
     private var uiDataList = mutableListOf<Any?>() //对内UI显示的数据源
 
     private var attrRecyclerView: RecyclerView? = null
+
+    private var selectRelPosi = -1
 
     //创建adapte的viewholder
     abstract fun creViewHolder(parent: ViewGroup, viewType: Int): VH
@@ -62,7 +69,11 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> : Re
             holder.itemView.invisible()
         } else {
             holder.itemView.visible()
-            onBindUnselectUi(holder, realData as T, realPosi)
+            if (selectRelPosi == realPosi) {
+                onBindSelectUi(holder, realData as T, selectRelPosi)
+            } else {
+                onBindUnselectUi(holder, realData as T, realPosi)
+            }
         }
     }
 
@@ -104,10 +115,9 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> : Re
         return if (attrRecyclerView.isNull()) {
             null
         } else {
-            attrRecyclerView?.layoutManager?.findViewByPosition(position)
-                ?.let {
-                    getViewHolder(it)
-                }
+            attrRecyclerView?.layoutManager?.findViewByPosition(position)?.let {
+                getViewHolder(it)
+            }
         }
     }
 
@@ -144,7 +154,8 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> : Re
             var realData = uiDataList[userPosi]
             var realPosi = getRealPosition(userPosi)
             if (realData != null && realPosi >= 0) {
-                onBindSelectUi(it, realData as T, realPosi)
+                selectRelPosi = realPosi
+                onBindSelectUi(it, realData as T, selectRelPosi)
             }
         }
     }
@@ -196,5 +207,11 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> : Re
         }
     }
 
+    //获取position对应的数据
+    fun getItemPosition(position: Int): T {
+        return realDataList[position]
+    }
+
+    fun getRealItemCount() = realDataList.size
 
 }
