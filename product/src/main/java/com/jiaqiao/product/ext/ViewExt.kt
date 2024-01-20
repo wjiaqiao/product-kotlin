@@ -596,6 +596,9 @@ fun EditText.softInput(isShow: Boolean = true): EditText {
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
         inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        if (text.notNullAndEmpty()) {
+            setSelection(text.length)
+        }
     } else {
         clearFocus()
         (context
