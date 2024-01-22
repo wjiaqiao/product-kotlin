@@ -312,7 +312,7 @@ fun Context.locationManager(): LocationManager {
 /**
  * 获取SensorManager服务
  * */
-fun Context.SensorManager(): SensorManager {
+fun Context.sensorManager(): SensorManager {
     return (getSystemService(Context.SENSOR_SERVICE) as SensorManager)
 }
 
