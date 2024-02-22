@@ -8,19 +8,21 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 import androidx.annotation.NonNull
 import androidx.annotation.StyleRes
-import androidx.appcompat.app.ComponentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import com.jiaqiao.product.base.ProductBaseAct
-import com.jiaqiao.product.ext.*
+import com.jiaqiao.product.ext.click
+import com.jiaqiao.product.ext.createViewBindingAndInflateParent
+import com.jiaqiao.product.ext.isStatusBarBlackFont
+import com.jiaqiao.product.ext.isStatusBarWhiteFont
+import com.jiaqiao.product.ext.statusBarBlackFont
 
 /**
  * 基础dialog类
