@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import com.jiaqiao.product.ext.isNull
 import com.jiaqiao.product.ext.navigationBarHeight
@@ -51,7 +52,7 @@ object ProductUiUtil {
     /**
      * 判断导航栏是否存在
      */
-    fun hasNavigationBar(activity: AppCompatActivity): Boolean {
+    fun hasNavigationBar(activity: ComponentActivity): Boolean {
         return kotlin.runCatching {
             val realDisplayMetrics = DisplayMetrics()
             (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
@@ -59,7 +60,7 @@ object ProductUiUtil {
             val realHeight = realDisplayMetrics.heightPixels
             val navigationBarHeight = activity.navigationBarHeight()
             val conView =
-                activity.delegate.findViewById<ViewGroup>(android.R.id.content)?.getChildAt(0)
+                activity.window.decorView.findViewById<ViewGroup>(android.R.id.content)?.getChildAt(0)
             val viewHeight = if (conView.isNull()) {
                 0
             } else if (conView?.measuredHeight!! > 0) {

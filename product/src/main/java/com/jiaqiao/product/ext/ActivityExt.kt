@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import com.jiaqiao.product.util.ProductUiUtil
@@ -273,14 +274,14 @@ fun Activity?.isAvailable(): Boolean {
 /**
  * 判断当前设备是否存在导航栏
  */
-fun AppCompatActivity.hasNavigationBar(): Boolean {
+fun ComponentActivity.hasNavigationBar(): Boolean {
     return ProductUiUtil.hasNavigationBar(this)
 }
 
 /**
  * 状态栏字体是否是白色
  * */
-fun AppCompatActivity.isStatusBarWhiteFont(): Boolean {
+fun ComponentActivity.isStatusBarWhiteFont(): Boolean {
     return window.isStatusBarWhiteFont()
 }
 
@@ -307,7 +308,7 @@ fun Window.isStatusBarWhiteFont(): Boolean {
 /**
  * 状态栏字体是否是黑色
  * */
-fun AppCompatActivity.isStatusBarBlackFont(): Boolean {
+fun ComponentActivity.isStatusBarBlackFont(): Boolean {
     return window.isStatusBarBlackFont()
 }
 
@@ -342,7 +343,7 @@ fun Window.isStatusBarBlackFont(): Boolean {
 ///**
 // * 导航栏字体是否是白色
 // * */
-//fun AppCompatActivity.isNavigationBarWhiteFont(): Boolean {
+//fun ComponentActivity.isNavigationBarWhiteFont(): Boolean {
 //    return window.isNavigationBarWhiteFont()
 //}
 //
@@ -378,7 +379,7 @@ fun Window.isStatusBarBlackFont(): Boolean {
 ///**
 // * 导航栏字体是否是黑色
 // * */
-//fun AppCompatActivity.isNavigationBarBlackFont(): Boolean {
+//fun ComponentActivity.isNavigationBarBlackFont(): Boolean {
 //    return window.isNavigationBarBlackFont()
 //}
 //

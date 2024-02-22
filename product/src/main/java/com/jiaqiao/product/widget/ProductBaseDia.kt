@@ -11,9 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
+import androidx.activity.ComponentActivity
 import androidx.annotation.NonNull
 import androidx.annotation.StyleRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.ComponentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -39,8 +40,8 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
     //ViewBinding的对象
     lateinit var mViewBind: VB
 
-    //dialog依附的AppCompatActivity对象
-    private var contextAc: AppCompatActivity? = null
+    //dialog依附的ComponentActivity对象
+    private var contextAc: ComponentActivity? = null
 
     //布局的基础类
     private val rootView by lazy {
@@ -91,12 +92,12 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
     }
 
     init {
-        if (context is AppCompatActivity) {
+        if (context is ComponentActivity) {
             contextAc = context
         }
         if (context is ProductBaseAct) {
             context.add(this)
-        } else if (context is AppCompatActivity) {
+        } else if (context is ComponentActivity) {
             context.lifecycle.addObserver(object : LifecycleEventObserver {
                 override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                     if (event == Lifecycle.Event.ON_DESTROY) {
