@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType
 /**
  * 带viewbinging和viewmodel基础activity类
  * */
-abstract class ProductBaseVMAct<VB : ViewBinding, VM : ProductViewModel> : ProductBaseAct() {
+open abstract class ProductBaseVMAct<VB : ViewBinding, VM : ProductViewModel> : ProductBaseAct() {
 
     lateinit var mViewBind: VB
     lateinit var mViewModel: VM

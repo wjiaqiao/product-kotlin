@@ -12,7 +12,7 @@ import java.lang.reflect.ParameterizedType
 /**
  * 带viewbinging和viewmodel基础fragment类
  * */
-abstract class ProductBaseVMFrag<VB : ViewBinding, VM : ProductViewModel> : ProductBaseFrag() {
+open abstract class ProductBaseVMFrag<VB : ViewBinding, VM : ProductViewModel> : ProductBaseFrag() {
 
     lateinit var mViewBind: VB
     lateinit var mViewModel: VM

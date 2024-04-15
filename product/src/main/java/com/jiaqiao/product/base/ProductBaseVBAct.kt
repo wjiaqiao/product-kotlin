@@ -8,7 +8,7 @@ import com.jiaqiao.product.ext.createViewBinding
 /**
  * 带viewbinging基础activity类
  * */
-abstract class ProductBaseVBAct<VB : ViewBinding> : ProductBaseAct() {
+open abstract class ProductBaseVBAct<VB : ViewBinding> : ProductBaseAct() {
 
     lateinit var mViewBind: VB
     private var vbRoot: View? = null

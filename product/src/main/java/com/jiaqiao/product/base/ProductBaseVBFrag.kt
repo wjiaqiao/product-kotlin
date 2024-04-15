@@ -10,7 +10,7 @@ import com.jiaqiao.product.ext.createViewBinding
 /**
  * 带viewbinging基础fragment类
  * */
-abstract class ProductBaseVBFrag<VB : ViewBinding> : ProductBaseFrag() {
+open abstract class ProductBaseVBFrag<VB : ViewBinding> : ProductBaseFrag() {
 
     lateinit var mViewBind: VB
     private var mVbRoot: View? = null
