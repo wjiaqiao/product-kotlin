@@ -23,6 +23,7 @@ import com.jiaqiao.product.ext.createViewBindingAndInflateParent
 import com.jiaqiao.product.ext.isStatusBarBlackFont
 import com.jiaqiao.product.ext.isStatusBarWhiteFont
 import com.jiaqiao.product.ext.statusBarBlackFont
+import com.jiaqiao.product.ext.statusBarWhiteFont
 
 /**
  * 基础dialog类
@@ -190,7 +191,7 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
                 if (it.isStatusBarBlackFont()) {
                     window?.statusBarBlackFont()
                 } else if (it.isStatusBarWhiteFont()) {
-                    window?.isStatusBarWhiteFont()
+                    window?.statusBarWhiteFont()
                 }
             }
             return@let
