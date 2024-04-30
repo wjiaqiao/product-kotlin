@@ -1,16 +1,21 @@
 package com.example.productkotlin.ui.main
 
-import android.R
 import android.os.Bundle
-import android.util.AttributeSet
+import com.drake.serialize.intent.openActivity
+import com.example.productkotlin.BuildConfig
 import com.example.productkotlin.base.BaseVMAct
 import com.example.productkotlin.databinding.MainActBinding
-import com.jiaqiao.product.ext.*
+import com.example.productkotlin.ui.activity.ScrollTestAct
 
 
 class MainAct : BaseVMAct<MainActBinding, MainVM>() {
 
     override fun initView(savedInstanceState: Bundle?) {
+
+
+        if (BuildConfig.DEBUG) {
+//            openActivity<ScrollTestAct>()
+        }
 
     }
 
