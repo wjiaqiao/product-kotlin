@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 34
 
     signingConfigs {
         release {
@@ -20,7 +20,7 @@ android {
     defaultConfig {
         applicationId "com.example.productkotlin"
         minSdk 21
-        targetSdk 31
+        targetSdk 34
         versionCode 100000
         versionName "1.0.0"
         multiDexEnabled true
