@@ -3,12 +3,12 @@ package com.jiaqiao.product.widget
 import android.content.Context
 import android.graphics.Paint
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 import com.jiaqiao.product.R
-import com.jiaqiao.product.widget.shape.ShapeTextView
 
 open class ProductTextView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : ShapeTextView(context, attrs, defStyleAttr) {
+) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     var bold = -1f
         set(value) {
@@ -41,9 +41,13 @@ open class ProductTextView @JvmOverloads constructor(
             context.obtainStyledAttributes(it, R.styleable.ProductTextView)?.let { array ->
 
                 bold = array.getFloat(R.styleable.ProductTextView_ptv_text_bold, 0f)
-                underline = array.getBoolean(R.styleable.ProductTextView_ptv_text_underline, underline)
+                underline =
+                    array.getBoolean(R.styleable.ProductTextView_ptv_text_underline, underline)
                 strikethrough =
-                    array.getBoolean(R.styleable.ProductTextView_ptv_text_strikethrough, strikethrough)
+                    array.getBoolean(
+                        R.styleable.ProductTextView_ptv_text_strikethrough,
+                        strikethrough
+                    )
 
                 array.recycle()
             }
@@ -75,9 +79,11 @@ open class ProductTextView @JvmOverloads constructor(
             bold < 0 -> {
                 0f
             }
+
             bold > 1 -> {
                 1f
             }
+
             else -> {
                 bold
             }

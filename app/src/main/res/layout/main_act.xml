@@ -28,10 +28,9 @@
             android:hint="请输入内容1"
             android:paddingHorizontal="12dp"
             android:textColor="@color/text_6"
-            android:textSize="15dp"
-            app:sp_radius="10dp" />
+            android:textSize="15dp" />
 
-        <com.jiaqiao.product.widget.shape.ShapeEditText
+        <EditText
             android:id="@+id/set"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -41,8 +40,7 @@
             android:hint="请输入内容2"
             android:paddingHorizontal="12dp"
             android:textColor="@color/text_6"
-            android:textSize="15dp"
-            app:sp_radius="10dp" />
+            android:textSize="15dp" />
 
 
     </LinearLayout>
