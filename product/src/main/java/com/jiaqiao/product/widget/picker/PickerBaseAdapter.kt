@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jiaqiao.product.ext.invisible
 import com.jiaqiao.product.ext.isNull
-import com.jiaqiao.product.ext.setHeight
-import com.jiaqiao.product.ext.setWidthMatchParent
+import com.jiaqiao.product.ext.notNull
+import com.jiaqiao.product.ext.setWidthHeight
 import com.jiaqiao.product.ext.visible
 
 /**
@@ -39,6 +39,14 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
 
     private var selectRelPosi = -1
 
+    private var recyclerViewWidth = 0
+        set(value) {
+            if (field <= 0 && value > 0) {
+                field = value
+                notifyDataSetChanged()
+            }
+        }
+
     //创建adapte的viewholder
     abstract fun creViewHolder(parent: ViewGroup, viewType: Int): VH
 
@@ -61,7 +69,13 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
 
     //绑定数据源渲染UI
     final override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.itemView.setWidthMatchParent().setHeight(itemHeight)
+        if (recyclerViewWidth <= 0 && attrRecyclerView.notNull()) {
+            recyclerViewWidth = attrRecyclerView?.measuredWidth ?: 0
+        }
+        holder.itemView.setWidthHeight(
+            if (recyclerViewWidth > 0) recyclerViewWidth else ViewGroup.LayoutParams.MATCH_PARENT,
+            itemHeight
+        )
         var userPosi = getUserPosition(position)
         var realData = uiDataList[userPosi]
         var realPosi = getRealPosition(userPosi)
@@ -102,12 +116,19 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         attrRecyclerView = recyclerView
+        recyclerViewWidth = attrRecyclerView?.measuredWidth ?: 0
+        if (recyclerViewWidth <= 0 && attrRecyclerView.notNull()) {
+            attrRecyclerView?.post {
+                recyclerViewWidth = attrRecyclerView?.measuredWidth ?: 0
+            }
+        }
     }
 
     //recyclerview从adapter中移除
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         attrRecyclerView = null
+        recyclerViewWidth = 0
     }
 
     //获取position对应的viewholder，用于刷新UI
