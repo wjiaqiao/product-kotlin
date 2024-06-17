@@ -7,7 +7,7 @@
         <!--        设置状态栏的颜色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!--        设置view控件是否显示在状态栏中-->
-        <item name="android:windowTranslucentStatus">true</item>
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
 
