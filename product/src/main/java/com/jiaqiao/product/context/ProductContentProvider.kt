@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.os.Environment
 import com.jiaqiao.product.base.ProductConstants
 import com.jiaqiao.product.helper.CrashHandler
 import java.io.File
@@ -60,12 +61,13 @@ class ProductContentProvider : ContentProvider() {
     private fun initLib(context: Context) {
 
         ProductConstants.appFilePath = context.filesDir.absolutePath
-        ProductConstants.sdFilePath = context.getExternalFilesDir(null)?.absolutePath ?: ""
+        ProductConstants.sdAppFilePath = context.getExternalFilesDir(null)?.absolutePath ?: ""
         ProductConstants.sdCacheFilePath = context.externalCacheDir?.absolutePath ?: ""
         ProductConstants.sdLogcatFilePath =
-            ProductConstants.sdFilePath + File.separator + "product_logcat"
+            ProductConstants.sdAppFilePath + File.separator + "product_logcat"
         ProductConstants.sdLogFilePath = ProductConstants.sdLogcatFilePath + File.separator + "log"
         ProductConstants.sdExpFilePath = ProductConstants.sdLogcatFilePath + File.separator + "exp"
+        ProductConstants.sdRootFilePath = Environment.getExternalStorageDirectory().absolutePath
 
         if (context is Application) {
             context.registerActivityLifecycleCallbacks(ProductLifecycle())
