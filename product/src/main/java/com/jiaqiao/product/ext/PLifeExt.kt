@@ -13,14 +13,14 @@ import kotlin.coroutines.EmptyCoroutineContext
 /**
  * 运行协程范围
  * */
-fun ViewModel.launch(block: suspend CoroutineScope.() -> Unit): Job {
+fun ViewModel.pLaunch(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launch(block)
 }
 
 /**
  * 运行协程范围
  * */
-fun ViewModel.launch(
+fun ViewModel.pLaunch(
     block: suspend CoroutineScope.() -> Unit,
     start: (() -> Unit)? = null,
     finally: (() -> Unit)? = null,
@@ -32,7 +32,7 @@ fun ViewModel.launch(
 /**
  * 运行在子线程
  * */
-fun ViewModel.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
+fun ViewModel.pLaunchIo(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchIo {
         block.invoke(this)
     }
@@ -41,7 +41,7 @@ fun ViewModel.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行在主线程
  * */
-fun ViewModel.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
+fun ViewModel.pLaunchMain(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchMain {
         block.invoke(this)
     }
@@ -50,7 +50,7 @@ fun ViewModel.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行在默认线程
  * */
-fun ViewModel.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
+fun ViewModel.pLaunchDefault(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchDefault {
         block.invoke(this)
     }
@@ -59,14 +59,14 @@ fun ViewModel.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行协程范围
  * */
-fun Lifecycle.launch(block: suspend CoroutineScope.() -> Unit): Job {
+fun Lifecycle.pLaunch(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launch(block)
 }
 
 /**
  * 运行协程范围
  * */
-fun Lifecycle.launch(
+fun Lifecycle.pLaunch(
     block: suspend CoroutineScope.() -> Unit,
     start: (() -> Unit)? = null,
     finally: (() -> Unit)? = null,
@@ -78,7 +78,7 @@ fun Lifecycle.launch(
 /**
  * 运行在子线程
  * */
-fun Lifecycle.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
+fun Lifecycle.pLaunchIo(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchIo {
         block.invoke(this)
     }
@@ -87,7 +87,7 @@ fun Lifecycle.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行在主线程
  * */
-fun Lifecycle.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
+fun Lifecycle.pLaunchMain(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchMain {
         block.invoke(this)
     }
@@ -96,7 +96,7 @@ fun Lifecycle.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行在默认线程
  * */
-fun Lifecycle.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
+fun Lifecycle.pLaunchDefault(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchDefault {
         block.invoke(this)
     }
@@ -105,14 +105,14 @@ fun Lifecycle.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行协程范围
  * */
-fun LifecycleOwner.launch(block: suspend CoroutineScope.() -> Unit): Job {
+fun LifecycleOwner.pLaunch(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launch(block)
 }
 
 /**
  * 运行协程范围
  * */
-fun LifecycleOwner.launch(
+fun LifecycleOwner.pLaunch(
     block: suspend CoroutineScope.() -> Unit,
     start: (() -> Unit)? = null,
     finally: (() -> Unit)? = null,
@@ -124,7 +124,7 @@ fun LifecycleOwner.launch(
 /**
  * 运行在子线程
  * */
-fun LifecycleOwner.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
+fun LifecycleOwner.pLaunchIo(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchIo {
         block.invoke(this)
     }
@@ -133,7 +133,7 @@ fun LifecycleOwner.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行在主线程
  * */
-fun LifecycleOwner.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
+fun LifecycleOwner.pLaunchMain(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchMain {
         block.invoke(this)
     }
@@ -142,7 +142,7 @@ fun LifecycleOwner.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
 /**
  * 运行在默认线程
  * */
-fun LifecycleOwner.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
+fun LifecycleOwner.pLaunchDefault(block: suspend CoroutineScope.() -> Unit): Job {
     return pLifeScope.launchDefault {
         block.invoke(this)
     }

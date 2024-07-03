@@ -8,7 +8,14 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.jiaqiao.product.helper.contract.IntentContract
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * 动态注册intent回调器
@@ -47,3 +54,43 @@ fun ComponentActivity.intentResult(
         resultAction.invoke(it.first, it.second)
     }.launch(toIntent)
 }
+
+
+/**
+ * 运行协程范围
+ * */
+fun ComponentActivity.launch(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, EmptyCoroutineContext)
+}
+
+/**
+ * 运行协程范围
+ * */
+fun ComponentActivity.launch(
+    block: suspend CoroutineScope.() -> Unit,
+    coroutineContext: CoroutineContext = EmptyCoroutineContext
+): Job {
+    return lifecycleScope.launch(coroutineContext, block = block)
+}
+
+/**
+ * 运行在子线程
+ * */
+fun ComponentActivity.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, Dispatchers.IO)
+}
+
+/**
+ * 运行在主线程
+ * */
+fun ComponentActivity.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, Dispatchers.Main)
+}
+
+/**
+ * 运行在默认线程
+ * */
+fun ComponentActivity.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, Dispatchers.Default)
+}
+

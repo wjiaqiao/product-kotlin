@@ -35,7 +35,7 @@ fun <T> Flow<T>.collectDef(
     lifecycleOwner: LifecycleOwner,
     collector: FlowCollector<T>? = null
 ): Job {
-    return lifecycleOwner.launch {
+    return lifecycleOwner.pLaunch {
         if (collector.isNull()) {
             this@collectDef.collect()
         } else {
@@ -51,7 +51,7 @@ fun <T> Flow<T>.collectMain(
     lifecycleOwner: LifecycleOwner,
     collector: FlowCollector<T>? = null
 ): Job {
-    return lifecycleOwner.launchMain {
+    return lifecycleOwner.pLaunchMain {
         if (collector.isNull()) {
             this@collectMain.collect()
         } else {
@@ -67,7 +67,7 @@ fun <T> Flow<T>.collectIo(
     lifecycleOwner: LifecycleOwner,
     collector: FlowCollector<T>? = null
 ): Job {
-    return lifecycleOwner.launchIo {
+    return lifecycleOwner.pLaunchIo {
         if (collector.isNull()) {
             this@collectIo.collect()
         } else {

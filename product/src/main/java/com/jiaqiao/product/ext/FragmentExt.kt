@@ -1,6 +1,7 @@
 package com.jiaqiao.product.ext
 
 import android.content.Intent
+import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
@@ -8,7 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.jiaqiao.product.helper.contract.IntentContract
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * 动态注册intent回调器
@@ -46,4 +54,43 @@ fun Fragment.intentResult(
     registerResult(IntentContract()) {
         resultAction.invoke(it.first, it.second)
     }.launch(toIntent)
+}
+
+
+/**
+ * 运行协程范围
+ * */
+fun Fragment.launch(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, EmptyCoroutineContext)
+}
+
+/**
+ * 运行协程范围
+ * */
+fun Fragment.launch(
+    block: suspend CoroutineScope.() -> Unit,
+    coroutineContext: CoroutineContext = EmptyCoroutineContext
+): Job {
+    return lifecycleScope.launch(coroutineContext, block = block)
+}
+
+/**
+ * 运行在子线程
+ * */
+fun Fragment.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, Dispatchers.IO)
+}
+
+/**
+ * 运行在主线程
+ * */
+fun Fragment.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, Dispatchers.Main)
+}
+
+/**
+ * 运行在默认线程
+ * */
+fun Fragment.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(block, Dispatchers.Default)
 }
