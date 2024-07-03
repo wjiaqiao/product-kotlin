@@ -1,5 +1,7 @@
 package com.jiaqiao.product.ui.logfile
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -13,6 +15,12 @@ import com.jiaqiao.product.ext.setList
 
 class LogFileAct : ProductBaseVBAct<LogFileActBinding>() {
 
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, LogFileAct::class.java))
+        }
+    }
+
     private val logcatFileFrag =
         LogcatFileFrag.newInstance(ProductConstants.sdLogFilePath, 1)
     private val expLogFileFrag =
@@ -24,7 +32,8 @@ class LogFileAct : ProductBaseVBAct<LogFileActBinding>() {
                 it.add(logcatFileFrag)
                 it.add(expLogFileFrag)
             })
-        mViewBind.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        mViewBind.viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 mViewBind.appTitle.setText(
                     when (position) {

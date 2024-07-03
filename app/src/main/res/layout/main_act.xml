@@ -42,6 +42,11 @@
             android:textColor="@color/text_6"
             android:textSize="15dp" />
 
+        <Button
+            android:id="@+id/but_log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日志"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
