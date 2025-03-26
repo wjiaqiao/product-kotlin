@@ -5,9 +5,13 @@ import com.jiaqiao.product.config.PlogConfig
 /**
  * 运行在lib中的catch
  */
-inline fun <R> runPCatch(block: () -> R): R? {
+
+/**
+ * 将Throwable错误日志输出至errorTag中
+ * */
+inline fun <R> runPlogCatch(block: () -> R): Result<R> {
     return try {
-        block()
+        Result.success(block())
     } catch (e: Throwable) {
         if (PlogConfig.debug && PlogConfig.errorTag.notNullAndEmpty()) {
             if (e.javaClass.toString().contains("kotlinx.coroutines.JobCancellationException")
@@ -20,6 +24,6 @@ inline fun <R> runPCatch(block: () -> R): R? {
                 e.plogE()
             }
         }
-        null
+        Result.failure(e)
     }
 }

@@ -8,6 +8,7 @@ import com.jiaqiao.product.ext.isNull
 import com.jiaqiao.product.ext.notNull
 import com.jiaqiao.product.ext.setWidthHeight
 import com.jiaqiao.product.ext.visible
+import com.jiaqiao.product.util.ProductUtil
 
 /**
  *
@@ -27,10 +28,15 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
         set(value) {
             if (field != value) {
                 field = value
-                updateUiData()
+                if (attrRecyclerView.notNull() && ProductUtil.isMainThread()) {
+                    updateUiData()
+                }
             }
         }
     var resetSize = false
+
+    var isTextBold = false //文本是否加粗
+
 
     private var realDataList = mutableListOf<T>() //外部设置的数据源
     private var uiDataList = mutableListOf<Any?>() //对内UI显示的数据源
@@ -43,7 +49,7 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
         set(value) {
             if (field <= 0 && value > 0) {
                 field = value
-                notifyDataSetChanged()
+                attrRecyclerView?.post { notifyDataSetChanged() }
             }
         }
 
@@ -194,11 +200,11 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
     }
 
     //触发刷新滑动项的UI
-    fun scrollPosi(position: Int, scrollYProgress: Float) {
+    open fun scrollPosi(position: Int, scrollYProgress: Float) {
         getViewHolder(position)?.let {
-            var userPosi = getUserPosition(position)
-            var realData = uiDataList[userPosi]
-            var realPosi = getRealPosition(userPosi)
+            val userPosi = getUserPosition(position)
+            val realData = uiDataList[userPosi]
+            val realPosi = getRealPosition(userPosi)
             if (realData != null && realPosi >= 0) {
                 onBindScrollYUi(it, realData as T, realPosi, scrollYProgress)
             }
@@ -234,5 +240,7 @@ open abstract class PickerBaseAdapter<T, VH : PickerBaseAdapter.ViewHolder> :
     }
 
     fun getRealItemCount() = realDataList.size
+
+    fun getRealData() = realDataList
 
 }

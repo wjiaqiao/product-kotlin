@@ -35,7 +35,7 @@ open class ProductNestedScrollView @JvmOverloads constructor(
 
     init {
         attrs?.let {
-            context.obtainStyledAttributes(it, R.styleable.ProductNestedScrollView)?.let { array ->
+            context.obtainStyledAttributes(it, R.styleable.ProductNestedScrollView).let { array ->
 
                 rvMarginBar = array.getDimensionPixelOffset(
                     R.styleable.ProductNestedScrollView_pns_rv_margin_bar,

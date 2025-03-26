@@ -24,7 +24,7 @@ object ProductLog {
 
     //取消协程及job
     fun cancel() {
-        runPCatch {
+        runPlogCatch {
             threadPool.shutdownNow()
         }
         threadPool = Executors.newSingleThreadExecutor()

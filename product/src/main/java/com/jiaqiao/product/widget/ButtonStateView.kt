@@ -10,7 +10,6 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.jiaqiao.product.R
 import com.jiaqiao.product.ext.notNull
-import com.jiaqiao.product.ext.plog
 
 /**
  * 自定义的按钮，支持默认样式、点击样式、禁用样式
@@ -217,13 +216,13 @@ open class ButtonStateView @JvmOverloads constructor(
             && disenabledBgColor == Int.MIN_VALUE
         )
             return
-        var drawable = StateListDrawable()
+        val drawable = StateListDrawable()
 
-        val realDisenabledBgColor = getRealLadderBgColor(touchBgColor, defBgColor, 0.3f)
-        if (realDisenabledBgColor != Int.MIN_VALUE) {
+        val realDisabledBgColor = getRealLadderBgColor(touchBgColor, defBgColor, 0.3f)
+        if (realDisabledBgColor != Int.MIN_VALUE) {
             //创建禁用状态的 Drawable
             drawable.addState(intArrayOf(-android.R.attr.state_enabled), GradientDrawable().also {
-                it.setColor(realDisenabledBgColor)
+                it.setColor(realDisabledBgColor)
                 it.cornerRadii = radiusf
             })
         }

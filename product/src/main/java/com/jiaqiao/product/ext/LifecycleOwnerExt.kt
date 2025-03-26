@@ -25,7 +25,7 @@ fun LifecycleOwner.launch(
     coroutineContext: CoroutineContext = EmptyCoroutineContext
 ): Job {
     return lifecycleScope.launch(coroutineContext, block =  {
-        runPCatch { block.invoke(this) }
+        runPlogCatch { block.invoke(this) }
     })
 }
 

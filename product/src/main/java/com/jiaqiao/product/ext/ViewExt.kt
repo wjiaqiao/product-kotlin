@@ -868,3 +868,10 @@ fun View.longClick(longClickInvoke: () -> Unit): View {
     }
     return this
 }
+
+/**
+ * 是否是RTL布局
+ * */
+fun View.isRTL(): Boolean {
+    return context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
+}

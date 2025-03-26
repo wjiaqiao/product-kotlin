@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.animation.Interpolator
 import android.widget.Scroller
 import androidx.viewpager.widget.ViewPager
-import com.jiaqiao.product.ext.plogE
+import com.jiaqiao.product.ext.runPlogCatch
 
 
 open class ViewPagerScroller : Scroller {
@@ -36,12 +36,10 @@ open class ViewPagerScroller : Scroller {
     }
 
     fun initViewPagerScroll(viewPager: ViewPager?) {
-        try {
+        runPlogCatch {
             val mScroller = ViewPager::class.java.getDeclaredField("mScroller")
             mScroller.isAccessible = true
             mScroller[viewPager] = this
-        } catch (thr: Throwable) {
-            thr.plogE()
         }
     }
 }

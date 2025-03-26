@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
  * */
 fun CoroutineScope.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
     return this.launch(context = Dispatchers.Main, block =  {
-        runPCatch { block.invoke(this) }
+        runPlogCatch { block.invoke(this) }
     })
 }
 
@@ -19,7 +19,7 @@ fun CoroutineScope.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
  * */
 fun CoroutineScope.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
     return this.launch(context = Dispatchers.IO, block = {
-        runPCatch { block.invoke(this) }
+        runPlogCatch { block.invoke(this) }
     })
 }
 
@@ -29,6 +29,6 @@ fun CoroutineScope.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
  * */
 fun CoroutineScope.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
     return this.launch(context = Dispatchers.Default, block = {
-        runPCatch { block.invoke(this) }
+        runPlogCatch { block.invoke(this) }
     })
 }

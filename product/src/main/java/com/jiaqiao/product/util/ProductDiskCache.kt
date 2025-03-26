@@ -122,7 +122,7 @@ open class ProductDiskCache(
                         }
                     }
                     if (!Serializable::class.java.isAssignableFrom(clazz)) {
-                        runPCatch {
+                        runPlogCatch {
                             obj = obj.toString().toFastJsonParse()
                         }
                     }

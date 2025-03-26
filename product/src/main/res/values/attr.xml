@@ -55,6 +55,7 @@
         <attr name="pv_split_line_color" />
         <attr name="pv_is_masking" />
         <attr name="pv_masking_color" />
+        <attr name="pv_is_text_bold" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="StatusFrameLayout">

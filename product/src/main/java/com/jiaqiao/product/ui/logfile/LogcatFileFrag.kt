@@ -7,7 +7,6 @@ import com.jiaqiao.product.databinding.LogcatFileFragBinding
 import com.jiaqiao.product.ext.*
 import com.jiaqiao.product.util.ShareUtil
 import com.jiaqiao.product.widget.RVDecoration
-import com.jiaqiao.product.widget.adapter.LogFileAdapter
 import java.io.File
 
 /**

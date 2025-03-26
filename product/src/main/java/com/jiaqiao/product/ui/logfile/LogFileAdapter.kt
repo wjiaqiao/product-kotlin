@@ -1,4 +1,4 @@
-package com.jiaqiao.product.widget.adapter
+package com.jiaqiao.product.ui.logfile
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder

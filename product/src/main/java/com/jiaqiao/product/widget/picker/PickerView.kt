@@ -14,12 +14,10 @@ import com.jiaqiao.product.R
 import com.jiaqiao.product.ext.centerY
 import com.jiaqiao.product.ext.dp
 import com.jiaqiao.product.ext.notNull
-import com.jiaqiao.product.helper.SoundPool
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.abs
 
@@ -41,6 +39,7 @@ open class PickerView @JvmOverloads constructor(
     private var splitLineColor = Color.BLACK //分割线颜色
     private var isMasking = false //是否绘制蒙层
     private var maskingColor = Color.BLACK //蒙层颜色
+    private var isTextBold = false //文本是否加粗
 
     private var thisWidth = 0 //控件的宽度
     private var thisHeight = 0 //控件的高度
@@ -61,7 +60,7 @@ open class PickerView @JvmOverloads constructor(
     private val layoutManager by lazy { LinearLayoutManager(context) } //强制使用垂直布局
     private var viewConfigMap = mutableMapOf<Int, Int>() //存储滑动时viewholder的状态
 
-    private val soundPoolHelper by lazy { SoundPool(context, R.raw.ring1) }
+
     private val superlaunch by lazy { SupervisorJob() }
     private var pickerAdapter: PickerBaseAdapter<*, *>? = null
 
@@ -112,6 +111,7 @@ open class PickerView @JvmOverloads constructor(
                 array.getColor(R.styleable.PickerView_pv_split_line_color, splitLineColor)
             isMasking = array.getBoolean(R.styleable.PickerView_pv_is_masking, isMasking)
             maskingColor = array.getColor(R.styleable.PickerView_pv_masking_color, maskingColor)
+            isTextBold = array.getBoolean(R.styleable.PickerView_pv_is_text_bold, isTextBold)
 
             array.recycle()
         }
@@ -134,6 +134,8 @@ open class PickerView @JvmOverloads constructor(
         pickerStringAdapter.unselectTextSize = unselectTextSize
         pickerStringAdapter.selectTextSize = selectTextSize
         pickerStringAdapter.visibleItemNum = visibleItemNum
+        pickerStringAdapter.isTextBold = isTextBold
+        pickerStringAdapter.updateConfig()
 
         paint.isAntiAlias = true
 
@@ -142,13 +144,11 @@ open class PickerView @JvmOverloads constructor(
     //view附加进页面
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        soundPoolHelper.load()
     }
 
     //view从页面中销毁
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        soundPoolHelper.release()
         coroutineContext.cancelChildren()
     }
 
@@ -277,7 +277,7 @@ open class PickerView @JvmOverloads constructor(
                 if (item.top <= centerY && centerY <= item.bottom) {
                     //位于中心区域，不一定在中心点上
                     centerPosi = i
-                    var scrolly = when {
+                    val scrolly = when {
                         itemCenterY > centerY -> {
                             abs(itemCenterY - (centerY + itemHeight))
                         }
@@ -328,15 +328,15 @@ open class PickerView @JvmOverloads constructor(
         }
 
         if (isVoice && scrollYDistance != 0 && (System.currentTimeMillis() - lastScrollTime) > 40) {
-            lastScrollTime = System.currentTimeMillis()
-            launch(Dispatchers.IO) {
-                var dis = abs(scrollYDistance)
-                var rade = when {
-                    dis <= 100 -> (changeBase * baseRade * dis / 100) + (1.0f - changeBase) * baseRade
-                    else -> baseRade
-                }
-                soundPoolHelper.play(rade)
-            }
+//            lastScrollTime = System.currentTimeMillis()
+//            launch(Dispatchers.IO) {
+//                var dis = abs(scrollYDistance)
+//                var rade = when {
+//                    dis <= 100 -> (changeBase * baseRade * dis / 100) + (1.0f - changeBase) * baseRade
+//                    else -> baseRade
+//                }
+//                soundPoolHelper.play(rade)
+//            }
         }
 
         if (pickerAdapter.notNull()) {
@@ -360,6 +360,14 @@ open class PickerView @JvmOverloads constructor(
 
     //设置string类型的数据源
     fun setTextList(list: MutableList<Pair<String, Int>>) {
+        if (!isAttachedToWindow) {
+            post { realSetTextList(list) }
+        } else {
+            realSetTextList(list)
+        }
+    }
+
+    private fun realSetTextList(list: MutableList<Pair<String, Int>>) {
         pickerStringAdapter.setList(list)
         if (adapter == pickerStringAdapter) {
             pickerStringAdapter.notifyDataSetChanged()
@@ -396,6 +404,7 @@ open class PickerView @JvmOverloads constructor(
         } else getTextItemPosition(getCenterPosition())
     }
 
+    fun getData() = pickerStringAdapter.getRealData()
 
     fun getDataCount() = pickerStringAdapter.getRealItemCount()
 

@@ -43,8 +43,7 @@ open class StatusFrameLayout @JvmOverloads constructor(
     init {
         inStatusBar = true
         attrs?.let {
-            context.obtainStyledAttributes(attrs, R.styleable.StatusFrameLayout)
-                ?.let { typedArray ->
+            context.obtainStyledAttributes(attrs, R.styleable.StatusFrameLayout).let { typedArray ->
                     inStatusBar =
                         typedArray.getBoolean(
                             R.styleable.StatusFrameLayout_sfl_in_status_bar,

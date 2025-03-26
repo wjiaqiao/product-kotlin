@@ -39,17 +39,15 @@ open class CycleScrollViewPager @JvmOverloads constructor(
         if (attrs != null) {
             val array: TypedArray =
                 context.obtainStyledAttributes(attrs, R.styleable.CycleScrollViewPager)
-            if (array != null) {
-                isCycleScroll =
-                    array.getBoolean(R.styleable.CycleScrollViewPager_csvp_cycle_scroll, isCycleScroll)
-                isAutoScroll =
-                    array.getBoolean(R.styleable.CycleScrollViewPager_csvp_auto_scroll, isAutoScroll)
-                intervalTime =
-                    array.getInteger(R.styleable.CycleScrollViewPager_csvp_interval_time, intervalTime)
-                scrollTime =
-                    array.getInteger(R.styleable.CycleScrollViewPager_csvp_scroll_time, scrollTime)
-                array.recycle()
-            }
+            isCycleScroll =
+                array.getBoolean(R.styleable.CycleScrollViewPager_csvp_cycle_scroll, isCycleScroll)
+            isAutoScroll =
+                array.getBoolean(R.styleable.CycleScrollViewPager_csvp_auto_scroll, isAutoScroll)
+            intervalTime =
+                array.getInteger(R.styleable.CycleScrollViewPager_csvp_interval_time, intervalTime)
+            scrollTime =
+                array.getInteger(R.styleable.CycleScrollViewPager_csvp_scroll_time, scrollTime)
+            array.recycle()
         }
         if (intervalTime <= 0) {
             intervalTime = 3000
@@ -134,11 +132,11 @@ open class CycleScrollViewPager @JvmOverloads constructor(
     }
 
     fun setRealCurrentItem(item: Int, smoothScroll: Boolean) {
-        var item = item
+        var item1 = item
         if (isCanCycleScroll) {
-            item = item + 1
+            item1 += 1
         }
-        super.setCurrentItem(item, smoothScroll)
+        super.setCurrentItem(item1, smoothScroll)
     }
 
     var realCurrentItem: Int
@@ -166,7 +164,7 @@ open class CycleScrollViewPager @JvmOverloads constructor(
         }
     }
 
-    //adater是否可用
+    //adapter是否可用
     fun isCycleAdapter(): Boolean {
         return cycleAdapter != null && cycleAdapter is CycleViewPagerViewAdapter<*, *>
     }

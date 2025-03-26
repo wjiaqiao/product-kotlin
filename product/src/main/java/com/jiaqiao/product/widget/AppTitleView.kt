@@ -53,7 +53,7 @@ open class AppTitleView @JvmOverloads constructor(
     init {
         centerTextSize = 18.sp.toFloat()
         attrs?.let {
-            context.obtainStyledAttributes(attrs, R.styleable.AppTitleView)?.let { typedArray ->
+            context.obtainStyledAttributes(attrs, R.styleable.AppTitleView).let { typedArray ->
                 inStatusBar =
                     typedArray.getBoolean(R.styleable.AppTitleView_atv_in_status_bar, inStatusBar)
                 leftBackType = typedArray.getInt(

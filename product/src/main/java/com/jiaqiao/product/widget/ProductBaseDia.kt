@@ -107,7 +107,7 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
                         if (isShowing) {
                             dismiss()
                         }
-                        context.lifecycle?.removeObserver(this)
+                        context.lifecycle.removeObserver(this)
                     }
                 }
             })
@@ -146,7 +146,7 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
                 val dividerID =
                     context.resources.getIdentifier("android:id/titleDivider", null, null)
                 findViewById<View>(dividerID)?.setBackgroundColor(Color.TRANSPARENT)
-            } catch (thr: Throwable) {
+            } catch (_: Throwable) {
             }
 
             win.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

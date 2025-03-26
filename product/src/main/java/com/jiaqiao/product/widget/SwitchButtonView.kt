@@ -190,7 +190,7 @@ open class SwitchButtonView @JvmOverloads constructor(
 
     init {
         attrs?.let {
-            context.obtainStyledAttributes(it, R.styleable.SwitchButtonView)?.let { array ->
+            context.obtainStyledAttributes(it, R.styleable.SwitchButtonView).let { array ->
                 borderColor =
                     array.getColor(R.styleable.SwitchButtonView_sbv_border_color, borderColor)
                 borderWidth = array.getDimensionPixelOffset(

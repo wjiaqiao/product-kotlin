@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.jiaqiao.product.config.ProductActivityCallback
-import com.jiaqiao.product.ext.runPCatch
+import com.jiaqiao.product.ext.runPlogCatch
 import com.jiaqiao.product.util.ProductApp
 import com.jiaqiao.product.util.ProductThreadPool
 import com.jiaqiao.product.util.ProductViewUtil
@@ -56,20 +56,20 @@ class ProductLifecycle : Application.ActivityLifecycleCallbacks {
         if (ProductApp.activitySize <= 0) {
             ProductThreadPool.close()
             ProductViewUtil.cleanClickMap()
-            runPCatch { ProductActivityCallback.onAppDestroyedAction?.invoke() }
+            runPlogCatch { ProductActivityCallback.onAppDestroyedAction?.invoke() }
         }
     }
 
 
     private fun appResume() {
         ProductApp.isAppResume = true
-        runPCatch { ProductActivityCallback.onAppResumeAction?.invoke() }
+        runPlogCatch { ProductActivityCallback.onAppResumeAction?.invoke() }
 //        "回到app".libPlog()
     }
 
     private fun appPaused() {
         ProductApp.isAppResume = false
-        runPCatch { ProductActivityCallback.onAppPausedAction?.invoke() }
+        runPlogCatch { ProductActivityCallback.onAppPausedAction?.invoke() }
 //        "退到后台".libPlog()
     }
 

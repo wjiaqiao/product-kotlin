@@ -58,11 +58,11 @@ open class VP2FragAdapter : FragmentStateAdapter {
     private fun setDataOnly(list: MutableList<out Fragment>) {
         fragList.clear()
         if (list !== fragList) {
-            if (!list.isNullOrEmpty()) {
+            if (list.isNotEmpty()) {
                 fragList.addAll(list.toMutableList())
             }
         } else {
-            if (!list.isNullOrEmpty()) {
+            if (list.isNotEmpty()) {
                 fragList.addAll(ArrayList(list))
             }
         }
@@ -74,7 +74,7 @@ open class VP2FragAdapter : FragmentStateAdapter {
      * */
     private fun refreshKey() {
         fragKeyList.clear()
-        if (!fragList.isNullOrEmpty()) {
+        if (fragList.isNotEmpty()) {
             for (i in fragList.indices) {
                 fragKeyList.add(fragList[i].hashCode().toLong())
             }

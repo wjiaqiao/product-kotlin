@@ -19,13 +19,10 @@ open abstract class ProductBaseBindingAdapter<T, VB : ViewBinding> :
 
     override fun convert(holder: ProductViewBindingVH<VB>, item: T, payloads: List<Any>) {
         super.convert(holder, item, payloads)
-        payloads?.forEach { payload ->
-            (try {
-                payload as T
-            } catch (thr: Throwable) {
-                thr.plogE()
-                null
-            })?.let {
+        payloads.forEach { payload ->
+            runPlogCatch {
+                (payload as T)
+            }?.let {
                 convert(holder, it)
             }
         }
@@ -91,11 +88,11 @@ open abstract class ProductBaseBindingAdapter<T, VB : ViewBinding> :
     private fun setOnlyList(list: MutableList<T>) {
         if (list !== this.data) {
             this.data.clear()
-            if (!list.isNullOrEmpty()) {
+            if (list.isNotEmpty()) {
                 this.data.addAll(list)
             }
         } else {
-            if (!list.isNullOrEmpty()) {
+            if (list.isNotEmpty()) {
                 val newList = ArrayList(list)
                 this.data.clear()
                 this.data.addAll(newList)

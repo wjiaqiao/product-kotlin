@@ -1,7 +1,7 @@
 package com.jiaqiao.product.util
 
 import com.jiaqiao.product.ext.plog
-import com.jiaqiao.product.ext.runPCatch
+import com.jiaqiao.product.ext.runPlogCatch
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
@@ -45,7 +45,7 @@ object ProductThreadPool {
     //在线程池中运行线程
     fun run(run: () -> Unit) {
         threadPool.execute {
-            runPCatch {
+            runPlogCatch {
                 run.invoke()
             }
         }

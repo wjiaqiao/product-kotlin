@@ -51,7 +51,7 @@ open class RadiusImageView @JvmOverloads constructor(
 
         // 读取配置
         attrs?.let {
-            context.obtainStyledAttributes(it, R.styleable.RadiusImageView)?.let { array ->
+            context.obtainStyledAttributes(it, R.styleable.RadiusImageView).let { array ->
                 isCircle = array.getBoolean(R.styleable.RadiusImageView_riv_is_circle, isCircle)
                 cornerRadius =
                     array.getDimensionPixelSize(

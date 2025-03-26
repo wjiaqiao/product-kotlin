@@ -46,7 +46,7 @@ open class ScrollRecyclerView @JvmOverloads constructor(
     }
 
     private val topItemPosition: Int
-        private get() {
+        get() {
             if (layoutManager is LinearLayoutManager) {
                 val linearLayoutManager: LinearLayoutManager =
                     layoutManager as LinearLayoutManager
@@ -54,16 +54,12 @@ open class ScrollRecyclerView @JvmOverloads constructor(
             }
             return -1
         }
+
     /**
      * 将子项滑动到中间
      *
      * [position]  子项序号
      * [fixScroll]子项距离中间偏移，单位：像素
-     */
-    /**
-     * 将子项滑动到中间
-     *
-     * [position] 子项序号
      */
     fun movePositionCenter(position: Int, fixScroll: Int = 0) {
         if (layoutManager.isNull()) {
@@ -74,6 +70,7 @@ open class ScrollRecyclerView @JvmOverloads constructor(
         isSmooth = false
         smoothMoveToPositionRel(position)
     }
+
     /**
      * 将子项滑动到底部（垂直布局）或右边（水平布局）
      *
@@ -89,6 +86,7 @@ open class ScrollRecyclerView @JvmOverloads constructor(
         isSmooth = false
         smoothMoveToPositionRel(position)
     }
+
     /**
      * 将子项滑动到顶部（垂直布局）或左边（水平布局）
      *
@@ -123,6 +121,7 @@ open class ScrollRecyclerView @JvmOverloads constructor(
     fun moveToPosition(position: Int, fixScroll: Int) {
         movePositionStart(position, fixScroll)
     }
+
     /**
      * 将子项滑动到中间
      *
@@ -138,6 +137,7 @@ open class ScrollRecyclerView @JvmOverloads constructor(
         isSmooth = true
         smoothMoveToPositionRel(position)
     }
+
     /**
      * 将子项滑动到底部（垂直布局）或右边（水平布局）
      *
@@ -153,6 +153,7 @@ open class ScrollRecyclerView @JvmOverloads constructor(
         isSmooth = true
         smoothMoveToPositionRel(position)
     }
+
     /**
      * 将子项滑动到顶部（垂直布局）或左边（水平布局）
      *
@@ -229,31 +230,34 @@ open class ScrollRecyclerView @JvmOverloads constructor(
                     scrollBenNum = if (isVerticalModel) viewTop else viewLeft
                     benchmarkNum = if (isVerticalModel) paddingTop else paddingLeft
                 }
+
                 SCROLL_TO_CENTER -> {
                     scrollBenNum =
                         if (isVerticalModel) (viewBottom + viewTop) / 2 else (viewRight + viewLeft) / 2
                     benchmarkNum = if (isVerticalModel) parentHeight / 2 else parentWidth / 2
                 }
+
                 SCROLL_TO_END -> {
                     scrollBenNum = if (isVerticalModel) viewBottom else viewRight
                     benchmarkNum =
                         if (isVerticalModel) parentHeight - paddingBottom else parentWidth - paddingRight
                 }
+
                 else -> return
             }
             val scrollNum = scrollBenNum - benchmarkNum - fixScroll
             if (scrollNum != 0) {
                 if (isVerticalModel) {
                     if (isSmooth) {
-                        post(Runnable { smoothScrollBy(0, scrollNum) })
+                        post { smoothScrollBy(0, scrollNum) }
                     } else {
-                        post(Runnable { scrollBy(0, scrollNum) })
+                        post { scrollBy(0, scrollNum) }
                     }
                 } else {
                     if (isSmooth) {
-                        post(Runnable { smoothScrollBy(scrollNum, 0) })
+                        post { smoothScrollBy(scrollNum, 0) }
                     } else {
-                        post(Runnable { scrollBy(scrollNum, 0) })
+                        post { scrollBy(scrollNum, 0) }
                     }
                 }
             }
@@ -269,5 +273,5 @@ open class ScrollRecyclerView @JvmOverloads constructor(
     }
 
     private val isVertical: Boolean
-        private get() = layoutManager?.canScrollVertically() ?: false
+        get() = layoutManager?.canScrollVertically() ?: false
 }

@@ -101,7 +101,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
          * item其实就是一个矩形区域，set方法就是设置了这个矩形区域每个边框线的粗细
          * 参数依次是左、上、右、下
          */
-        if (parent?.adapter.isNull() || parent?.layoutManager.isNull()) {
+        if (parent.adapter.isNull() || parent.layoutManager.isNull()) {
             return
         }
         val layoutManager: RecyclerView.LayoutManager = parent.layoutManager!!
@@ -116,7 +116,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
         when (layoutManager) {
             is GridLayoutManager -> {
                 val gridLayoutManager = layoutManager as GridLayoutManager
-                var spanCount = gridLayoutManager.spanCount //每行个数
+                val spanCount = gridLayoutManager.spanCount //每行个数
                 val spanIndex =
                     gridLayoutManager.spanSizeLookup.getSpanIndex(
                         childPosi,
@@ -223,9 +223,9 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                 }
             }
             is StaggeredGridLayoutManager -> {
-                val staggeredGridLayoutManager = layoutManager as StaggeredGridLayoutManager
-                var spanCount = staggeredGridLayoutManager.spanCount //每行个数
-                val spanIndex = childPosi % spanCount
+//                val staggeredGridLayoutManager = layoutManager as StaggeredGridLayoutManager
+//                val spanCount = staggeredGridLayoutManager.spanCount //每行个数
+//                val spanIndex = childPosi % spanCount
 
             }
         }
@@ -233,7 +233,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
 
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(canvas, parent, state)
-        if (parent?.adapter.isNull() || parent?.layoutManager.isNull()) {
+        if (parent.adapter.isNull() || parent.layoutManager.isNull()) {
             return
         }
         val layoutManager: RecyclerView.LayoutManager = parent.layoutManager!!
@@ -259,7 +259,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                     childView.top.toFloat(),
                     childView.left.toFloat(),
                     childView.bottom
-                        .toFloat(), paint!!
+                        .toFloat(), paint
                 )
             }
             if (topDecHeight > 0) {
@@ -269,7 +269,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                             childView.top - topDecHeight).toFloat(), (
                             childView.right + rightDecWidth).toFloat(),
                     childView.top
-                        .toFloat(), paint!!
+                        .toFloat(), paint
                 )
             }
             if (rightDecWidth > 0) {
@@ -278,7 +278,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                     childView.top.toFloat(), (
                             childView.right + rightDecWidth).toFloat(),
                     childView.bottom
-                        .toFloat(), paint!!
+                        .toFloat(), paint
                 )
             }
             if (bottomDecHeight > 0) {

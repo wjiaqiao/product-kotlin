@@ -7,7 +7,7 @@ import com.jiaqiao.product.ext.isAvailable
 import com.jiaqiao.product.ext.isFalse
 import com.jiaqiao.product.ext.notNull
 import com.jiaqiao.product.ext.notNullAndEmpty
-import com.jiaqiao.product.ext.runPCatch
+import com.jiaqiao.product.ext.runPlogCatch
 import java.lang.ref.WeakReference
 import java.util.LinkedList
 
@@ -79,7 +79,7 @@ object ProductApp {
         val index = activityList.indexOfFirst { it.get()?.javaClass == cls }
         if (index == -1) return
         if (activityList[index].get()?.isFinishing.isFalse()) {
-            runPCatch { activityList[index].get()?.finish() }
+            runPlogCatch { activityList[index].get()?.finish() }
         }
         activityList.removeAt(index)
     }
@@ -91,7 +91,7 @@ object ProductApp {
         for (i in activityList.lastIndex downTo 0) {
             val it = activityList[i]
             if (it.get()?.isFinishing.isFalse()) {
-                runPCatch { it.get()?.finish() }
+                runPlogCatch { it.get()?.finish() }
             }
             activityList.removeAt(i)
         }

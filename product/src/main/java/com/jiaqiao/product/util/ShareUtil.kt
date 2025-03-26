@@ -4,7 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import com.jiaqiao.product.ext.notNullAndEmpty
-import com.jiaqiao.product.ext.runPCatch
+import com.jiaqiao.product.ext.runPlogCatch
 import java.io.File
 
 object ShareUtil {
@@ -22,7 +22,7 @@ object ShareUtil {
         compNamePkg: String? = null,
         compNameCls: String? = null
     ) {
-        runPCatch {
+        runPlogCatch {
             val uri = UriUtil.file2Uri(File(filePath))
             val intent = Intent(Intent.ACTION_SEND)
             if (compNamePkg.notNullAndEmpty() && compNameCls.notNullAndEmpty()) {
