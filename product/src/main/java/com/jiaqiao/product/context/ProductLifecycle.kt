@@ -3,10 +3,8 @@ package com.jiaqiao.product.context
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import androidx.lifecycle.closeAllLifeScopeRemove
 import com.jiaqiao.product.config.ProductActivityCallback
 import com.jiaqiao.product.ext.runPCatch
-import com.jiaqiao.product.ext.scopeClose
 import com.jiaqiao.product.util.ProductApp
 import com.jiaqiao.product.util.ProductThreadPool
 import com.jiaqiao.product.util.ProductViewUtil
@@ -58,8 +56,6 @@ class ProductLifecycle : Application.ActivityLifecycleCallbacks {
         if (ProductApp.activitySize <= 0) {
             ProductThreadPool.close()
             ProductViewUtil.cleanClickMap()
-            scopeClose()
-            closeAllLifeScopeRemove()
             runPCatch { ProductActivityCallback.onAppDestroyedAction?.invoke() }
         }
     }

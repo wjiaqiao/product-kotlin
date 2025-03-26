@@ -1,9 +1,8 @@
 package com.jiaqiao.product.helper
 
-import androidx.core.content.ContentProviderCompat.requireContext
+import com.jiaqiao.product.ext.launchIo
 import com.jiaqiao.product.ext.libPlog
-import com.jiaqiao.product.ext.notNull
-import com.jiaqiao.product.ext.scopeLaunchMain
+import com.jiaqiao.product.util.CoroutineScopeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -17,7 +16,7 @@ object SyncHelper {
     /**
      * 同步转异步并增加超时操作
      */
-    private suspend fun timoutAndSncy(str: String): Int? {
+    private suspend fun timeoutAndSync(str: String): Int? {
         return try {
             runBlocking {
                 withTimeout(1000 * 2) {
@@ -36,7 +35,7 @@ object SyncHelper {
      * 协程并发操作示例
      */
     private fun concurrent() {
-        scopeLaunchMain {
+        CoroutineScopeUtil.createIoScope().launchIo {
 
             val run1 = this.async(Dispatchers.IO) {
                 delay(1000)

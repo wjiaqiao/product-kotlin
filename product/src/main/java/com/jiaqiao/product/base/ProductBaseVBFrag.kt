@@ -15,6 +15,9 @@ open abstract class ProductBaseVBFrag<VB : ViewBinding> : ProductBaseFrag() {
     lateinit var mViewBind: VB
     private var mVbRoot: View? = null
 
+    //RootView的content对象
+    val viewContext get() = mViewBind.root.context
+
     /**
      * 初始化view
      */

@@ -7,6 +7,7 @@ import com.jiaqiao.product.ext.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -18,7 +19,7 @@ object ProductLog {
 
     //保存文件操作
     private val channel by lazy { Channel<String>(Channel.BUFFERED) }
-    private val pLifeScope by lazy { PLifeScope(true) }
+    private val pLifeScope by lazy { CoroutineScopeUtil.createIoScope() }
     private var writeJob: Job? = null
 
     init {
