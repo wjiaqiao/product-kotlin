@@ -8,11 +8,8 @@ import com.jiaqiao.product.BuildConfig
 object ProductConstants {
 
 
-
     const val versionCode = BuildConfig.VERSION_CODE //SDK版本号
     const val versionName = BuildConfig.VERSION_NAME //SDK版本名
-
-
 
 
     var appFilePath = "" //app内部存储文件夹

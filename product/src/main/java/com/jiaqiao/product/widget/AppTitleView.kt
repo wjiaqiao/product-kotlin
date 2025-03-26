@@ -116,9 +116,11 @@ open class AppTitleView @JvmOverloads constructor(
             NONE -> {
                 viewBind.arrowLeft.setOnClickListener(otherClickLis)
             }
+
             BACK -> {
                 viewBind.arrowLeft.setOnClickListener(onLeftViewClickBackListener)
             }
+
             HIDE -> {
                 viewBind.arrowLeft.invisible()
                 viewBind.arrowLeft.setOnClickListener(null)

@@ -36,9 +36,9 @@ open class ProductBaseAct : AppCompatActivity() {
 
     //隐藏dialog列表中的dialog，防止出现空异常
     open fun dismissDialog() {
-        if(dialogList.notNullAndEmpty()){
+        if (dialogList.notNullAndEmpty()) {
             dialogList.forEach { dia ->
-                if(dia.isShowing){
+                if (dia.isShowing) {
                     dia.dismiss()
                 }
             }

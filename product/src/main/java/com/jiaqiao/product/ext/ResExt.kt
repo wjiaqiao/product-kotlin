@@ -39,6 +39,6 @@ fun Int.resDrawable(): Drawable? {
  * */
 fun Int.resBitmap(): Bitmap? {
     return runPlogCatch {
-        BitmapFactory.decodeResource(ProductApp.context.resources,this)
+        BitmapFactory.decodeResource(ProductApp.context.resources, this)
     }.getOrNull()
 }

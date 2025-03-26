@@ -105,11 +105,13 @@ open class CycleScrollViewPager @JvmOverloads constructor(
                     startAutoScroll()
                 }
             }
+
             1 -> if (currentItem == count + 1) {
                 setCurrentItem(1, false)
             } else if (currentItem == 0) {
                 setCurrentItem(count, false)
             }
+
             2 -> {
             }
         }

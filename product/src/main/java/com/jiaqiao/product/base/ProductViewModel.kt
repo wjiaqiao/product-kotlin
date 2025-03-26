@@ -8,5 +8,4 @@ import androidx.lifecycle.ViewModel
 open class ProductViewModel : ViewModel() {
 
 
-
 }

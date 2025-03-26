@@ -96,18 +96,21 @@ object UriUtil {
                             .toString() + path.replace("/files_path/", "/")
                     )
                 }
+
                 path.startsWith("/cache_path/") -> {
                     file = File(
                         ProductContentProvider.getContext().cacheDir.absolutePath
                             .toString() + path.replace("/cache_path/", "/")
                     )
                 }
+
                 path.startsWith("/external_files_path/") -> {
                     file = File(
                         ProductContentProvider.getContext().getExternalFilesDir(null)?.absolutePath
                             .toString() + path.replace("/external_files_path/", "/")
                     )
                 }
+
                 path.startsWith("/external_cache_path/") -> {
                     file = File(
                         ProductContentProvider.getContext().externalCacheDir?.absolutePath

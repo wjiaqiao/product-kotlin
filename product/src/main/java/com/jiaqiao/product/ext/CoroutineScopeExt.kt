@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
  * CoroutineScope创建运行在主线程中的携程
  * */
 fun CoroutineScope.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
-    return this.launch(context = Dispatchers.Main, block =  {
+    return this.launch(context = Dispatchers.Main, block = {
         runPlogCatch { block.invoke(this) }
     })
 }

@@ -118,7 +118,7 @@ open abstract class CycleViewPagerViewAdapter<T, VH : CycleViewPagerViewAdapter.
         init {
             this.itemView = view
             isNeedUpdate = false
-            itemView?.setOnClickListener {  }
+            itemView?.setOnClickListener { }
             itemView?.setOnLongClickListener {
                 false
             }

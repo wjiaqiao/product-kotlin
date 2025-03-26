@@ -160,6 +160,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                             }
                         }
                     }
+
                     else -> {
                         val realHorizontalSize =
                             if (decorationSize % spanCount == 0) decorationSize else decorationSize / spanCount * spanCount
@@ -197,6 +198,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                     }
                 }
             }
+
             is LinearLayoutManager -> {
                 val linearLayoutManager = layoutManager as LinearLayoutManager
                 when (linearLayoutManager.orientation) {
@@ -210,6 +212,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                         outRect.bottom = if (isDrawAll) decorationSize else 0
                         outRect.top = if (isDrawAll) decorationSize else 0
                     }
+
                     else -> {
                         outRect.bottom = decorationSize
                         if (childPosi == 0) {
@@ -222,6 +225,7 @@ open class RVDecoration : RecyclerView.ItemDecoration {
                     }
                 }
             }
+
             is StaggeredGridLayoutManager -> {
 //                val staggeredGridLayoutManager = layoutManager as StaggeredGridLayoutManager
 //                val spanCount = staggeredGridLayoutManager.spanCount //每行个数

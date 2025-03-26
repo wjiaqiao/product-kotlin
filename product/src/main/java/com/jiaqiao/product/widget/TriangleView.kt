@@ -45,7 +45,8 @@ open class TriangleView @JvmOverloads constructor(
 
         attrs?.let {
             val array = context.obtainStyledAttributes(it, R.styleable.TriangleView)
-            triangleColor = array.getColor(R.styleable.TriangleView_tv_triangle_color, triangleColor)
+            triangleColor =
+                array.getColor(R.styleable.TriangleView_tv_triangle_color, triangleColor)
             triangleRadius = array.getDimensionPixelOffset(
                 R.styleable.TriangleView_tv_triangle_radius,
                 triangleRadius

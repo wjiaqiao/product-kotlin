@@ -437,7 +437,12 @@ open class SwitchButtonView @JvmOverloads constructor(
                     val fontMetrics = paint.fontMetrics
                     val textY =
                         rectF.centerY() + (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom
-                    canvas.drawText(closeText, viewWidth - textX - textOffsetX,textY + textOffsetY, paint)
+                    canvas.drawText(
+                        closeText,
+                        viewWidth - textX - textOffsetX,
+                        textY + textOffsetY,
+                        paint
+                    )
                     paint.textSize = textSize
                 } else {
                     canvas.drawText(

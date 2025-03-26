@@ -51,7 +51,8 @@ class LogcatFileFrag : ProductBaseVBFrag<LogcatFileFragBinding> {
         mViewBind.list.addItemDecoration(
             RVDecoration(
                 1.dp,
-                Color.parseColor("#EFEFEF"))
+                Color.parseColor("#EFEFEF")
+            )
         )
     }
 

@@ -162,7 +162,6 @@ fun TextView.afterTextChanged(atcInterval: (Editable) -> Unit): TextView {
 }
 
 
-
 /**
  * 设置字体加粗
  * [isBold]  字体是否加粗，默认true

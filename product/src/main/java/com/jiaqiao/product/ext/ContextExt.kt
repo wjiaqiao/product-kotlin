@@ -156,12 +156,14 @@ fun Context.toNotificationSet() {
                 it.action = "android.settings.APP_NOTIFICATION_SETTINGS"
                 it.putExtra("android.provider.extra.APP_PACKAGE", packageName)
             }
+
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
                 // android 5.0-7.0
                 it.action = "android.settings.APP_NOTIFICATION_SETTINGS"
                 it.putExtra("app_package", packageName)
                 it.putExtra("app_uid", applicationInfo.uid)
             }
+
             else -> {
                 // 其他
                 it.action = "android.settings.APPLICATION_DETAILS_SETTINGS"

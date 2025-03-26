@@ -10,40 +10,40 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 
-/** 
+/**
  * 运行协程范围
  * */
 fun LifecycleOwner.launch(block: suspend CoroutineScope.() -> Unit): Job {
     return launch(block, EmptyCoroutineContext)
 }
 
-/** 
+/**
  * 运行协程范围
  * */
 fun LifecycleOwner.launch(
     block: suspend CoroutineScope.() -> Unit,
     coroutineContext: CoroutineContext = EmptyCoroutineContext
 ): Job {
-    return lifecycleScope.launch(coroutineContext, block =  {
+    return lifecycleScope.launch(coroutineContext, block = {
         runPlogCatch { block.invoke(this) }
     })
 }
 
-/** 
+/**
  * 运行在子线程
  * */
 fun LifecycleOwner.launchIo(block: suspend CoroutineScope.() -> Unit): Job {
     return launch(block, Dispatchers.IO)
 }
 
-/** 
+/**
  * 运行在主线程
  * */
 fun LifecycleOwner.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
     return launch(block, Dispatchers.Main)
 }
 
-/** 
+/**
  * 运行在默认线程
  * */
 fun LifecycleOwner.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {

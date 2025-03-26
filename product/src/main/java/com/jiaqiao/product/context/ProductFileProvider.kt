@@ -5,6 +5,6 @@ import androidx.core.content.FileProvider
 /**
  * 文件读取器
  * */
-class ProductFileProvider: FileProvider() {
+class ProductFileProvider : FileProvider() {
 
 }

@@ -267,5 +267,5 @@ fun Bitmap.ratioOfWidth(toWidth: Int): Bitmap {
  * [toHeight] 缩放后的高度
  * */
 fun Bitmap.ratioOfHeight(toHeight: Int): Bitmap {
-    return zoomTo((1.0f * width /  height * toHeight).toInt(), toHeight)
+    return zoomTo((1.0f * width / height * toHeight).toInt(), toHeight)
 }

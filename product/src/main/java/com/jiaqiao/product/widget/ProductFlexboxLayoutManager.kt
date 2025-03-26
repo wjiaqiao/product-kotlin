@@ -38,9 +38,11 @@ open class ProductFlexboxLayoutManager : FlexboxLayoutManager {
             is RecyclerView.LayoutParams -> {
                 LayoutParams(lp as RecyclerView.LayoutParams?)
             }
+
             is ViewGroup.MarginLayoutParams -> {
                 LayoutParams(lp as ViewGroup.MarginLayoutParams?)
             }
+
             else -> {
                 LayoutParams(lp)
             }

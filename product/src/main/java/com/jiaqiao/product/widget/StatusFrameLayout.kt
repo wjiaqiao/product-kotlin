@@ -44,17 +44,17 @@ open class StatusFrameLayout @JvmOverloads constructor(
         inStatusBar = true
         attrs?.let {
             context.obtainStyledAttributes(attrs, R.styleable.StatusFrameLayout).let { typedArray ->
-                    inStatusBar =
-                        typedArray.getBoolean(
-                            R.styleable.StatusFrameLayout_sfl_in_status_bar,
-                            inStatusBar
-                        )
-                    inStatusBarType = typedArray.getInt(
-                        R.styleable.StatusFrameLayout_sfl_in_status_bar_type,
-                        inStatusBarType
+                inStatusBar =
+                    typedArray.getBoolean(
+                        R.styleable.StatusFrameLayout_sfl_in_status_bar,
+                        inStatusBar
                     )
-                    typedArray.recycle()
-                }
+                inStatusBarType = typedArray.getInt(
+                    R.styleable.StatusFrameLayout_sfl_in_status_bar_type,
+                    inStatusBarType
+                )
+                typedArray.recycle()
+            }
         }
         befInStatusBar = !inStatusBar
     }
@@ -74,11 +74,13 @@ open class StatusFrameLayout @JvmOverloads constructor(
                 thisMarginTop = marginLayoutParams.topMargin
                 thisHeight = marginLayoutParams.height
             }
+
             is ViewGroup.LayoutParams -> {
                 val layoutParams = layoutParams as ViewGroup.LayoutParams
                 thisMarginTop = 0
                 thisHeight = layoutParams.height
             }
+
             else -> {
                 thisMarginTop = 0
                 thisHeight = 0
@@ -110,6 +112,7 @@ open class StatusFrameLayout @JvmOverloads constructor(
                     paddingRight, paddingBottom
                 )
             }
+
             MARGIN -> {
                 val marginLayoutParams = this.layoutParams as MarginLayoutParams
                 marginLayoutParams.setMargins(
