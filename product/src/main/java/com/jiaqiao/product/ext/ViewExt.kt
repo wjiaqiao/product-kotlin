@@ -1,31 +1,23 @@
 package com.jiaqiao.product.ext
 
-import android.content.Context
-import android.graphics.Paint
-import android.text.Editable
-import android.text.InputFilter
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
 import android.widget.AbsListView
-import android.widget.EditText
 import android.widget.ScrollView
-import android.widget.TextView
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.jiaqiao.product.util.ProductViewUtil
 
 
 /**
- * 设置view的paddingleft值
- * [paddingLeft] paddingleft值
+ * 设置view的PaddingStart值
+ * [paddingStart] PaddingStart值
  * @return 返回view对象
  * */
-fun View.setPaddingLeft(paddingLeft: Int): View {
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+fun View.setPaddingStart(paddingStart: Int): View {
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
     return this
 }
 
@@ -35,17 +27,17 @@ fun View.setPaddingLeft(paddingLeft: Int): View {
  * @return 返回view对象
  * */
 fun View.setPaddingTop(paddingTop: Int): View {
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
     return this
 }
 
 /**
- * 设置view的paddingRight值
- * [paddingRight] paddingRight值
+ * 设置view的paddingEnd值
+ * [paddingEnd] paddingEnd值
  * @return 返回view对象
  * */
-fun View.setPaddingRight(paddingRight: Int): View {
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+fun View.setPaddingEnd(paddingEnd: Int): View {
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
     return this
 }
 
@@ -55,29 +47,29 @@ fun View.setPaddingRight(paddingRight: Int): View {
  * @return 返回view对象
  * */
 fun View.setPaddingBottom(paddingBottom: Int): View {
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
     return this
 }
 
 
 /**
- * 设置view的paddingLeft、paddingRight值
+ * 设置view的paddingStart、paddingEnd值
  * [paddingHorizontal] padding值
  * @return 返回view对象
  * */
 fun View.setPaddingHorizontal(paddingHorizontal: Int): View {
-    setPadding(paddingHorizontal, paddingTop, paddingHorizontal, paddingBottom)
+    setPaddingRelative(paddingHorizontal, paddingTop, paddingHorizontal, paddingBottom)
     return this
 }
 
 /**
- * 设置view的paddingLeft、paddingRight值
- * [paddingLeft] paddingLeft值
- * [paddingRight] paddingRight值
+ * 设置view的paddingStart、paddingEnd值
+ * [paddingStart] paddingStart值
+ * [paddingEnd] paddingEnd值
  * @return 返回view对象
  * */
-fun View.setPaddingHorizontal(paddingLeft: Int, paddingRight: Int): View {
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+fun View.setPaddingHorizontal(paddingStart: Int, paddingEnd: Int): View {
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
     return this
 }
 
@@ -87,7 +79,7 @@ fun View.setPaddingHorizontal(paddingLeft: Int, paddingRight: Int): View {
  * @return 返回view对象
  * */
 fun View.setPaddingVertical(paddingVertical: Int): View {
-    setPadding(paddingLeft, paddingVertical, paddingRight, paddingVertical)
+    setPaddingRelative(paddingStart, paddingVertical, paddingEnd, paddingVertical)
     return this
 }
 
@@ -98,7 +90,7 @@ fun View.setPaddingVertical(paddingVertical: Int): View {
  * @return 返回view对象
  * */
 fun View.setPaddingVertical(paddingTop: Int, paddingBottom: Int): View {
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
     return this
 }
 
@@ -108,8 +100,8 @@ fun View.setPaddingVertical(paddingTop: Int, paddingBottom: Int): View {
  * [padding] padding值
  * @return 返回view对象
  * */
-fun View.setPadding(padding: Int): View {
-    setPadding(padding, padding, padding, padding)
+fun View.setPaddingRelative(padding: Int): View {
+    setPaddingRelative(padding, padding, padding, padding)
     return this
 }
 
@@ -562,73 +554,6 @@ fun View.setMarginVertical(top: Int, bottom: Int): View {
     return this
 }
 
-
-/**
- * 设置字体加粗
- * [isBold]  字体是否加粗，默认true
- * @return 返回TextView对象
- */
-fun TextView.bold(isBold: Boolean = true): TextView {
-    paint.isFakeBoldText = isBold
-    return this
-}
-
-/**
- * 设置字体显示下划线
- * @return 返回TextView对象
- */
-fun TextView.underline(): TextView {
-    paint.flags = Paint.UNDERLINE_TEXT_FLAG //下划线
-    paint.isAntiAlias = true //抗锯齿
-    return this
-}
-
-
-/**
- * 在EditText上展示或隐藏键盘
- * [isShow]  展示或隐藏键盘，默认true
- * @return 返回EditText对象
- */
-fun EditText.softInput(isShow: Boolean = true): EditText {
-    if (isShow) {
-        requestFocus()
-        val inputMethodManager =
-            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
-        inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
-        if (text.notNullAndEmpty()) {
-            setSelection(text.length)
-        }
-    } else {
-        clearFocus()
-        (context
-            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-            windowToken,
-            0
-        )
-    }
-    return this
-}
-
-/**
- * 获取输入框的内容长度
- */
-fun EditText.calculateLength(): Int {
-    var varLength = 0
-    text.toString().toCharArray().forEach {
-        /**
-         * 增加中文标点范围 ，标点范围有待详细化
-         * 中文字符范围0x4e00 0x9fbb
-         * */
-        varLength += if (it.code in 0x2E80..0xFE4F || it.code in 0xA13F..0xAA40 || it.code >= 0x80) {
-            2
-        } else {
-            1
-        }
-    }
-    return varLength
-}
-
 /**
  * view是否处于顶部
  * */
@@ -637,21 +562,27 @@ fun View?.isTop(): Boolean {
         this.isNull() -> {
             false
         }
+
         this is RecyclerView -> {
             (this as RecyclerView).isTop()
         }
+
         this is AbsListView -> {
             (this as AbsListView).isTop()
         }
+
         this is ScrollView -> {
             (this as ScrollView).isTop()
         }
+
         this is NestedScrollView -> {
             (this as NestedScrollView).isTop()
         }
+
         this is WebView -> {
             (this as WebView).isTop()
         }
+
         else -> {
             false
         }
@@ -686,21 +617,27 @@ fun View?.isBottom(): Boolean {
         this.isNull() -> {
             false
         }
+
         this is RecyclerView -> {
             (this as RecyclerView).isBottom()
         }
+
         this is AbsListView -> {
             (this as AbsListView).isBottom()
         }
+
         this is ScrollView -> {
             (this as ScrollView).isBottom()
         }
+
         this is NestedScrollView -> {
             (this as NestedScrollView).isBottom()
         }
+
         this is WebView -> {
             (this as WebView).isBottom()
         }
+
         else -> {
             false
         }
@@ -737,76 +674,6 @@ fun View.click(shortInterval: Int = 0, clickInvoke: () -> Unit): View {
     return this
 }
 
-/**
- * TextView的onTextChanged回调
- * */
-fun TextView.onTextChanged(otcInterval: (CharSequence, Int, Int, Int) -> Unit): TextView {
-    val tw = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            if (s.notNull()) {
-                otcInterval.invoke(s!!, start, before, count)
-            }
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-
-        }
-    }
-    addTextChangedListener(tw)
-    return this
-}
-
-/**
- * TextView的beforeTextChanged回调
- * */
-fun TextView.beforeTextChanged(btcInterval: (CharSequence, Int, Int, Int) -> Unit): TextView {
-    val tw = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            if (s.notNull()) {
-                btcInterval.invoke(s!!, start, count, after)
-            }
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-
-        }
-
-    }
-    addTextChangedListener(tw)
-    return this
-}
-
-/**
- * TextView的beforeTextChanged回调
- * */
-fun TextView.afterTextChanged(atcInterval: (Editable) -> Unit): TextView {
-    val tw = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            if (s.notNull()) {
-                atcInterval.invoke(s!!)
-            }
-        }
-
-    }
-    addTextChangedListener(tw)
-    return this
-}
 
 /**
  * 控件可见时执行回调[action]
@@ -818,44 +685,6 @@ fun View.visibleCallback(action: () -> Unit) {
             action.invoke()
         }
     })
-}
-
-/**
- * 添加InputFilter过滤器
- * */
-fun EditText.addFilter(inputFilter: InputFilter): EditText {
-    val size = filters.size
-    if (size > 0) {
-        val newFil = arrayOfNulls<InputFilter>(size + 1)
-        for (i in 0 until size) {
-            newFil[i] = filters[i]
-        }
-        newFil[size] = inputFilter
-        filters = newFil
-    } else {
-        filters = arrayOf<InputFilter>(inputFilter)
-    }
-    return this
-}
-
-/**
- * 添加InputFilter过滤器
- * */
-fun EditText.addFilters(inputFilters: Array<InputFilter>): EditText {
-    val size = filters.size
-    if (size > 0) {
-        val newFil = arrayOfNulls<InputFilter>(size + inputFilters.size)
-        for (i in 0 until size) {
-            newFil[i] = filters[i]
-        }
-        for (i in size until size + inputFilters.size) {
-            newFil[i] = inputFilters[i - size]
-        }
-        filters = newFil
-    } else {
-        filters = inputFilters
-    }
-    return this
 }
 
 /**

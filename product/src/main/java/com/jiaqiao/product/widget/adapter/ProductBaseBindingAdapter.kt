@@ -22,7 +22,7 @@ open abstract class ProductBaseBindingAdapter<T, VB : ViewBinding> :
         payloads.forEach { payload ->
             runPlogCatch {
                 (payload as T)
-            }?.let {
+            }.getOrNull()?.let {
                 convert(holder, it)
             }
         }

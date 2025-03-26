@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.jiaqiao.product.helper.contract.IntentContract
+import com.jiaqiao.product.util.ProductUiUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -94,3 +95,23 @@ fun ComponentActivity.launchDefault(block: suspend CoroutineScope.() -> Unit): J
     return launch(block, Dispatchers.Default)
 }
 
+/**
+ * 判断当前设备是否存在导航栏
+ */
+fun ComponentActivity.hasNavigationBar(): Boolean {
+    return ProductUiUtil.hasNavigationBar(this)
+}
+
+/**
+ * 状态栏字体是否是白色
+ * */
+fun ComponentActivity.isStatusBarWhiteFont(): Boolean {
+    return window.isStatusBarWhiteFont()
+}
+
+/**
+ * 状态栏字体是否是黑色
+ * */
+fun ComponentActivity.isStatusBarBlackFont(): Boolean {
+    return window.isStatusBarBlackFont()
+}

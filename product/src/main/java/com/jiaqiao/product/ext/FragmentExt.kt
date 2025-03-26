@@ -1,7 +1,8 @@
 package com.jiaqiao.product.ext
 
 import android.content.Intent
-import androidx.activity.ComponentActivity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
@@ -10,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.viewbinding.ViewBinding
 import com.jiaqiao.product.helper.contract.IntentContract
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +19,27 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+
+/**
+ * 创建viewbinding对象
+ * [layoutInflater]  layout解析器
+ * [parent]  父容器
+ * [attachToParent]  是否添加进父容器
+ * */
+fun <VB : ViewBinding> Fragment.createViewBinding(
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?,
+    attachToParent: Boolean
+): VB =
+    viewBindingClass<VB>(this) { clazz ->
+        clazz.getMethod(
+            "inflate",
+            LayoutInflater::class.java,
+            ViewGroup::class.java,
+            Boolean::class.java
+        ).invoke(null, layoutInflater, parent, attachToParent) as VB
+    }
+
 
 /**
  * 动态注册intent回调器

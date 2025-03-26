@@ -377,11 +377,4 @@ fun ClosedFloatingPointRange<Double>.random(random: Random): Double {
     return random.nextFloat() * (endInclusive - start) + start
 }
 
-/**
- * 获取随机的boolean值
- * */
-fun Boolean.random(): Boolean {
-    return Random.nextBoolean()
-}
-
 

@@ -142,3 +142,25 @@ fun Any.libPlog5(tag: Any? = null) {
 fun Throwable?.plogE() {
     ProductLog.e(this)
 }
+
+/**
+ * 将Throwable错误日志输出至errorTag中
+ * */
+inline fun <R> runPlogCatch(block: () -> R): Result<R> {
+    return try {
+        Result.success(block())
+    } catch (e: Throwable) {
+        if (PlogConfig.debug && PlogConfig.errorTag.notNullAndEmpty()) {
+            if (e.javaClass.toString().contains("kotlinx.coroutines.JobCancellationException")
+                    .isTrue()
+//                || e.javaClass.toString().contains("kotlinx.coroutines.TimeoutCancellationException")
+//                    .isTrue()
+            ) {
+
+            } else {
+                e.plogE()
+            }
+        }
+        Result.failure(e)
+    }
+}

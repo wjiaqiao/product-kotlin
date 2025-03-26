@@ -75,15 +75,15 @@ fun Int.pow(pow: Float): Float {
 
 
 /**
- * 一个数值ByteArry, int最大值是4位
+ * 一个数值ByteArray, int最大值是4位
  * */
-fun Int.toByteArray(maxwidth: Int): ByteArray {
-    if (maxwidth > 4 || this.isNull()) {
+fun Int.toByteArray(maxWidth: Int): ByteArray {
+    if (maxWidth > 4 || this.isNull()) {
         return byteArrayOf()
     }
-    var byteArray = ByteArray(maxwidth)
-    for (i in 0 until maxwidth) {
-        byteArray[i] = ((this!! shr (maxwidth - 1 - i) * 8) and 0xff).toByte()
+    val byteArray = ByteArray(maxWidth)
+    for (i in 0 until maxWidth) {
+        byteArray[i] = ((this shr (maxWidth - 1 - i) * 8) and 0xff).toByte()
     }
     return byteArray
 }
@@ -91,11 +91,11 @@ fun Int.toByteArray(maxwidth: Int): ByteArray {
 /**
  * int转 16 进制的string
  * */
-fun Int.toHex(maxlength: Int = 1) = this.toByteArray(maxlength).toHex()
+fun Int.toHex(maxLength: Int = 1) = this.toByteArray(maxLength).toHex()
 
 /**
  * int转 2 进制的string
  * */
-fun Int.toBinary(maxlength: Int = 1) = this.toByteArray(maxlength).toBinaryString()
+fun Int.toBinary(maxLength: Int = 1) = this.toByteArray(maxLength).toBinaryString()
 
 

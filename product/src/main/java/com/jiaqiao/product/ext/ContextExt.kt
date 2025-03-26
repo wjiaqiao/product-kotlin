@@ -97,7 +97,7 @@ fun Context.isInstalled(packageName: String): Boolean {
  */
 fun Context.getSign(packageName: String = ""): String {
     return ProductUtil.getSign(
-        this, if (packageName.isNullOrEmpty()) {
+        this, if (packageName.isEmpty()) {
             this.packageName
         } else packageName
     )
@@ -207,8 +207,8 @@ fun Context.toAppInfo() {
  * [assetsPath] assets的文件路径
  * */
 fun Context.getAssetsBitmap(assetsPath: String): Bitmap {
-    var ins = resources.assets.open(assetsPath)
-    var bitmap = BitmapFactory.decodeStream(ins)
+    val ins = resources.assets.open(assetsPath)
+    val bitmap = BitmapFactory.decodeStream(ins)
     ins.close()
     return bitmap
 }

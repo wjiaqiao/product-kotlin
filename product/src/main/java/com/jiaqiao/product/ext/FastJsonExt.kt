@@ -9,7 +9,7 @@ import com.jiaqiao.product.config.PlogConfig
 /**
  * 将对象转换成String类型的json
  * */
-inline fun <T> T?.toFastJsonString(): String {
+fun <T> T?.toFastJsonString(): String {
     return if (this == null) {
         ""
     } else {
@@ -26,7 +26,7 @@ inline fun <T> T?.toFastJsonString(): String {
 /**
  * 将string转换成T对象
  * */
-inline fun <T> String?.toFastJsonParse(): T? {
+fun <T> String?.toFastJsonParse(): T? {
     return if (this == null) {
         null
     } else {
@@ -44,7 +44,7 @@ inline fun <T> String?.toFastJsonParse(): T? {
 /**
  * 将string转换成JSONObject对象
  * */
-inline fun String?.toJSONObject(): JSONObject? {
+fun String?.toJSONObject(): JSONObject? {
     return if (this == null) {
         null
     } else {
@@ -62,7 +62,7 @@ inline fun String?.toJSONObject(): JSONObject? {
 /**
  * 将string转换成JSONArray对象
  * */
-inline fun String?.toJSONArray(): JSONArray? {
+fun String?.toJSONArray(): JSONArray? {
     return if (this == null) {
         null
     } else {

@@ -2,7 +2,7 @@ package com.jiaqiao.product.util
 
 import android.content.Context
 import android.os.Environment
-import com.jiaqiao.product.ext.createFloder
+import com.jiaqiao.product.ext.pCreateDirectory
 import java.io.File
 
 
@@ -23,7 +23,7 @@ object DiskCacheUtil {
                 cachePath
             } + File.separator + cacheName
         )
-        file.createFloder()
+        file.pCreateDirectory()
         return file
 
     }

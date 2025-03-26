@@ -43,7 +43,7 @@ fun Bitmap.zoomTo(toWidth: Int, toHeight: Int): Bitmap {
 
 /**
  * 将bitmap保存为png图片
- * [file] 保存png图片的路径
+ * [filePath] 保存png图片的路径
  * @return 返回保存结果
  * */
 fun Bitmap.savePng(filePath: String): Boolean {
@@ -57,7 +57,7 @@ fun Bitmap.savePng(filePath: String): Boolean {
  * */
 fun Bitmap.savePng(file: File): Boolean {
     return kotlin.runCatching {
-        file.parentFile.createFloder()
+        file.parentFile?.pCreateDirectory()
         val bos = BufferedOutputStream(FileOutputStream(file))
         this.compress(Bitmap.CompressFormat.PNG, 100, bos)
         bos.flush()
@@ -70,7 +70,7 @@ fun Bitmap.savePng(file: File): Boolean {
 
 /**
  * 将bitmap保存为jpeg图片
- * [file] 保存jpeg图片的路径
+ * [filePath] 保存jpeg图片的路径
  * @return 返回保存结果
  * */
 fun Bitmap.saveJpeg(filePath: String): Boolean {
@@ -84,7 +84,7 @@ fun Bitmap.saveJpeg(filePath: String): Boolean {
  * */
 fun Bitmap.saveJpeg(file: File): Boolean {
     return kotlin.runCatching {
-        file.parentFile.createFloder()
+        file.parentFile?.pCreateDirectory()
         val bos = BufferedOutputStream(FileOutputStream(file))
         this.compress(Bitmap.CompressFormat.JPEG, 100, bos)
         bos.flush()
@@ -98,7 +98,7 @@ fun Bitmap.saveJpeg(file: File): Boolean {
 /**
  * 回收bitmap释放内存，回收后bitmap将无法使用，在确保后续不使用bitmap的情况下回收
  * */
-fun Bitmap?.toRecycle() {
+fun Bitmap?.toProductRecycle() {
     if (notNull() && this?.isRecycled.isTrue()) {
         this?.recycle()
     }
@@ -225,7 +225,7 @@ fun Bitmap.cropRound(bgColor: Int = Color.TRANSPARENT): Bitmap {
     }
     val rect = Rect(0, 0, width, width)
     val rectF = RectF(0f, 0f, width.toFloat(), width.toFloat())
-    var roundPx = width.toFloat()
+    val roundPx = width.toFloat()
     paint.isAntiAlias = true
     canvas.drawColor(bgColor)
     paint.color = Color.WHITE
@@ -248,7 +248,7 @@ fun Bitmap.radius(radius: Int): Bitmap {
     }
     val rect = Rect(0, 0, width, height)
     val rectF = RectF(0f, 0f, width.toFloat(), height.toFloat())
-    var roundPx = radius.toFloat()
+    val roundPx = radius.toFloat()
     paint.isAntiAlias = true
     canvas.drawColor(Color.TRANSPARENT)
     paint.color = Color.WHITE

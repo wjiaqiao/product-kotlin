@@ -1,7 +1,5 @@
 package com.jiaqiao.product.ext
 
-import com.jiaqiao.product.util.ProductUtil
-
 
 /**
  *
@@ -10,5 +8,5 @@ import com.jiaqiao.product.util.ProductUtil
  * [position] 序号
  * */
 fun <T> Collection<T>.hasPosition(position: Int): Boolean {
-    return ProductUtil.hasPosition(size,position)
+    return position in indices
 }
