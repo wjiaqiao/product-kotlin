@@ -115,8 +115,7 @@ fun View.setWidth(width: Int): View {
     var layoutPar = layoutParams
     if (layoutPar.isNull()) {
         layoutPar = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }
     if (layoutPar.width != width) {
@@ -136,8 +135,7 @@ fun View.setHeight(height: Int): View {
     var layoutPar = layoutParams
     if (layoutPar.isNull()) {
         layoutPar = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }
     if (layoutPar.height != height) {
@@ -158,8 +156,7 @@ fun View.setWidthHeight(width: Int, height: Int): View {
     var layoutPar = layoutParams
     if (layoutPar.isNull()) {
         layoutPar = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }
     layoutPar.width = width
@@ -293,18 +290,15 @@ fun View.setMargin(margin: Int): View {
  * @return 返回view对象
  */
 fun View.setMargin(left: Int, top: Int, right: Int, bottom: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         layoutPar.setMargins(left, top, right, bottom)
         layoutParams = layoutPar
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -316,25 +310,19 @@ fun View.setMargin(left: Int, top: Int, right: Int, bottom: Int): View {
  * @return 返回view对象
  */
 fun View.setMarginLeft(left: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         if (layoutPar.leftMargin != left) {
             layoutPar.setMargins(
-                left,
-                layoutPar.topMargin,
-                layoutPar.rightMargin,
-                layoutPar.bottomMargin
+                left, layoutPar.topMargin, layoutPar.rightMargin, layoutPar.bottomMargin
             )
             layoutParams = layoutPar
         }
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -345,26 +333,20 @@ fun View.setMarginLeft(left: Int): View {
  * @return 返回view对象
  */
 fun View.setMarginStart(start: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         if (layoutPar.marginStart != start) {
             layoutPar.setMargins(
-                start,
-                layoutPar.topMargin,
-                layoutPar.rightMargin,
-                layoutPar.bottomMargin
+                start, layoutPar.topMargin, layoutPar.rightMargin, layoutPar.bottomMargin
             )
             layoutPar.marginStart = start
             layoutParams = layoutPar
         }
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -376,25 +358,19 @@ fun View.setMarginStart(start: Int): View {
  */
 fun View.setMarginTop(top: Int): View {
 
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         if (layoutPar.topMargin != top) {
             layoutPar.setMargins(
-                layoutPar.leftMargin,
-                top,
-                layoutPar.rightMargin,
-                layoutPar.bottomMargin
+                layoutPar.leftMargin, top, layoutPar.rightMargin, layoutPar.bottomMargin
             )
             layoutParams = layoutPar
         }
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -405,25 +381,19 @@ fun View.setMarginTop(top: Int): View {
  * @return 返回view对象
  */
 fun View.setMarginRight(right: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         if (layoutPar.rightMargin != right) {
             layoutPar.setMargins(
-                layoutPar.leftMargin,
-                layoutPar.topMargin,
-                right,
-                layoutPar.bottomMargin
+                layoutPar.leftMargin, layoutPar.topMargin, right, layoutPar.bottomMargin
             )
             layoutParams = layoutPar
         }
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -434,26 +404,20 @@ fun View.setMarginRight(right: Int): View {
  * @return 返回view对象
  */
 fun View.setMarginEnd(end: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         if (layoutPar.marginEnd != end) {
             layoutPar.setMargins(
-                layoutPar.leftMargin,
-                layoutPar.topMargin,
-                end,
-                layoutPar.bottomMargin
+                layoutPar.leftMargin, layoutPar.topMargin, end, layoutPar.bottomMargin
             )
             layoutPar.marginEnd = end
             layoutParams = layoutPar
         }
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -464,25 +428,19 @@ fun View.setMarginEnd(end: Int): View {
  * @return 返回view对象
  */
 fun View.setMarginBottom(bottom: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         if (layoutPar.bottomMargin != bottom) {
             layoutPar.setMargins(
-                layoutPar.leftMargin,
-                layoutPar.topMargin,
-                layoutPar.rightMargin,
-                bottom
+                layoutPar.leftMargin, layoutPar.topMargin, layoutPar.rightMargin, bottom
             )
             layoutParams = layoutPar
         }
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -504,20 +462,17 @@ fun View.setMarginHorizontal(marginHorizontal: Int): View {
  * @return 返回view对象
  */
 fun View.setMarginHorizontal(start: Int, end: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         layoutPar.setMargins(start, layoutPar.topMargin, end, layoutPar.bottomMargin)
         layoutPar.marginStart = start
         layoutPar.marginEnd = end
         layoutParams = layoutPar
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }
@@ -538,18 +493,15 @@ fun View.setMarginVertical(marginVertical: Int): View {
  * @return 返回view对象
  */
 fun View.setMarginVertical(top: Int, bottom: Int): View {
-    try {
+    runPlogCatch {
         var layoutPar = layoutParams as ViewGroup.MarginLayoutParams
         if (layoutPar.isNull()) {
             layoutPar = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
         }
         layoutPar.setMargins(layoutPar.leftMargin, top, layoutPar.rightMargin, bottom)
         layoutParams = layoutPar
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
     return this
 }

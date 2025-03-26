@@ -1,6 +1,7 @@
 package com.jiaqiao.product.util
 
 import com.jiaqiao.product.ext.plogE
+import com.jiaqiao.product.ext.runPlogCatch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -79,12 +80,9 @@ object ProductTime {
      * 时间戳转String
      */
     fun getTimeString(formatStr: String, time: Long): String {
-        return try {
+        return runPlogCatch {
             SimpleDateFormat(formatStr, Locale.US).format(Date(time))
-        } catch (thr: Throwable) {
-            thr.plogE()
-            ""
-        }
+        }.getOrDefault("")
     }
 
 
@@ -92,12 +90,9 @@ object ProductTime {
      * 时间戳转String
      */
     fun getTimeInMillis(formatStr: String, time: String): Long {
-        return try {
+        return runPlogCatch {
             SimpleDateFormat(formatStr, Locale.US).parse(time)?.time ?: 0
-        } catch (thr: Throwable) {
-            thr.plogE()
-            0
-        }
+        }.getOrDefault(0)
     }
 
     /**

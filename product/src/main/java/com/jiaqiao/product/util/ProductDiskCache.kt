@@ -9,8 +9,21 @@ import android.os.Parcelable.Creator
 import com.jakewharton.disklrucache.DiskLruCache
 import com.jiaqiao.product.config.PlogConfig
 import com.jiaqiao.product.context.ProductContentProvider
-import com.jiaqiao.product.ext.*
-import java.io.*
+import com.jiaqiao.product.ext.isNull
+import com.jiaqiao.product.ext.isTrue
+import com.jiaqiao.product.ext.libPlog
+import com.jiaqiao.product.ext.notNull
+import com.jiaqiao.product.ext.plogE
+import com.jiaqiao.product.ext.runPlogCatch
+import com.jiaqiao.product.ext.toFastJsonParse
+import com.jiaqiao.product.ext.toFastJsonString
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.OutputStream
+import java.io.Serializable
 
 
 /**
@@ -52,7 +65,7 @@ open class ProductDiskCache(
      * */
     @SuppressLint("WrongConstant")
     fun valueToBytes(value: Any?): ByteArray? {
-        return try {
+        return runPlogCatch {
             if (value.isNull()) {
                 return null
             }
@@ -66,11 +79,13 @@ open class ProductDiskCache(
                     value.compress(Bitmap.CompressFormat.PNG, 100, baos)
                     bytes = baos.toByteArray()
                 }
+
                 is Parcelable -> {
                     val source = Parcel.obtain()
                     value.writeToParcel(source, value.describeContents())
                     bytes = source.marshall()
                 }
+
                 else -> {
                     ByteArrayOutputStream().use { byteOutput ->
                         ObjectOutputStream(byteOutput).use { objOutput ->
@@ -87,10 +102,7 @@ open class ProductDiskCache(
                 }
             }
             bytes
-        } catch (thr: Throwable) {
-            thr.plogE()
-            null
-        }
+        }.getOrNull()
     }
 
     /**
@@ -101,11 +113,12 @@ open class ProductDiskCache(
             return null
         }
         val clazz = T::class.java
-        return try {
+        return runPlogCatch {
             when {
                 clazz == Bitmap::class.java -> {
                     BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size) as? T
                 }
+
                 Parcelable::class.java.isAssignableFrom(clazz) -> {
                     val source = Parcel.obtain()
                     source.unmarshall(bytes!!, 0, bytes!!.size)
@@ -114,6 +127,7 @@ open class ProductDiskCache(
                     val creator = f[null as Any?] as Creator<*>
                     creator.createFromParcel(source) as? T
                 }
+
                 else -> {
                     var obj: Any? = null
                     ByteArrayInputStream(bytes).use { byteInput ->
@@ -129,10 +143,7 @@ open class ProductDiskCache(
                     obj as? T
                 }
             }
-        } catch (thr: Throwable) {
-            thr.plogE()
-            null
-        } ?: null as? T
+        }.getOrNull() ?: null as? T
     }
 
     /**
@@ -158,7 +169,7 @@ open class ProductDiskCache(
             thr.plogE()
             false
         } finally {
-            os?.close()
+            runPlogCatch { os?.close() }
         }
     }
 
@@ -185,8 +196,8 @@ open class ProductDiskCache(
             thr.plogE()
             null
         } finally {
-            isz?.close()
-            ed?.commit()
+            runPlogCatch { isz?.close() }
+            runPlogCatch { ed?.commit() }
         }
     }
 
@@ -206,7 +217,7 @@ open class ProductDiskCache(
      * @return true 移除成功，false 移除失败
      * */
     fun remove(key: String): Boolean {
-        return try {
+        return runPlogCatch {
             if (dlc.size() <= 0) {
                 return true
             }
@@ -217,9 +228,6 @@ open class ProductDiskCache(
                 ed.commit()
                 dlc.remove(key)
             }
-        } catch (thr: Throwable) {
-            thr.plogE()
-            false
-        }
+        }.getOrDefault(false)
     }
 }

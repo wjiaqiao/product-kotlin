@@ -16,6 +16,7 @@ import com.jiaqiao.product.context.ProductContentProvider
 import com.jiaqiao.product.ext.isNull
 import com.jiaqiao.product.ext.notNullAndEmpty
 import com.jiaqiao.product.ext.plogE
+import com.jiaqiao.product.ext.runPlogCatch
 import java.io.File
 
 object UriUtil {
@@ -137,7 +138,7 @@ object UriUtil {
                     val mStorageManager =
                         ProductContentProvider.getContext()
                             .getSystemService(Context.STORAGE_SERVICE) as StorageManager
-                    try {
+                    runPlogCatch {
                         val storageVolumeClazz = Class.forName("android.os.storage.StorageVolume")
                         val getVolumeList = mStorageManager.javaClass.getMethod("getVolumeList")
                         val getUuid = storageVolumeClazz.getMethod("getUuid")
@@ -171,8 +172,6 @@ object UriUtil {
                                 )
                             }
                         }
-                    } catch (ex: Exception) {
-                        ex.plogE()
                     }
                 }
                 return null
@@ -200,12 +199,11 @@ object UriUtil {
                 for (contentUriPrefix: String in contentUriPrefixesToTry) {
                     val contentUri =
                         ContentUris.withAppendedId(Uri.parse(contentUriPrefix), availableId)
-                    try {
+                    runPlogCatch {
                         val file = getFileFromUri(contentUri, "1_1")
                         if (file != null) {
                             return file
                         }
-                    } catch (ignorthr: Throwable) {
                     }
                 }
                 return null
@@ -285,7 +283,7 @@ object UriUtil {
             thr.plogE()
             return null
         } finally {
-            cursor?.close()
+            runPlogCatch { cursor?.close() }
         }
     }
 

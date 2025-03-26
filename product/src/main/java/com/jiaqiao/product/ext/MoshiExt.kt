@@ -11,12 +11,8 @@ inline fun <reified T> T?.toMoshiString(): String {
     return if (this == null) {
         ""
     } else {
-        kotlin.runCatching {
+        runPlogCatch {
             ProductMoshi.moshi.adapter(T::class.java).toJson(this)
-        }.onFailure {
-            if (PlogConfig.debug) {
-                it.plogE()
-            }
         }.getOrDefault("")
     }
 }
@@ -28,13 +24,8 @@ inline fun <reified T> String?.toMoshiParse(): T? {
     return if (this == null) {
         null
     } else {
-        try {
-            ProductMoshi.moshi.adapter(T::class.java).fromJson(this!!)
-        } catch (thr: Throwable) {
-            if (PlogConfig.debug) {
-                thr.plogE()
-            }
-            null
-        }
+        runPlogCatch {
+            ProductMoshi.moshi.adapter(T::class.java).fromJson(this)
+        }.getOrDefault(null)
     }
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jiaqiao.product.ext.isNull
 import com.jiaqiao.product.ext.navigationBarHeight
 import com.jiaqiao.product.ext.plogE
+import com.jiaqiao.product.ext.runPlogCatch
 
 object ProductUiUtil {
 
@@ -19,7 +20,7 @@ object ProductUiUtil {
      * 获取状态栏高度(单位：像素)
      */
     fun getStatusBarHeight(context: Context): Int {
-        return kotlin.runCatching {
+        return runPlogCatch {
             var result = 0
             val resourceId =
                 context.resources.getIdentifier("status_bar_height", "dimen", "android")
@@ -27,8 +28,6 @@ object ProductUiUtil {
                 result = context.resources.getDimensionPixelSize(resourceId)
             }
             result
-        }.onFailure {
-            it.plogE()
         }.getOrDefault(0)
     }
 
@@ -36,7 +35,7 @@ object ProductUiUtil {
      * 获取导航栏高度(单位：像素)
      */
     fun getNavigationBarHeight(context: Context): Int {
-        return kotlin.runCatching {
+        return runPlogCatch {
             var result = 0
             val resourceId =
                 context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
@@ -44,8 +43,6 @@ object ProductUiUtil {
                 result = context.resources.getDimensionPixelSize(resourceId)
             }
             result
-        }.onFailure {
-            it.plogE()
         }.getOrDefault(0)
     }
 
@@ -53,7 +50,7 @@ object ProductUiUtil {
      * 判断导航栏是否存在
      */
     fun hasNavigationBar(activity: ComponentActivity): Boolean {
-        return kotlin.runCatching {
+        return runPlogCatch {
             val realDisplayMetrics = DisplayMetrics()
             (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
                 .defaultDisplay.getRealMetrics(realDisplayMetrics)
@@ -64,15 +61,13 @@ object ProductUiUtil {
             val viewHeight = if (conView.isNull()) {
                 0
             } else if (conView?.measuredHeight!! > 0) {
-                conView?.measuredHeight
-            } else if (conView?.height!! > 0) {
-                conView?.height
+                conView.measuredHeight
+            } else if (conView.height > 0) {
+                conView.height
             } else {
                 0
             }
             (viewHeight + navigationBarHeight) == realHeight
-        }.onFailure {
-            it.plogE()
         }.getOrDefault(false)
     }
 

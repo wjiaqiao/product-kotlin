@@ -56,15 +56,13 @@ fun Bitmap.savePng(filePath: String): Boolean {
  * @return 返回保存结果
  * */
 fun Bitmap.savePng(file: File): Boolean {
-    return kotlin.runCatching {
+    return runPlogCatch {
         file.parentFile?.pCreateDirectory()
         val bos = BufferedOutputStream(FileOutputStream(file))
         this.compress(Bitmap.CompressFormat.PNG, 100, bos)
         bos.flush()
         bos.close()
         true
-    }.onFailure {
-        it.plogE()
     }.getOrDefault(false)
 }
 
@@ -83,15 +81,13 @@ fun Bitmap.saveJpeg(filePath: String): Boolean {
  * @return 返回保存结果
  * */
 fun Bitmap.saveJpeg(file: File): Boolean {
-    return kotlin.runCatching {
+    return runPlogCatch {
         file.parentFile?.pCreateDirectory()
         val bos = BufferedOutputStream(FileOutputStream(file))
         this.compress(Bitmap.CompressFormat.JPEG, 100, bos)
         bos.flush()
         bos.close()
         true
-    }.onFailure {
-        it.plogE()
     }.getOrDefault(false)
 }
 

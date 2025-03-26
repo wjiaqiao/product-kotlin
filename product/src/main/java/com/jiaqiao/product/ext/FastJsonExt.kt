@@ -13,12 +13,8 @@ fun <T> T?.toFastJsonString(): String {
     return if (this == null) {
         ""
     } else {
-        kotlin.runCatching {
+        runPlogCatch {
             JSON.toJSONString(this)
-        }.onFailure {
-            if (PlogConfig.debug) {
-                it.plogE()
-            }
         }.getOrDefault("")
     }
 }
@@ -30,14 +26,9 @@ fun <T> String?.toFastJsonParse(): T? {
     return if (this == null) {
         null
     } else {
-        try {
+        runPlogCatch {
             JSON.parseObject(this, object : TypeReference<T>() {})
-        } catch (thr: Throwable) {
-            if (PlogConfig.debug) {
-                thr.plogE()
-            }
-            null
-        }
+        }.getOrNull()
     }
 }
 
@@ -48,14 +39,9 @@ fun String?.toJSONObject(): JSONObject? {
     return if (this == null) {
         null
     } else {
-        try {
+        runPlogCatch {
             JSONObject.parseObject(this)
-        } catch (thr: Throwable) {
-            if (PlogConfig.debug) {
-                thr.plogE()
-            }
-            null
-        }
+        }.getOrNull()
     }
 }
 
@@ -66,13 +52,8 @@ fun String?.toJSONArray(): JSONArray? {
     return if (this == null) {
         null
     } else {
-        try {
+        runPlogCatch {
             JSONArray.parseArray(this)
-        } catch (thr: Throwable) {
-            if (PlogConfig.debug) {
-                thr.plogE()
-            }
-            null
-        }
+        }.getOrNull()
     }
 }

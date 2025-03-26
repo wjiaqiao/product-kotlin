@@ -5,7 +5,6 @@ import com.jiaqiao.product.ext.runPlogCatch
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.RejectedExecutionHandler
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
@@ -35,11 +34,10 @@ object ProductThreadPool {
         KEEP_ALIVE_TIME,
         TimeUnit.SECONDS,
         LinkedBlockingQueue<Runnable>(),
-        Executors.defaultThreadFactory(),
-        RejectedExecutionHandler { _, _ ->
+        Executors.defaultThreadFactory()
+    ) { _, _ ->
 
-        }
-    )
+    }
 
 
     //在线程池中运行线程
@@ -53,7 +51,7 @@ object ProductThreadPool {
 
     //关闭线程池后并尝试终止正在执行的线程
     fun close() {
-        kotlin.runCatching {
+        runPlogCatch {
             threadPool.shutdownNow()
         }
         threadPool = ThreadPoolExecutor(
@@ -62,11 +60,10 @@ object ProductThreadPool {
             KEEP_ALIVE_TIME,
             TimeUnit.SECONDS,
             LinkedBlockingQueue<Runnable>(),
-            Executors.defaultThreadFactory(),
-            RejectedExecutionHandler { _, _ ->
+            Executors.defaultThreadFactory()
+        ) { _, _ ->
 
-            }
-        )
+        }
     }
 
     /**
@@ -74,7 +71,7 @@ object ProductThreadPool {
      * @return 返回false线程运行失败或报错，返回true线程运行完成
      */
     fun runAndWait(list: MutableList<Runnable>): Boolean {
-        if (isRunWaitTreadPool || list.isNullOrEmpty()) {
+        if (isRunWaitTreadPool || list.isEmpty()) {
             return false
         }
         val latch = CountDownLatch(list.size)
@@ -90,14 +87,11 @@ object ProductThreadPool {
                 }
             }
         }
-        return try {
+        return runPlogCatch {
             latch.await() // 等待所有线程完成
             isRunWaitTreadPool = false
             true
-        } catch (e: Throwable) {
-            e.plog()
-            false
-        }
+        }.getOrDefault(false)
     }
 
 }

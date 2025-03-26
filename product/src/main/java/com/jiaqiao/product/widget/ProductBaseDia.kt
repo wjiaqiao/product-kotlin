@@ -22,6 +22,7 @@ import com.jiaqiao.product.ext.click
 import com.jiaqiao.product.ext.createViewBindingAndInflateParent
 import com.jiaqiao.product.ext.isStatusBarBlackFont
 import com.jiaqiao.product.ext.isStatusBarWhiteFont
+import com.jiaqiao.product.ext.runPlogCatch
 import com.jiaqiao.product.ext.statusBarBlackFont
 import com.jiaqiao.product.ext.statusBarWhiteFont
 
@@ -141,12 +142,11 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
         }
         setContentView(rootView)
         window?.let { win ->
-            try {
+            runPlogCatch {
                 // 去除部分机型顶部蓝色条
                 val dividerID =
                     context.resources.getIdentifier("android:id/titleDivider", null, null)
                 findViewById<View>(dividerID)?.setBackgroundColor(Color.TRANSPARENT)
-            } catch (_: Throwable) {
             }
 
             win.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

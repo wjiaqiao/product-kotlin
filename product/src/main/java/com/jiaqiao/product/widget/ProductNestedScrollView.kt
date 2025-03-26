@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jiaqiao.product.R
 import com.jiaqiao.product.ext.notNull
 import com.jiaqiao.product.ext.plogE
+import com.jiaqiao.product.ext.runPlogCatch
 import com.jiaqiao.product.ext.setHeight
 import com.jiaqiao.product.util.FlingUtil
 
@@ -54,13 +55,12 @@ open class ProductNestedScrollView @JvmOverloads constructor(
     override fun onFinishInflate() {
         super.onFinishInflate()
         if (rvId != 0) {
-            try {
+            runPlogCatch {
                 val view: View = findViewById(rvId)
                 if (view is RecyclerView) {
                     rv = view
                 }
-            } catch (thr: Throwable) {
-                thr.plogE()
+            }.onFailure {
                 rv = null
             }
             rv?.let {

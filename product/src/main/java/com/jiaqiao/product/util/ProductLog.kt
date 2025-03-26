@@ -57,7 +57,7 @@ object ProductLog {
                 log + "\n",
                 Charset.forName("UTF-8")
             )
-        } catch (thr: Throwable) {
+        } catch (_: Throwable) {
 
         }
     }
@@ -142,7 +142,7 @@ object ProductLog {
             return
         }
         try {
-            if (!funName.isNullOrEmpty()) {
+            if (funName.isNotEmpty()) {
                 val length = log.length
                 if (length > PlogConfig.logLineMaxLength) {
                     val size = Math.ceil((length / PlogConfig.logLineMaxLength).toDouble())

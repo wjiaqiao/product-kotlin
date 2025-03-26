@@ -11,10 +11,8 @@ import com.jiaqiao.product.util.ProductApp
  * 获取res资源中的string内容
  * */
 fun Int.resString(): String {
-    return kotlin.runCatching {
+    return runPlogCatch {
         ProductApp.context.getString(this)
-    }.onFailure {
-        it.plogE()
     }.getOrNull() ?: ""
 }
 
@@ -22,10 +20,8 @@ fun Int.resString(): String {
  * 获取res资源中的color内容
  * */
 fun Int.resColor(): Int {
-    return kotlin.runCatching {
+    return runPlogCatch {
         ContextCompat.getColor(ProductApp.context, this)
-    }.onFailure {
-        it.plogE()
     }.getOrNull() ?: Color.WHITE
 }
 
@@ -33,10 +29,8 @@ fun Int.resColor(): Int {
  * 获取res资源中的Drawable
  * */
 fun Int.resDrawable(): Drawable? {
-    return kotlin.runCatching {
+    return runPlogCatch {
         ProductApp.context.resources.getDrawable(this, null)
-    }.onFailure {
-        it.plogE()
     }.getOrNull()
 }
 
@@ -44,9 +38,7 @@ fun Int.resDrawable(): Drawable? {
  * 获取res资源中的Bitmap，注意只有图片资源才能获取bitmap，shape资源只能使用drawable获取
  * */
 fun Int.resBitmap(): Bitmap? {
-    return kotlin.runCatching {
+    return runPlogCatch {
         BitmapFactory.decodeResource(ProductApp.context.resources,this)
-    }.onFailure {
-        it.plogE()
     }.getOrNull()
 }

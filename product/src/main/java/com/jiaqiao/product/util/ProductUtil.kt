@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import com.jiaqiao.product.ext.notNull
 import com.jiaqiao.product.ext.plogE
 import com.jiaqiao.product.ext.processName
+import com.jiaqiao.product.ext.runPlogCatch
 import com.jiaqiao.product.ext.toDiv
 import com.jiaqiao.product.throwable.ProductException
 import java.io.File
@@ -120,14 +121,12 @@ object ProductUtil {
      * */
     fun getManifestPermissions(context: Context): MutableList<String> {
         var packageInfo: PackageInfo? = null
-        try {
+        runPlogCatch {
             packageInfo =
                 context.packageManager.getPackageInfo(
                     context.packageName,
                     PackageManager.GET_PERMISSIONS
                 )
-        } catch (thr: Throwable) {
-            thr.plogE()
         }
         return packageInfo?.requestedPermissions?.toMutableList() ?: mutableListOf()
     }
@@ -146,7 +145,7 @@ object ProductUtil {
      * [packageName] 应用包名
      */
     fun isInstalled(context: Context, packageName: String): Boolean {
-        return try {
+        return runPlogCatch {
             if (isAndroid12 && !manifestHasPermission(
                     context,
                     Manifest.permission.REQUEST_INSTALL_PACKAGES
@@ -156,10 +155,7 @@ object ProductUtil {
             }
             context.packageManager.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
                 .notNull()
-        } catch (thr: Throwable) {
-            thr.plogE()
-            false
-        }
+        }.getOrDefault(false)
     }
 
     /**
@@ -172,7 +168,7 @@ object ProductUtil {
             return arrayOf()
         }
         val packageManager = paramContext.packageManager
-        return try {
+        return runPlogCatch {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 val packageInfo = packageManager.getPackageInfo(
                     paramString,
@@ -184,10 +180,7 @@ object ProductUtil {
                     packageManager.getPackageInfo(paramString, PackageManager.GET_SIGNATURES)
                 packageInfo.signatures
             }
-        } catch (thr: Throwable) {
-            thr.plogE()
-            arrayOf()
-        }
+        }.getOrDefault(arrayOf())
     }
 
 
@@ -195,7 +188,7 @@ object ProductUtil {
      * 解析应用信息
      * */
     private fun getMessageDigest(paramArrayOfByte: ByteArray): String {
-        try {
+        runPlogCatch {
             val localObject: Any = MessageDigest.getInstance("MD5")
             (localObject as MessageDigest).update(paramArrayOfByte)
             val paramArrayOfByteTemp = localObject.digest()
@@ -214,8 +207,6 @@ object ProductUtil {
                 localObjectTemp[n] = messageDigestCharArray[m and 0xF]
                 i += 1
             }
-        } catch (thr: Throwable) {
-            thr.plogE()
         }
         return ""
     }
@@ -264,12 +255,10 @@ object ProductUtil {
             "/system/sbin/", "/usr/bin/", "/vendor/bin/"
         )
         for (location in locations) {
-            try {
+            runPlogCatch {
                 if (File(location + su).exists()) {
                     return true
                 }
-            } catch (thr: Throwable) {
-                thr.plogE()
             }
         }
         return false
@@ -357,9 +346,8 @@ object ProductUtil {
         } catch (e: Throwable) {
             e.plogE()
         } finally {
-            try {
+            runPlogCatch {
                 inputStream?.close()
-            } catch (_: Throwable) {
             }
         }
         return intArrayOf(imageWidth, imageHeight)
@@ -371,14 +359,11 @@ object ProductUtil {
      * @return MD5后的数据
      * */
     fun md5(value: String): String {
-        return try {
+        return runPlogCatch {
             val md = MessageDigest.getInstance("MD5")
             val bytes = md.digest(value.toByteArray(charset("utf-8")))
             toHex(bytes)
-        } catch (e: Exception) {
-            e.plogE()
-            ""
-        }
+        }.getOrDefault("")
     }
 
     /**
@@ -406,7 +391,7 @@ object ProductUtil {
      * [def] 获取失败时返回的默认值
      */
     fun getSystemPropertieString(key: String, def: String = ""): String {
-        return try {
+        return runPlogCatch {
             val systemProperties = Class.forName("android.os.SystemProperties")
             (systemProperties.getMethod(
                 "get", *arrayOf<Class<*>>(
@@ -414,21 +399,16 @@ object ProductUtil {
                     String::class.java
                 )
             ).invoke(systemProperties, key, def) as String)
-        } catch (e: java.lang.Exception) {
-            def
-        }
+        }.getOrDefault(def)
     }
 
     /**
      * 是否是平板设备
      */
     fun isTabletDevice(): Boolean {
-        return try {
+        return runPlogCatch {
             getSystemPropertieString("ro.build.characteristics").contains("tablet")
-        } catch (thr: Throwable) {
-            thr.plogE()
-            false
-        }
+        }.getOrDefault(false)
     }
 
     /**

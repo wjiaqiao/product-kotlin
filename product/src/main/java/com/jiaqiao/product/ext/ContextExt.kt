@@ -110,12 +110,9 @@ fun Context.getSign(packageName: String = ""): String {
  */
 fun Context.hasInstallAppPermission(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        try {
+        runPlogCatch {
             packageManager.canRequestPackageInstalls()
-        } catch (thr: Throwable) {
-            thr.plogE()
-            false
-        }
+        }.getOrDefault(false)
     } else {
         //安卓8.0以下
         true
@@ -127,7 +124,7 @@ fun Context.hasInstallAppPermission(): Boolean {
  * 需要在 AndroidManifest 中添加权限 "android.permission.REQUEST_INSTALL_PACKAGES"
  */
 fun Context.toInstallPermissionSet() {
-    try {
+    runPlogCatch {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //注意这个是8.0新API
             startActivity(
@@ -137,8 +134,6 @@ fun Context.toInstallPermissionSet() {
                 )
             )
         }
-    } catch (thr: Throwable) {
-        thr.plogE()
     }
 }
 
