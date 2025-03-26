@@ -1,6 +1,7 @@
 package com.jiaqiao.product.util
 
-import java.util.*
+import java.util.Locale
+
 
 /**
  * 判断文件的类型

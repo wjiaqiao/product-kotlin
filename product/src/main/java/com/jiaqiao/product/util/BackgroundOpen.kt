@@ -63,7 +63,7 @@ class BackgroundOpen(val activity: Activity) {
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 //                wm.defaultDisplay.getRealSize(point)
 //            } else {
-                wm.defaultDisplay.getSize(point)
+            wm.defaultDisplay.getSize(point)
 //            }
             width = point.x
             height = point.y

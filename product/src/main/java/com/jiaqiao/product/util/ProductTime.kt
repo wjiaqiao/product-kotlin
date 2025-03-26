@@ -1,9 +1,10 @@
 package com.jiaqiao.product.util
 
-import com.jiaqiao.product.ext.plogE
 import com.jiaqiao.product.ext.runPlogCatch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 object ProductTime {
 
@@ -107,7 +108,6 @@ object ProductTime {
         timeCal[Calendar.MILLISECOND] = 0 // 毫秒
         return timeCal.timeInMillis
     }
-
 
 
 }

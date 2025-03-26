@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import com.jiaqiao.product.ext.isNull
 import com.jiaqiao.product.ext.navigationBarHeight
-import com.jiaqiao.product.ext.plogE
 import com.jiaqiao.product.ext.runPlogCatch
 
 object ProductUiUtil {
@@ -57,7 +55,8 @@ object ProductUiUtil {
             val realHeight = realDisplayMetrics.heightPixels
             val navigationBarHeight = activity.navigationBarHeight()
             val conView =
-                activity.window.decorView.findViewById<ViewGroup>(android.R.id.content)?.getChildAt(0)
+                activity.window.decorView.findViewById<ViewGroup>(android.R.id.content)
+                    ?.getChildAt(0)
             val viewHeight = if (conView.isNull()) {
                 0
             } else if (conView?.measuredHeight!! > 0) {

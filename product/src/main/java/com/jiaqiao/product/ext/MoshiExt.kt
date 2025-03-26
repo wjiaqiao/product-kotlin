@@ -1,6 +1,5 @@
 package com.jiaqiao.product.ext
 
-import com.jiaqiao.product.config.PlogConfig
 import com.jiaqiao.product.util.ProductMoshi
 
 

@@ -7,13 +7,11 @@ import com.jiaqiao.product.databinding.ReltimeLogFragBinding
 /**
  * 实时日志fragment，用于显示app中的实时日志
  * */
-class ReltimeLogFrag: ProductBaseVBFrag<ReltimeLogFragBinding> {
+class RealtimeLogFrag private constructor() : ProductBaseVBFrag<ReltimeLogFragBinding>() {
 
-    companion object{
-        fun newInstance():ReltimeLogFrag = ReltimeLogFrag()
+    companion object {
+        fun newInstance(): RealtimeLogFrag = RealtimeLogFrag()
     }
-
-    private constructor()
 
     override fun initView(savedInstanceState: Bundle?) {
 
