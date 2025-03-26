@@ -22,18 +22,18 @@ object StringUtil {
     }
 
     private fun editDistance(s1: String, s2: String): Int {
-        var s1 = s1
-        var s2 = s2
-        s1 = s1.lowercase()
-        s2 = s2.lowercase()
-        val costs = IntArray(s2.length + 1)
-        for (i in 0..s1.length) {
+        var s11 = s1
+        var s21 = s2
+        s11 = s11.lowercase()
+        s21 = s21.lowercase()
+        val costs = IntArray(s21.length + 1)
+        for (i in 0..s11.length) {
             var lastValue = i
-            for (j in 0..s2.length) {
+            for (j in 0..s21.length) {
                 if (i == 0) costs[j] = j else {
                     if (j > 0) {
                         var newValue = costs[j - 1]
-                        if (s1[i - 1] != s2[j - 1]) newValue = Math.min(
+                        if (s11[i - 1] != s21[j - 1]) newValue = Math.min(
                             Math.min(newValue, lastValue),
                             costs[j]
                         ) + 1
@@ -42,9 +42,9 @@ object StringUtil {
                     }
                 }
             }
-            if (i > 0) costs[s2.length] = lastValue
+            if (i > 0) costs[s21.length] = lastValue
         }
-        return costs[s2.length]
+        return costs[s21.length]
     }
 
 

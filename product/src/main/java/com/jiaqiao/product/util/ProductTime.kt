@@ -4,9 +4,10 @@ import com.jiaqiao.product.ext.plogE
 import java.text.SimpleDateFormat
 import java.util.*
 
-object Time {
+object ProductTime {
 
-    const val HOUR_TIME = 1000 * 60 * 60L
+    const val MINUTE_TIME = 1000 * 60L
+    const val HOUR_TIME = MINUTE_TIME * 60L
     const val DAY_TIME = HOUR_TIME * 24L
     const val WEEK_TIME = DAY_TIME * 7L
     const val DAY_MINUTE = 24 * 60L
@@ -79,7 +80,7 @@ object Time {
      */
     fun getTimeString(formatStr: String, time: Long): String {
         return try {
-            SimpleDateFormat(formatStr, Locale.getDefault()).format(Date(time))
+            SimpleDateFormat(formatStr, Locale.US).format(Date(time))
         } catch (thr: Throwable) {
             thr.plogE()
             ""
@@ -92,7 +93,7 @@ object Time {
      */
     fun getTimeInMillis(formatStr: String, time: String): Long {
         return try {
-            SimpleDateFormat(formatStr, Locale.getDefault()).parse(time).time
+            SimpleDateFormat(formatStr, Locale.US).parse(time)?.time ?: 0
         } catch (thr: Throwable) {
             thr.plogE()
             0

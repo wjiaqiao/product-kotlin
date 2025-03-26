@@ -4,14 +4,17 @@ import android.app.Activity
 import android.content.Context
 import com.jiaqiao.product.context.ProductContentProvider
 import com.jiaqiao.product.ext.isAvailable
+import com.jiaqiao.product.ext.isFalse
 import com.jiaqiao.product.ext.notNull
 import com.jiaqiao.product.ext.notNullAndEmpty
-import java.util.*
+import com.jiaqiao.product.ext.runPCatch
+import java.lang.ref.WeakReference
+import java.util.LinkedList
 
 object ProductApp {
 
     //存活的activity列表
-    private val activityList = LinkedList<Activity>()
+    private val activityList by lazy { LinkedList<WeakReference<Activity>>() }
 
     //app前台状态
     var isAppResume = false
@@ -20,14 +23,14 @@ object ProductApp {
     val activitySize: Int get() = activityList.size
 
     //栈顶Activity
-    val currentActivity: Activity? get() = if (activityList.isNullOrEmpty()) null else activityList.last
+    val currentActivity: Activity? get() = if (activityList.isEmpty()) null else activityList.last.get()
 
     //获取当前活动的activity
     val availableActivity: Activity?
         get() {
             if (activityList.notNullAndEmpty()) {
                 for (i in activityList.size - 1 downTo 0) {
-                    val activity = activityList[i]
+                    val activity = activityList[i].get()
                     if (activity.isAvailable()) {
                         return activity
                     }
@@ -51,7 +54,7 @@ object ProductApp {
      * 入栈Activity
      */
     fun addActivity(activity: Activity) {
-        activityList.add(activity)
+        activityList.add(WeakReference(activity))
     }
 
     /**
@@ -61,18 +64,22 @@ object ProductApp {
         if (!activity.isFinishing) {
             activity.finish()
         }
-        activityList.remove(activity)
+        activityList.indexOfFirst { it.get() == activity }.also {
+            if (it != -1) {
+                activityList.removeAt(it)
+            }
+        }
     }
 
     /**
      * finish并移除对应class的Activity
      */
     fun removeActivity(cls: Class<*>) {
-        if (activityList.isNullOrEmpty()) return
-        val index = activityList.indexOfFirst { it.javaClass == cls }
+        if (activityList.isEmpty()) return
+        val index = activityList.indexOfFirst { it.get()?.javaClass == cls }
         if (index == -1) return
-        if (!activityList[index].isFinishing) {
-            activityList[index].finish()
+        if (activityList[index].get()?.isFinishing.isFalse()) {
+            runPCatch { activityList[index].get()?.finish() }
         }
         activityList.removeAt(index)
     }
@@ -81,12 +88,13 @@ object ProductApp {
      * Activity全部finish并移除
      */
     fun removeAllActivity() {
-        activityList.forEach {
-            if (!it.isFinishing) {
-                it.finish()
+        for (i in activityList.lastIndex downTo 0) {
+            val it = activityList[i]
+            if (it.get()?.isFinishing.isFalse()) {
+                runPCatch { it.get()?.finish() }
             }
+            activityList.removeAt(i)
         }
-        activityList.clear()
     }
 
     /**
@@ -96,9 +104,9 @@ object ProductApp {
     fun removeAllExitTop() {
         if (activityList.size <= 1) return
         for (i in (0 until activityList.size - 1)) {
-            val act = activityList[i]
-            if (!act.isFinishing) {
-                act.finish()
+            val act = activityList[i].get()
+            if (act?.isFinishing.isFalse()) {
+                act?.finish()
             }
         }
         val top = activityList.last()

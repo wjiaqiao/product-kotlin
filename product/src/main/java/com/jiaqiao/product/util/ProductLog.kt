@@ -4,47 +4,40 @@ import android.util.Log
 import com.jiaqiao.product.base.ProductConstants
 import com.jiaqiao.product.config.PlogConfig
 import com.jiaqiao.product.ext.*
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.trySendBlocking
-import kotlinx.coroutines.launch
 import java.io.File
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
 import java.nio.charset.Charset
+import java.util.concurrent.Executors
 import java.util.logging.Logger
 
 object ProductLog {
 
-    //保存文件操作
-    private val channel by lazy { Channel<String>(Channel.BUFFERED) }
-    private val pLifeScope by lazy { CoroutineScopeUtil.createIoScope() }
-    private var writeJob: Job? = null
+
+    //线程池
+    private var threadPool = Executors.newSingleThreadExecutor()
 
     init {
         checkJob()
     }
 
+    //取消协程及job
+    fun cancel() {
+        runPCatch {
+            threadPool.shutdownNow()
+        }
+        threadPool = Executors.newSingleThreadExecutor()
+    }
+
     /**
-     * 检查写入文件线程的状态
+     * 检查日志写入文件线程的状态
      * */
     fun checkJob() {
-        if (PlogConfig.debug && PlogConfig.saveLogFile) {
-            if (writeJob?.isActive != true) {
-                writeJob = pLifeScope.launch {
-                    runIo {
-                        for (s in channel) {
-                            if (!s.isNullOrEmpty()) {
-                                realWriteFile(s)
-                            }
-                        }
-                    }.await()
-                }
-            }
+        if (PlogConfig.debug) {
+
         } else {
-            writeJob?.cancel()
-            writeJob = null
+            cancel()
         }
     }
 
@@ -55,7 +48,7 @@ object ProductLog {
         try {
             val file = File(
                 ProductConstants.sdLogFilePath
-                        + File.separator + Time.time3(System.currentTimeMillis()) + ".txt"
+                        + File.separator + ProductTime.time3(System.currentTimeMillis()) + ".txt"
             )
             if (!file.parentFile.exists()) {
                 file.parentFile.mkdirs()
@@ -210,7 +203,9 @@ object ProductLog {
             return
         }
         try {
-            channel.trySendBlocking(Time.time1(System.currentTimeMillis()) + "/$tag: $log")
+            threadPool.execute {
+                realWriteFile(ProductTime.time1(System.currentTimeMillis()) + "/$tag: $log")
+            }
         } catch (thr: Throwable) {
             if (PlogConfig.debug) {
                 thr.printStackTrace()

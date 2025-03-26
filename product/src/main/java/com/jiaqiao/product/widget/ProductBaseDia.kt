@@ -67,21 +67,21 @@ open abstract class ProductBaseDia<VB : ViewBinding>(
     }
 
     /**
-     * rootview在dialog中的位置
+     * RootView在dialog中的位置
      * */
     open fun gravity(): Int {
         return Gravity.CENTER
     }
 
 //    /**
-//     * rootview在dialog中的宽度
+//     * RootView在dialog中的宽度
 //     * */
 //    open fun width(): Int {
 //        return ViewGroup.LayoutParams.MATCH_PARENT
 //    }
 //
 //    /**
-//     * rootview在dialog中的高度
+//     * RootView在dialog中的高度
 //     * */
 //    open fun height(): Int {
 //        return ViewGroup.LayoutParams.WRAP_CONTENT

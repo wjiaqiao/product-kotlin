@@ -97,7 +97,7 @@ object ProductUtil {
      */
     fun isMainProcess(context: Context): Boolean {
         val currentName: String = context.processName()
-        return !currentName.isNullOrEmpty() && currentName == context.packageName
+        return currentName.isNotEmpty() && currentName == context.packageName
     }
 
     /**
@@ -168,20 +168,19 @@ object ProductUtil {
      * [paramString] 应用包名
      */
     private fun getRawSignature(paramContext: Context, paramString: String): Array<Signature> {
-        if (paramString.isNullOrEmpty()) {
+        if (paramString.isEmpty()) {
             return arrayOf()
         }
         val packageManager = paramContext.packageManager
         return try {
-            var packageInfo: PackageInfo? = null
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                packageInfo = packageManager.getPackageInfo(
+                val packageInfo = packageManager.getPackageInfo(
                     paramString,
                     PackageManager.GET_SIGNING_CERTIFICATES
                 )
                 packageInfo.signingInfo.apkContentsSigners
             } else {
-                packageInfo =
+                val packageInfo =
                     packageManager.getPackageInfo(paramString, PackageManager.GET_SIGNATURES)
                 packageInfo.signatures
             }
@@ -231,10 +230,10 @@ object ProductUtil {
             return ""
         }
         val rawSignature: Array<Signature> = getRawSignature(context, packageName)
-        if (rawSignature.isNullOrEmpty()) {
+        if (rawSignature.isEmpty()) {
             return ""
         }
-        var strBuf = StringBuffer()
+        val strBuf = StringBuffer()
         for (i in rawSignature.indices) {
             strBuf.append(getMessageDigest(rawSignature[i].toByteArray()))
         }
@@ -328,7 +327,7 @@ object ProductUtil {
         intent.setPackage(packageName)
         val pm: PackageManager = context.packageManager
         val info = pm.queryIntentActivities(intent, 0)
-        return if (info.isNullOrEmpty()) "" else info[0].activityInfo.name
+        return if (info.isEmpty()) "" else info[0].activityInfo.name
     }
 
     /**
@@ -360,7 +359,7 @@ object ProductUtil {
         } finally {
             try {
                 inputStream?.close()
-            } catch (e: Throwable) {
+            } catch (_: Throwable) {
             }
         }
         return intArrayOf(imageWidth, imageHeight)

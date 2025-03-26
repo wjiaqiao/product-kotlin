@@ -7,7 +7,7 @@ import com.jiaqiao.product.ext.plogE
 import com.jiaqiao.product.ext.toFastJsonString
 import com.jiaqiao.product.util.DeviceUtil
 import com.jiaqiao.product.util.ProductLog
-import com.jiaqiao.product.util.Time
+import com.jiaqiao.product.util.ProductTime
 import java.io.File
 import java.nio.charset.Charset
 
@@ -39,7 +39,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler {
         if (PlogConfig.saveLogFile) {
             val time = System.currentTimeMillis()
             val sb = StringBuffer()
-            sb.append("奔溃时间：${Time.time1(time)}\n")
+            sb.append("奔溃时间：${ProductTime.time1(time)}\n")
             sb.append("奔溃线程：${thread.name}\n")
             sb.append("设备型号：${DeviceUtil.getModel()}\n")
             sb.append("设备SDK版本：${DeviceUtil.getSDKVersionCode()}\n")
@@ -62,7 +62,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler {
         try {
             val file = File(
                 ProductConstants.sdExpFilePath
-                        + File.separator + Time.time1(time) + ".txt"
+                        + File.separator + ProductTime.time1(time) + ".txt"
             )
             if (!file.parentFile.exists()) {
                 file.parentFile.mkdirs()

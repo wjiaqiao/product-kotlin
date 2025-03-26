@@ -20,7 +20,7 @@ import java.io.*
  * [cachePath] 缓存路径
  * [cacheMaxSize] 缓存的总大小（单位：B，默认200MB），当缓存大小超过这个设定值后，DiskLruCache会清除一些缓存，从而保证不会超过这个设定值
  */
-open class PDiskCache(
+open class ProductDiskCache(
     val cacheName: String,
     val cacheVersion: Int,
     val cachePath: String = "",

@@ -12,7 +12,7 @@ import com.jiaqiao.product.ext.setPaddingBottom
 /**
  * 软键盘的辅助类，用于监听键盘高度变化
  * [activity] 绑定的activity
- * [setPadBot] 是否将键盘高度设置为rootview的paddingbottom
+ * [setPadBot] 是否将键盘高度设置为RootView的paddingbottom
  */
 class SoftInputPanelHelper(val activity: AppCompatActivity, val setPadBot: Boolean = false) {
 
@@ -22,7 +22,7 @@ class SoftInputPanelHelper(val activity: AppCompatActivity, val setPadBot: Boole
 
     /**
      * 软键盘高度变化回调事件
-     * {View} rootview
+     * {View} RootView
      * {Int} 键盘高度，为0键盘关闭
      */
     var changeSoftInputHeightAction: ((View, Int) -> Unit)? = null
@@ -33,13 +33,13 @@ class SoftInputPanelHelper(val activity: AppCompatActivity, val setPadBot: Boole
     //判断手机是否显示导航栏
     private var hasNavigationBar = false
 
-    //activity的rootview
+    //activity的RootView
     private var rootView: View? = null
 
-    //获取rootview大小
+    //获取RootView大小
     private val rect by lazy { Rect() }
 
-    //rootview宽高变化时监听器
+    //RootView宽高变化时监听器
     private val onPreDrawListener by lazy {
         ViewTreeObserver.OnPreDrawListener {
             rootView?.let {
@@ -73,14 +73,14 @@ class SoftInputPanelHelper(val activity: AppCompatActivity, val setPadBot: Boole
     //绑定activity
     fun bind() {
         rootView = activity.window.decorView
-        if (rootView?.measuredWidth ?: 0 > 0) {
+        if ((rootView?.measuredWidth ?: 0) > 0) {
             setRootViewListener()
         } else {
             rootView?.post { setRootViewListener() }
         }
     }
 
-    //设置rootview的监听器
+    //设置RootView的监听器
     private fun setRootViewListener() {
         rootView?.viewTreeObserver?.removeOnPreDrawListener(onPreDrawListener)
         rootView!!.viewTreeObserver.addOnPreDrawListener(onPreDrawListener)

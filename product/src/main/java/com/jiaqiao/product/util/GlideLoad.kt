@@ -28,7 +28,7 @@ object GlideLoad {
      */
     fun load(imageView: ImageView, url: String, defResourcesId: Int = -1) {
         val rm = Glide.with(imageView)
-        var rbd = if (GlideLoadConfig.loadStringInterceptor.notNull()) {
+        val rbd = if (GlideLoadConfig.loadStringInterceptor.notNull()) {
             GlideLoadConfig.loadStringInterceptor?.invoke(rm, url)
         } else {
             rm.load(url)
@@ -52,7 +52,7 @@ object GlideLoad {
      * [defResourcesId] 默认资源ID
      */
     fun load(imageView: ImageView, file: File?, defResourcesId: Int = -1) {
-        var rbd = Glide.with(imageView).load(file)
+        val rbd = Glide.with(imageView).load(file)
         if (defResourcesId > 0) {
             val requestOptions = RequestOptions()
             requestOptions.error(defResourcesId).placeholder(defResourcesId)
@@ -70,7 +70,7 @@ object GlideLoad {
      * [defResourcesId] 默认资源ID
      */
     fun load(imageView: ImageView, uri: Uri?, defResourcesId: Int = -1) {
-        var rbd = Glide.with(imageView).load(uri)
+        val rbd = Glide.with(imageView).load(uri)
         if (defResourcesId > 0) {
             val requestOptions = RequestOptions()
             requestOptions.error(defResourcesId).placeholder(defResourcesId)
@@ -88,7 +88,7 @@ object GlideLoad {
      * [defResourcesId] 默认资源ID
      */
     fun load(imageView: ImageView, resId: Int, defResourcesId: Int = -1) {
-        var rbd = Glide.with(imageView).load(resId)
+        val rbd = Glide.with(imageView).load(resId)
         if (defResourcesId > 0) {
             val requestOptions = RequestOptions()
             requestOptions.error(defResourcesId).placeholder(defResourcesId)
@@ -111,7 +111,7 @@ object GlideLoad {
             imageView.setImageBitmap(null)
             return
         }
-        var rbd = Glide.with(imageView).load(drawable)
+        val rbd = Glide.with(imageView).load(drawable)
         if (defResourcesId > 0) {
             val requestOptions = RequestOptions()
             requestOptions.error(defResourcesId).placeholder(defResourcesId)
@@ -130,7 +130,7 @@ object GlideLoad {
      */
     fun loadDrawable(imageView: ImageView, url: String, defResourcesId: Int = -1) {
         val rm = Glide.with(imageView)
-        var rbd = if (GlideLoadConfig.loadStringInterceptor.notNull()) {
+        val rbd = if (GlideLoadConfig.loadStringInterceptor.notNull()) {
             GlideLoadConfig.loadStringInterceptor?.invoke(rm, url)
         } else {
             rm.load(url)
