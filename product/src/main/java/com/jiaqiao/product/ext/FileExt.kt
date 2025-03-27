@@ -7,8 +7,8 @@ import java.io.File
 /**
  * 创建新文件
  * */
-fun File.pCreateFile() {
-    parentFile?.pCreateDirectory()
+fun File.productCreateFile() {
+    parentFile?.productCreateDirectory()
     if (exists()) {
         delete()
     }
@@ -18,7 +18,7 @@ fun File.pCreateFile() {
 /**
  * 创建文件夹
  * */
-fun File.pCreateDirectory() {
+fun File.productCreateDirectory() {
     if (!exists()) {
         mkdirs()
     }
@@ -27,11 +27,11 @@ fun File.pCreateDirectory() {
 /**
  * 删除文件或文件夹
  * */
-fun File.pDeleteAll() {
+fun File.productDeleteAll() {
     if (exists()) {
         if (isDirectory) {
             listFiles()?.forEach { childFile ->
-                childFile.pDeleteAll()
+                childFile.productDeleteAll()
             }
             delete()
         } else if (isFile) {
@@ -43,10 +43,10 @@ fun File.pDeleteAll() {
 /**
  * 删除文件夹中的子文件
  * */
-fun File.pDeleteChild() {
+fun File.productDeleteChild() {
     if (isDirectory && exists()) {
         listFiles()?.forEach { childFile ->
-            childFile.pDeleteAll()
+            childFile.productDeleteAll()
         }
     }
 }
@@ -54,6 +54,6 @@ fun File.pDeleteChild() {
 /**
  * file文件转换成uri
  * */
-fun File?.toProductUri(): Uri? {
+fun File?.productToUri(): Uri? {
     return if (isNull()) null else UriUtil.file2Uri(this!!)
 }
