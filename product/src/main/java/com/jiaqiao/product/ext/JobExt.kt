@@ -5,7 +5,7 @@ import kotlinx.coroutines.Job
 /**
  * 判断是否cancel，减少重复cancel的次数
  * */
-fun Job?.toProduceCancel() {
+fun Job?.toProductCancel() {
     if (this.notNull() && this?.isCancelled.isFalse()) {
         this?.cancel()
     }
