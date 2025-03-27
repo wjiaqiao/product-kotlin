@@ -174,13 +174,13 @@ object ProductUtil {
                     paramString,
                     PackageManager.GET_SIGNING_CERTIFICATES
                 )
-                packageInfo.signingInfo.apkContentsSigners
+                packageInfo.signingInfo?.apkContentsSigners
             } else {
                 val packageInfo =
                     packageManager.getPackageInfo(paramString, PackageManager.GET_SIGNATURES)
                 packageInfo.signatures
             }
-        }.getOrDefault(arrayOf())
+        }.getOrNull() ?: arrayOf()
     }
 
 

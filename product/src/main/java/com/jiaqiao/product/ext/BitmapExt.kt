@@ -112,7 +112,7 @@ fun Bitmap.addBgColor(color: Int): Bitmap {
     paint.color = color //背景色
     val bitmapAft = Bitmap.createBitmap(
         width,
-        height, config
+        height, config!!
     )
     val canvas = Canvas(bitmapAft)
     canvas.drawRect(
@@ -142,7 +142,7 @@ fun Bitmap.coverBitmap(coverBitmap: Bitmap): Bitmap {
     }
     val bitmapAft = Bitmap.createBitmap(
         width,
-        height, config
+        height, config!!
     )
     val canvas = Canvas(bitmapAft)
     canvas.drawBitmap(
@@ -176,7 +176,7 @@ fun Bitmap.cropScale(widthScale: Int, heightScale: Int): Bitmap {
     return if (realWidth == width && realHeight == height) {
         val bitmapAft = Bitmap.createBitmap(
             width,
-            height, config
+            height, config!!
         )
         val canvas = Canvas(bitmapAft)
         canvas.drawBitmap(
@@ -189,7 +189,7 @@ fun Bitmap.cropScale(widthScale: Int, heightScale: Int): Bitmap {
     } else {
         val bitmapAft = Bitmap.createBitmap(
             realWidth,
-            realHeight, config
+            realHeight, config!!
         )
         val canvas = Canvas(bitmapAft)
         val cw = width / 2
@@ -213,7 +213,7 @@ fun Bitmap.cropScale(widthScale: Int, heightScale: Int): Bitmap {
  * [bgColor] 图片裁剪背景颜色，默认透明色
  * */
 fun Bitmap.cropRound(bgColor: Int = Color.TRANSPARENT): Bitmap {
-    val circleBitmap = Bitmap.createBitmap(width, width, config)
+    val circleBitmap = Bitmap.createBitmap(width, width, config!!)
     val canvas = Canvas(circleBitmap)
     val paint = Paint().also {
         it.isAntiAlias = true
@@ -236,7 +236,7 @@ fun Bitmap.cropRound(bgColor: Int = Color.TRANSPARENT): Bitmap {
  * [radius] 圆角，单位：像素
  * */
 fun Bitmap.radius(radius: Int): Bitmap {
-    val circleBitmap = Bitmap.createBitmap(width, height, config)
+    val circleBitmap = Bitmap.createBitmap(width, height, config!!)
     val canvas = Canvas(circleBitmap)
     val paint = Paint().also {
         it.isAntiAlias = true
