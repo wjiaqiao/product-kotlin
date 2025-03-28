@@ -8,10 +8,21 @@
     <com.jiaqiao.product.widget.AppTitleView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:atv_arrow_click_type="back"
         app:atv_center_text="相册"
         app:atv_center_text_gravity="center"
-        app:atv_arrow_click_type="back"
         app:atv_in_status_bar="false" />
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="6dp"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="12dp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"

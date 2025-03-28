@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.MediaStore.MediaColumns
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.android.ktx.context.toast
 import com.example.productkotlin.base.ImagePath
@@ -15,14 +17,20 @@ import com.example.productkotlin.ext.hideLoad
 import com.example.productkotlin.ext.showLoad
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
+import com.hjq.permissions.XXPermissions.REQUEST_CODE
 import com.jiaqiao.product.base.ProductBaseVBAct
+import com.jiaqiao.product.ext.click
+import com.jiaqiao.product.ext.gone
 import com.jiaqiao.product.ext.gridVertical
 import com.jiaqiao.product.ext.launchMain
 import com.jiaqiao.product.ext.notNullAndEmpty
 import com.jiaqiao.product.ext.plog
+import com.jiaqiao.product.ext.registerResult
 import com.jiaqiao.product.ext.runIo
 import com.jiaqiao.product.ext.runPlogCatch
+import com.jiaqiao.product.ext.visible
 import kotlinx.coroutines.delay
+
 
 class AlbumAct : ProductBaseVBAct<ActAlbumBinding>() {
 
@@ -39,6 +47,29 @@ class AlbumAct : ProductBaseVBAct<ActAlbumBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         mViewBind.rv.gridVertical(4).adapter = ada
         loader = PhotoDirectoryLoader(this, false)
+        mViewBind.tvTip.click {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                registerResult(ActivityResultContracts.RequestMultiplePermissions()) {
+                    loadImageList()
+                }.launch(
+                    arrayOf(
+                        Manifest.permission.READ_MEDIA_IMAGES
+                    )
+                )
+            }
+        }
+        checkPermission()
+    }
+
+    private fun checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+            && ContextCompat.checkSelfPermission(
+                this, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            loadImageList()
+            return
+        }
         val permissions = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
                 // Android 14 (API 34) 及以上版本
@@ -72,19 +103,21 @@ class AlbumAct : ProductBaseVBAct<ActAlbumBinding>() {
     private fun loadImageList() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.READ_MEDIA_IMAGES
+                    this, Manifest.permission.READ_MEDIA_IMAGES
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 "授权了所有图片".plog()
+                mViewBind.tvTip.gone()
             } else if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
+                    this, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 "授权了部分图片".plog()
+                mViewBind.tvTip.text = "仅授权了部分图片"
+                mViewBind.tvTip.visible()
             } else {
                 "未授权".plog()
+                mViewBind.tvTip.gone()
             }
         }
         launchMain {
