@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <com.jiaqiao.product.widget.AppTitleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:atv_center_text="相册"
+        app:atv_center_text_gravity="center"
+        app:atv_arrow_click_type="back"
+        app:atv_in_status_bar="false" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        style="@style/ClipChildrenView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#E4E4E4"
+        android:orientation="vertical"
+        android:padding="1dp" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

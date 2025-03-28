@@ -1,5 +1,6 @@
 package com.jiaqiao.product.ext
 
+import com.jiaqiao.product.util.ProductTime
 import kotlin.math.pow
 
 
@@ -71,4 +72,24 @@ fun Long.pow(pow: Int): Float {
  * */
 fun Long.pow(pow: Float): Float {
     return this.toFloat().pow(pow)
+}
+
+fun Long.toProductTime1(): String {
+    return ProductTime.time1(this)
+}
+
+fun Long.toProductTime2(): String {
+    return ProductTime.time2(this)
+}
+
+fun Long.toProductTime3(): String {
+    return ProductTime.time3(this)
+}
+
+fun Long.toProductTime4(): String {
+    return ProductTime.time4(this)
+}
+
+fun Long.toProductTime5(): String {
+    return ProductTime.time5(this)
 }
