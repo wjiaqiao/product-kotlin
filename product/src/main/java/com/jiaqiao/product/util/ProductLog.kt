@@ -272,7 +272,7 @@ object ProductLog {
      * */
     fun deleteLogFile() {
         if (ProductConstants.sdLogcatFilePath.notNullAndEmpty()) {
-            File(ProductConstants.sdLogcatFilePath).pDeleteAll()
+            File(ProductConstants.sdLogcatFilePath).productDeleteAll()
         }
     }
 

@@ -48,5 +48,11 @@
             android:layout_height="wrap_content"
             android:text="日志"/>
 
+        <Button
+            android:id="@+id/but_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相册"/>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

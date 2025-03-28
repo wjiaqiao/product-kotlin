@@ -1,6 +1,14 @@
 package com.jiaqiao.product.ext
 
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
+import android.graphics.RectF
 import com.jiaqiao.product.util.ProductUtil
 import java.io.BufferedOutputStream
 import java.io.File
@@ -57,7 +65,7 @@ fun Bitmap.savePng(filePath: String): Boolean {
  * */
 fun Bitmap.savePng(file: File): Boolean {
     return runPlogCatch {
-        file.parentFile?.pCreateDirectory()
+        file.parentFile?.productCreateDirectory()
         val bos = BufferedOutputStream(FileOutputStream(file))
         this.compress(Bitmap.CompressFormat.PNG, 100, bos)
         bos.flush()
@@ -82,7 +90,7 @@ fun Bitmap.saveJpeg(filePath: String): Boolean {
  * */
 fun Bitmap.saveJpeg(file: File): Boolean {
     return runPlogCatch {
-        file.parentFile?.pCreateDirectory()
+        file.parentFile?.productCreateDirectory()
         val bos = BufferedOutputStream(FileOutputStream(file))
         this.compress(Bitmap.CompressFormat.JPEG, 100, bos)
         bos.flush()

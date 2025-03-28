@@ -93,6 +93,6 @@ dependencies {
     implementation 'dom4j:dom4j:1.6.1'
     //翻译
 
-    implementation "com.github.getActivity:XXPermissions:18.0"
+    implementation "com.github.getActivity:XXPermissions:20.0"
 
 }
