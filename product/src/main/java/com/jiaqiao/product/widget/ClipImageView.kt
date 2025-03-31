@@ -738,6 +738,7 @@ class ClipImageView : AppCompatImageView {
                     Path.Direction.CCW
                 )
             }
+
             RECT_CLIP_BOX -> {
                 clipPath.reset() //不带描边的矩形，用于绘制外描边
                 clipRect.left = (centerX - rectangleWidth / 2).toFloat()
@@ -759,6 +760,7 @@ class ClipImageView : AppCompatImageView {
                 canvas.drawPath(clipPath, strokePaint!!)
                 parentPath.addRect(strokeRect, Path.Direction.CCW)
             }
+
             RECT_CLIP_BOX_ROUND -> {
                 clipRect.left = (centerX - rectangleWidth / 2).toFloat()
                 clipRect.top = (centerY - rectangleHeight / 2).toFloat()
@@ -784,6 +786,7 @@ class ClipImageView : AppCompatImageView {
                     strokeRect, rectRadius.toFloat(), rectRadius.toFloat(), Path.Direction.CCW
                 )
             }
+
             else -> {
                 return
             }
@@ -926,13 +929,14 @@ class ClipImageView : AppCompatImageView {
         val canvas = Canvas(output)
         val clipPaint = Paint()
         val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        val dstRect = Rect(0 - 1, 0 - 1, bitmap.width + 1, bitmap.height + 1)
         val rectF = RectF(rect)
         clipPaint.isAntiAlias = true
         canvas.drawARGB(0, 0, 0, 0)
         clipPaint.color = Color.WHITE
         canvas.drawRoundRect(rectF, rectRadius.toFloat(), rectRadius.toFloat(), clipPaint)
         clipPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        canvas.drawBitmap(bitmap, rect, rect, clipPaint)
+        canvas.drawBitmap(bitmap, rect, dstRect, clipPaint)
         return output
     }
 

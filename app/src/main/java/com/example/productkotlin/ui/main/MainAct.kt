@@ -22,8 +22,14 @@ class MainAct : BaseVMAct<MainActBinding, MainVM>() {
             LogFileAct.start(this)
         }
 
-        mViewBind.butAlbum.click {
+        mViewBind.butAlbumType1.click {
             albumAndClip(1)
+        }
+        mViewBind.butAlbumType2.click {
+            albumAndClip(2)
+        }
+        mViewBind.butAlbumType3.click {
+            albumAndClip(3)
         }
 
     }
