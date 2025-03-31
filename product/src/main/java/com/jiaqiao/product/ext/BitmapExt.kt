@@ -75,20 +75,20 @@ fun Bitmap.savePng(file: File): Boolean {
 }
 
 /**
- * 将bitmap保存为jpeg图片
- * [filePath] 保存jpeg图片的路径
+ * 将bitmap保存为jpg图片
+ * [filePath] 保存jpg图片的路径
  * @return 返回保存结果
  * */
-fun Bitmap.saveJpeg(filePath: String): Boolean {
-    return saveJpeg(File(filePath))
+fun Bitmap.saveJpg(filePath: String): Boolean {
+    return saveJpg(File(filePath))
 }
 
 /**
- * 将bitmap保存为jpeg图片
- * [file] 保存jpeg图片的路径
+ * 将bitmap保存为jpg图片
+ * [file] 保存jpg图片的路径
  * @return 返回保存结果
  * */
-fun Bitmap.saveJpeg(file: File): Boolean {
+fun Bitmap.saveJpg(file: File): Boolean {
     return runPlogCatch {
         file.parentFile?.productCreateDirectory()
         val bos = BufferedOutputStream(FileOutputStream(file))

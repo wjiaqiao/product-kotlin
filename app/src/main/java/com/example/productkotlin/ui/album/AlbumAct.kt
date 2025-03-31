@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.provider.MediaStore.MediaColumns
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -17,7 +16,6 @@ import com.example.productkotlin.ext.hideLoad
 import com.example.productkotlin.ext.showLoad
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.hjq.permissions.XXPermissions.REQUEST_CODE
 import com.jiaqiao.product.base.ProductBaseVBAct
 import com.jiaqiao.product.ext.click
 import com.jiaqiao.product.ext.gone
@@ -28,6 +26,7 @@ import com.jiaqiao.product.ext.plog
 import com.jiaqiao.product.ext.registerResult
 import com.jiaqiao.product.ext.runIo
 import com.jiaqiao.product.ext.runPlogCatch
+import com.jiaqiao.product.ext.setOnItemRepeatClickListener
 import com.jiaqiao.product.ext.visible
 import kotlinx.coroutines.delay
 
@@ -42,7 +41,17 @@ class AlbumAct : ProductBaseVBAct<ActAlbumBinding>() {
 
     private var loader: PhotoDirectoryLoader? = null
 
-    private val ada by lazy { AlbumAdapter() }
+    private val ada by lazy {
+        AlbumAdapter().also {
+            it.setOnItemRepeatClickListener { _, _, position ->
+                it.getItemOrNull(position)?.let {
+                    it.path.plog("path")
+                    setResult(RESULT_OK, Intent().putExtra("path", it.path))
+                    finish()
+                }
+            }
+        }
+    }
 
     override fun initView(savedInstanceState: Bundle?) {
         mViewBind.rv.gridVertical(4).adapter = ada
@@ -148,7 +157,7 @@ class AlbumAct : ProductBaseVBAct<ActAlbumBinding>() {
                 ada.setList(images)
             } else {
                 toast("未找到图片")
-                finish()
+//                finish()
             }
         }
     }
