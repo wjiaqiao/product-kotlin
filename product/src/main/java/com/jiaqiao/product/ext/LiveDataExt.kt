@@ -10,19 +10,16 @@ import androidx.lifecycle.Observer
 /**
  * 添加始终活动的观察者，并添加主动销毁操作
  * */
-inline fun <reified T> LiveData<T>?.observeAlways(
+fun <T> LiveData<T>?.observeAlways(
     lifecycleOwner: LifecycleOwner,
     lifeEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
-    crossinline observer: (T) -> Unit
+    observer: Observer<T>
 ) {
     this?.also { liveData ->
-        val observer1 = Observer<T> {
-            observer.invoke(it)
-        }
-        liveData.observeForever(observer1)
+        liveData.observeForever(observer)
         lifecycleOwner.lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                if (lifeEvent == event) liveData.removeObserver(observer1)
+                if (lifeEvent == event) liveData.removeObserver(observer)
             }
         })
     }
