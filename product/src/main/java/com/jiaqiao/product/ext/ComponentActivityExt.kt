@@ -115,3 +115,43 @@ fun ComponentActivity.isStatusBarWhiteFont(): Boolean {
 fun ComponentActivity.isStatusBarBlackFont(): Boolean {
     return window.isStatusBarBlackFont()
 }
+
+//方便区分不同状态的观察者事件
+fun ComponentActivity.runLifecycleEvent(block: (Lifecycle.Event) -> Unit) {
+    return this.lifecycle.runLifecycleEvent(block)
+}
+
+//运行在 targetEvent 状态时
+fun ComponentActivity.runOnEvent(targetEvent: Lifecycle.Event, block: () -> Unit) {
+    return this.lifecycle.runOnEvent(targetEvent, block)
+}
+
+//运行在Create时
+fun ComponentActivity.runOnCreate(block: () -> Unit) {
+    return this.lifecycle.runOnCreate(block)
+}
+
+//运行在Start时
+fun ComponentActivity.runOnStart(block: () -> Unit) {
+    return this.lifecycle.runOnStart(block)
+}
+
+//运行在Resume时
+fun ComponentActivity.runOnResume(block: () -> Unit) {
+    return this.lifecycle.runOnResume(block)
+}
+
+//运行在Pause时
+fun ComponentActivity.runOnPause(block: () -> Unit) {
+    return this.lifecycle.runOnPause(block)
+}
+
+//运行在Stop时
+fun ComponentActivity.runOnStop(block: () -> Unit) {
+    return this.lifecycle.runOnStop(block)
+}
+
+//运行在Destroy时
+fun ComponentActivity.runOnDestroy(block: () -> Unit) {
+    return this.lifecycle.runOnDestroy(block)
+}
